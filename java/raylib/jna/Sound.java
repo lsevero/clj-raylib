@@ -14,4 +14,8 @@ public class Sound extends Structure{
         this.sampleCount = sampleCount;
         this.stream = stream;
     }
+
+    public Sound(){
+        super();
+    }
 }

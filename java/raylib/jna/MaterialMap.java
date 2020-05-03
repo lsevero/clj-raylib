@@ -11,6 +11,10 @@ public class MaterialMap extends Structure{
         public ByReference(Texture2D texture, Color color, float value){
             super(texture, color, value);
         }
+
+        public ByReference(){
+            super();
+        }
     }
 
     public Texture2D texture;
@@ -22,5 +26,9 @@ public class MaterialMap extends Structure{
         this.texture = texture;
         this.color = color;
         this.value = value;
+    }
+
+    public MaterialMap(){
+        super();
     }
 }

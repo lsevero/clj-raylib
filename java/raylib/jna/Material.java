@@ -12,6 +12,10 @@ public class Material extends Structure{
         public ByReference(Texture2D shader, MaterialMap.ByReference maps, FloatByReference value){
             super(shader, maps, value);
         }
+
+        public ByReference(){
+            super();
+        }
     }
 
     public Texture2D shader;
@@ -23,5 +27,9 @@ public class Material extends Structure{
         this.shader = shader;
         this.maps = maps;
         this.value = value;
+    }
+
+    public Material(){
+        super();
     }
 }

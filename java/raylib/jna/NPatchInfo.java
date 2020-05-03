@@ -22,4 +22,8 @@ public class NPatchInfo extends Structure{
         this.bottom = bottom;
         this.type = type;
     }
+
+    public NPatchInfo(){
+        super();
+    }
 }

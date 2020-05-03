@@ -18,4 +18,8 @@ public class AudioStream extends Structure{
         this.channels = channels;
         this.buffer = buffer;
     }
+
+    public AudioStream(){
+        super();
+    }
 }

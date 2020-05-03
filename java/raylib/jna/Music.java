@@ -21,4 +21,8 @@ public class Music extends Structure{
         this.loopCount = loopCount;
         this.stream = stream;
     }
+
+    public Music(){
+        super();
+    }
 }

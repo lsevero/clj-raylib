@@ -33,4 +33,8 @@ public class Model extends Structure{
         this.bones = bones;
         this.bindPose = bindPose;
     }
+
+    public Model(){
+        super();
+    }
 }

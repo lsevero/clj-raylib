@@ -14,4 +14,8 @@ public class Shader extends Structure{
         this.id = id;
         this.locs = locs;
     }
+
+    public Shader(){
+        super();
+    }
 }

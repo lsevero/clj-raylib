@@ -20,4 +20,8 @@ public class Wave extends Structure{
         this.channels = channels;
         this.data = data;
     }
+
+    public Wave(){
+        super();
+    }
 }

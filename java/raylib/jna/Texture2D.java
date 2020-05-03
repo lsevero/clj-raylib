@@ -19,4 +19,8 @@ public class Texture2D extends Structure{
         this.mipmaps = mipmaps;
         this.format = format;
     }
+
+    public Texture2D(){
+        super();
+    }
 }

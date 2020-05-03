@@ -10,6 +10,10 @@ public class CharInfo extends Structure{
         public ByReference(int value, int offsetX, int offsetY, int advanceX, Image image){
             super(value, offsetX, offsetY, advanceX, image);
         }
+
+        public ByReference(){
+            super();
+        }
     }
     public int value;
     public int offsetX;
@@ -24,5 +28,9 @@ public class CharInfo extends Structure{
         this.offsetY = offsetY;
         this.advanceX = advanceX;
         this.image = image;
+    }
+
+    public CharInfo(){
+        super();
     }
 }

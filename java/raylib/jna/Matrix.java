@@ -35,4 +35,8 @@ public class Matrix extends Structure{
         this.m14 = m14;
         this.m15 = m15;
     }
+
+    public Matrix(){
+        super();
+    }
 }

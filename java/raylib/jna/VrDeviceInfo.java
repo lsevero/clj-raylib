@@ -31,4 +31,8 @@ public class VrDeviceInfo extends Structure{
         this.lensDistortionValues = lensDistortionValues;
         this.chromaAbCorrection = chromaAbCorrection;
     }
+
+    public VrDeviceInfo(){
+        super();
+    }
 }

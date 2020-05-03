@@ -18,4 +18,8 @@ public class Camera2D extends Structure{
         this.rotation = rotation;
         this.zoom = zoom;
     }
+
+    public Camera2D(){
+        super();
+    }
 }

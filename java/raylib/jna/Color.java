@@ -17,4 +17,8 @@ public class Color extends Structure{
         this.b = b;
         this.a = a;
     }
+
+    public Color(){
+        super();
+    }
 }

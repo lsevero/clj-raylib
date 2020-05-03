@@ -11,6 +11,10 @@ public class Transform extends Structure{
         public ByReference(Vector3 translation, Vector4 rotation, Vector3 scale){
             super(translation, rotation, scale);
         }
+
+        public ByReference(){
+            super();
+        }
     }
 
     public Vector3 translation;
@@ -22,5 +26,9 @@ public class Transform extends Structure{
         this.translation = translation;
         this.rotation = rotation;
         this.scale = scale;
+    }
+
+    public Transform(){
+        super();
     }
 }

@@ -9,6 +9,10 @@ public class BoneInfo extends Structure{
         public ByReference(byte[] name, int parent){
             super(name, parent);
         }
+
+        public ByReference(){
+            super();
+        }
     }
 
     public byte[] name = new byte[32];
@@ -18,5 +22,9 @@ public class BoneInfo extends Structure{
         super();
         this.name = name;
         this.parent = parent;
+    }
+
+    public BoneInfo(){
+        super();
     }
 }

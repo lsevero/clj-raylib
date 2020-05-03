@@ -22,4 +22,8 @@ public class Font extends Structure{
         this.recs = recs;
         this.chars = chars;
     }
+
+    public Font(){
+        super();
+    }
 }

@@ -19,4 +19,8 @@ public class ModelAnimation extends Structure{
         this.frameCount = frameCount;
         this.framePoses = framePoses;
     }
+
+    public ModelAnimation(){
+        super();
+    }
 }

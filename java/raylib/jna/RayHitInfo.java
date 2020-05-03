@@ -18,4 +18,8 @@ public class RayHitInfo extends Structure{
         this.position = position;
         this.normal = normal;
     }
+
+    public RayHitInfo(){
+        super();
+    }
 }

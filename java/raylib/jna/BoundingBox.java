@@ -14,4 +14,8 @@ public class BoundingBox extends Structure{
         this.min = min;
         this.max = max;
     }
+
+    public BoundingBox(){
+        super();
+    }
 }

@@ -19,6 +19,9 @@ public class Mesh extends Structure{
                   animVertices,animNormals,boneIds,boneWeights,vaoId,vboId);
         }
 
+        public ByReference(){
+            super();
+        }
     }
 
     public int vertexCount;
@@ -57,5 +60,9 @@ public class Mesh extends Structure{
         this.boneWeights = boneWeights;
         this.vaoId = vaoId;
         this.vboId = vboId;
+    }
+
+    public Mesh(){
+        super();
     }
 }

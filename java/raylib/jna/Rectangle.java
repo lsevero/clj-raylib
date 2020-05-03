@@ -9,6 +9,10 @@ public class Rectangle extends Structure{
         public ByReference(float x, float y, float width, float height){
             super(x,y,width,height);
         }
+
+        public ByReference(){
+            super();
+        }
     }
 
     public float x;
@@ -22,5 +26,9 @@ public class Rectangle extends Structure{
         this.y = y;
         this.width = width;
         this.height = height;
+    }
+
+    public Rectangle(){
+        super();
     }
 }

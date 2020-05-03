@@ -14,4 +14,8 @@ public class Ray extends Structure{
         this.position = position;
         this.direction = direction;
     }
+
+    public Ray(){
+        super();
+    }
 }
