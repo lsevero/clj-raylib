@@ -10,6 +10,17 @@ import com.sun.jna.ptr.IntByReference;
 @FieldOrder({"vertexCount","triangleCount","vertices","texcoords","texcoords2","normals","tangents","colors","indices",
              "animVertices","animNormals","boneIds","boneWeights","vaoId","vboId"})
 public class Mesh extends Structure{
+    public static class ByReference extends Mesh implements Structure.ByReference{
+        public ByReference(int vertexCount, int triangleCount, FloatByReference vertices, FloatByReference texcoords, FloatByReference texcoords2,
+                FloatByReference normals, FloatByReference tangents, ByteByReference colors, ShortByReference indices,
+                FloatByReference animVertices, FloatByReference animNormals, IntByReference boneIds, FloatByReference boneWeights,
+                int vaoId, IntByReference vboId){
+            super(vertexCount,triangleCount,vertices,texcoords,texcoords2,normals,tangents,colors,indices,
+                  animVertices,animNormals,boneIds,boneWeights,vaoId,vboId);
+        }
+
+    }
+
     public int vertexCount;
     public int triangleCount;
     public FloatByReference vertices;
