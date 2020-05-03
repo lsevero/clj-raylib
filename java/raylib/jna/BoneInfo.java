@@ -2,6 +2,8 @@ package raylib.jna;
 
 import com.sun.jna.Structure;
 import com.sun.jna.Structure.FieldOrder;
+import clojure.lang.APersistentMap;
+import clojure.lang.Keyword;
 
 @FieldOrder({"name","parent"})
 public class BoneInfo extends Structure{
@@ -13,6 +15,10 @@ public class BoneInfo extends Structure{
         public ByReference(){
             super();
         }
+
+        public ByReference(APersistentMap map){
+            super(map);
+        }
     }
 
     public byte[] name = new byte[32];
@@ -22,6 +28,18 @@ public class BoneInfo extends Structure{
         super();
         this.name = name;
         this.parent = parent;
+    }
+
+    public BoneInfo(APersistentMap map){
+        super();
+        Object name = map.get(Keyword.intern("name"));
+        if(name == null)
+            throw new IllegalArgumentException("Map needs key :name");
+        this.name = (byte[])name;
+        Number parent = (Number)map.get(Keyword.intern("parent"));
+        if(parent == null)
+            throw new IllegalArgumentException("Map needs key :parent");
+        this.parent = parent.intValue();
     }
 
     public BoneInfo(){

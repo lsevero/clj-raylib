@@ -10,7 +10,6 @@
   :profiles {:dev {:plugins [[cider/cider-nrepl "0.22.3"]]
                    :global-vars {*warn-on-reflection* true}
                    :main main.examples
-                   :repl-options {:init-ns clj-curl.easy}
                    :source-paths ["src" "test" "examples"]}}
   :source-paths ["src"]
   :repl-options {:init-ns clj-raylib.core

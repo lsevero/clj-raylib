@@ -1,4 +1,11 @@
-(ns clj-raylib.core)
+(ns clj-raylib.core
+  (:import [raylib.jna AudioStream BoneInfo BoundingBox Camera2D Camera3D
+            CharInfo Color Font Image Material MaterialMap Matrix Mesh Model
+            ModelAnimation Music NPatchInfo RAudioBuffer Ray RayHitInfo
+            Raylib Rectangle RenderTexture2D Shader Sound Texture2D Transform
+            Vector2 Vector3 Vector4 VrDeviceInfo Wave])
+  (:require [clojure.test :refer [is]])
+  )
 
 ; System config flags
 ; NOTE: Used for bit masks
@@ -387,3 +394,36 @@
 (def ^:const NPT-3PATCH-HORIZONTAL (int 2))   ; Npatch defined by 3x1 tiles
 ;end NPatchType
 
+;begin basic colors
+(def ^:const LIGHTGRAY (Color. (int 200) (int 200) (int 200) (int 255)))
+(def ^:const GRAY (Color. (int 130) (int 130) (int 130) (int 255)))
+(def ^:const DARKGRAY (Color. (int 80) (int 80) (int 80) (int 255)))
+(def ^:const YELLOW (Color. (int 253) (int 249) (int 0) (int 255)))
+(def ^:const GOLD (Color. (int 255) (int 203) (int 0) (int 255)))
+(def ^:const ORANGE (Color. (int 255) (int 161) (int 0) (int 255)))
+(def ^:const PINK (Color. (int 255) (int 109) (int 194) (int 255)))
+(def ^:const RED (Color. (int 230) (int 41) (int 55) (int 255)))
+(def ^:const MAROON (Color. (int 190) (int 33) (int 55) (int 255)))
+(def ^:const GREEN (Color. (int 0) (int 228) (int 48) (int 255)))
+(def ^:const LIME (Color. (int 0) (int 158) (int 47) (int 255)))
+(def ^:const DARKGREEN (Color. (int 0) (int 117) (int 44) (int 255)))
+(def ^:const SKYBLUE (Color. (int 102) (int 191) (int 255) (int 255)))
+(def ^:const BLUE (Color. (int 0) (int 121) (int 241) (int 255)))
+(def ^:const DARKBLUE (Color. (int 0) (int 82) (int 172) (int 255)))
+(def ^:const PURPLE (Color. (int 200) (int 122) (int 255) (int 255)))
+(def ^:const VIOLET (Color. (int 135) (int 60) (int 190) (int 255)))
+(def ^:const DARKPURPLE (Color. (int 112) (int 31) (int 126) (int 255)))
+(def ^:const BEIGE (Color. (int 211) (int 176) (int 131) (int 255)))
+(def ^:const BROWN (Color. (int 127) (int 106) (int 79) (int 255)))
+(def ^:const DARKBROWN (Color. (int 76) (int 63) (int 47) (int 255)))
+(def ^:const WHITE (Color. (int 255) (int 255) (int 255) (int 255)))
+(def ^:const BLACK (Color. (int 0) (int 0) (int 0) (int 255)))
+(def ^:const BLANK (Color. (int 0) (int 0) (int 0) (int 0)))
+(def ^:const MAGENTA (Color. (int 255) (int 0) (int 255) (int 255)))
+(def ^:const RAYWHITE (Color. (int 245) (int 245) (int 245) (int 255)))
+;end basic colors
+
+(defn init-window
+  [width height title]
+  {:pre [(is (number? width)) (is (number? height)) (is (string? title))]}
+  (Raylib/InitWindow (int width) (int height) title))

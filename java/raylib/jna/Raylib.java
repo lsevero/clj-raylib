@@ -1,3 +1,5 @@
+package raylib.jna;
+
 import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
@@ -345,7 +347,7 @@ public class Raylib {
     public static native Font LoadFontEx(String fileName, int fontSize, IntByReference fontChars, int charsCount);  // Load font from file with extended parameters
     public static native Font LoadFontFromImage(Image image, Color key, int firstChar);                        // Load font from Image (XNA style)
     public static native CharInfo.ByReference LoadFontData(String fileName, int fontSize, IntByReference fontChars, int charsCount, int type); // Load font data for further use
-    public static native Image GenImageFontAtlas(CharInfo.ByReference chars, Rectangle.ByReference[] recs, int charsCount, int fontSize, int padding, int packMethod);  // Generate image font atlas using chars info
+    //public static native Image GenImageFontAtlas(CharInfo.ByReference chars, Rectangle.ByReference[] recs, int charsCount, int fontSize, int padding, int packMethod);  // Generate image font atlas using chars info
     public static native void UnloadFont(Font font);                                                           // Unload Font from GPU memory (VRAM)
 
     // Text drawing functions
@@ -370,7 +372,7 @@ public class Raylib {
     public static native String TextSubtext(String text, int position, int length);                  // Get a piece of a text string
     public static native String TextReplace(String text, String replace, String by);                   // Replace text string (memory must be freed!)
     public static native String TextInsert(String text, String insert, int position);                 // Insert text in a position (memory must be freed!)
-    public static native String TextJoin(String[] textList, int count, String delimiter);        // Join text strings with delimiter
+    //public static native String TextJoin(String[] textList, int count, String delimiter);        // Join text strings with delimiter
     public static native String[] TextSplit(String text, char delimiter, IntByReference count);                 // Split text into multiple strings
     public static native void TextAppend(String text, String append, IntByReference position);                       // Append text at specific position and move cursor!
     public static native int TextFindIndex(String text, String find);                                // Find first text occurrence within a string
