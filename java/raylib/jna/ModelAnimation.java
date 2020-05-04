@@ -4,9 +4,25 @@ import com.sun.jna.Structure;
 import com.sun.jna.Structure.FieldOrder;
 import raylib.jna.Transform;
 import raylib.jna.BoneInfo;
+import clojure.lang.Keyword;
+import clojure.lang.APersistentMap;
 
 @FieldOrder({"boneCount","bones","frameCount","framePoses"})
 public class ModelAnimation extends Structure{
+    public static class ByReference extends ModelAnimation implements Structure.ByReference{
+        public ByReference(){
+            super();
+        }
+
+        public ByReference(APersistentMap map){
+            super(map);
+        }
+
+        public ByReference(ByReference br){
+            super((ModelAnimation)br);
+        }
+    }
+
     public int boneCount;
     public BoneInfo.ByReference bones;
     public int frameCount;
@@ -18,6 +34,45 @@ public class ModelAnimation extends Structure{
         this.bones = bones;
         this.frameCount = frameCount;
         this.framePoses = framePoses;
+    }
+
+    public ModelAnimation(ModelAnimation m){
+        super();
+        this.boneCount = m.boneCount;
+        this.bones = new BoneInfo.ByReference(m.bones);
+        this.frameCount = m.frameCount;
+        this.framePoses = m.framePoses;
+    }
+
+    public ModelAnimation(APersistentMap map){
+        super();
+        Number boneCount = (Number)map.get(Keyword.intern("boneCount"));
+        if(boneCount == null)
+            throw new IllegalArgumentException("Map needs key :boneCount");
+        this.boneCount = boneCount.intValue();
+
+        Object bones = map.get(Keyword.intern("bones"));
+        if(bones == null)
+            throw new IllegalArgumentException("Map needs key :bones");
+        if(bones instanceof APersistentMap){
+            this.bones = new BoneInfo.ByReference((APersistentMap)bones);
+        }
+        else if(bones instanceof BoneInfo.ByReference){
+            this.bones = new BoneInfo.ByReference((BoneInfo.ByReference)bones);
+        }
+        else{
+            throw new IllegalArgumentException(":bones is of unsupported type");
+        }
+
+        Number frameCount = (Number)map.get(Keyword.intern("frameCount"));
+        if(frameCount == null)
+            throw new IllegalArgumentException("Map needs key :frameCount");
+        this.frameCount = frameCount.intValue();
+
+        Object framePoses = map.get(Keyword.intern("framePoses"));
+        if(framePoses == null)
+            throw new IllegalArgumentException("Map needs key :framePoses");
+        this.framePoses = (Transform.ByReference[])framePoses;
     }
 
     public ModelAnimation(){

@@ -7,6 +7,28 @@ import clojure.lang.APersistentMap;
 
 @FieldOrder({"r","g","b","a"})
 public class Color extends Structure{
+    public static class ByReference extends Color implements Structure.ByReference{
+        public ByReference(){
+            super();
+        }
+
+        public ByReference(byte r, byte g, byte b, byte a){
+            super();
+            this.r = r;
+            this.g = g;
+            this.b = b;
+            this.a = a;
+        }
+
+        public ByReference(APersistentMap map){
+            super(map);
+        }
+
+        public ByReference(ByReference br){
+            super((Color)br);
+        }
+    }
+
     public byte r;
     public byte g;
     public byte b;

@@ -266,47 +266,47 @@ public class Raylib {
     public static native Image ImageFromImage(Image image, Rectangle rec);                                                  // Create an image from another image piece
     public static native Image ImageText(String text, int fontSize, Color color);                                      // Create an image from text (default font)
     public static native Image ImageTextEx(Font font, String text, float fontSize, float spacing, Color tint);         // Create an image from text (custom sprite font)
-    //public static native void ImageToPOT(Image.ByReference image, Color fillColor);                                                    // Convert image to POT (power-of-two)
-    //public static native void ImageFormat(Image.ByReference image, int newFormat);                                                     // Convert image data to desired format
-    //public static native void ImageAlphaMask(Image.ByReference image, Image alphaMask);                                                // Apply alpha mask to image
-    //public static native void ImageAlphaClear(Image.ByReference image, Color color, float threshold);                                  // Clear alpha channel to desired color
-    //public static native void ImageAlphaCrop(Image.ByReference image, float threshold);                                                // Crop image depending on alpha value
-    //public static native void ImageAlphaPremultiply(Image.ByReference image);                                                          // Premultiply alpha channel
-    //public static native void ImageCrop(Image.ByReference image, Rectangle crop);                                                      // Crop an image to a defined rectangle
-    //public static native void ImageResize(Image.ByReference image, int newWidth, int newHeight);                                       // Resize image (Bicubic scaling algorithm)
-    //public static native void ImageResizeNN(Image.ByReference image, int newWidth,int newHeight);                                      // Resize image (Nearest-Neighbor scaling algorithm)
-    //public static native void ImageResizeCanvas(Image.ByReference image, int newWidth, int newHeight, int offsetX, int offsetY, Color color);  // Resize canvas and fill with color
-    //public static native void ImageMipmaps(Image.ByReference image);                                                                   // Generate all mipmap levels for a provided image
-    //public static native void ImageDither(Image.ByReference image, int rBpp, int gBpp, int bBpp, int aBpp);                            // Dither image data to 16bpp or lower (Floyd-Steinberg dithering)
-    //public static native void ImageFlipVertical(Image.ByReference image);                                                              // Flip image vertically
-    //public static native void ImageFlipHorizontal(Image.ByReference image);                                                            // Flip image horizontally
-    //public static native void ImageRotateCW(Image.ByReference image);                                                                  // Rotate image clockwise 90deg
-    //public static native void ImageRotateCCW(Image.ByReference image);                                                                 // Rotate image counter-clockwise 90deg
-    //public static native void ImageColorTint(Image.ByReference image, Color color);                                                    // Modify image color: tint
-    //public static native void ImageColorInvert(Image.ByReference image);                                                               // Modify image color: invert
-    //public static native void ImageColorGrayscale(Image.ByReference image);                                                            // Modify image color: grayscale
-    //public static native void ImageColorContrast(Image.ByReference image, float contrast);                                             // Modify image color: contrast (-100 to 100)
-    //public static native void ImageColorBrightness(Image.ByReference image, int brightness);                                           // Modify image color: brightness (-255 to 255)
-    //public static native void ImageColorReplace(Image.ByReference image, Color color, Color replace);                                  // Modify image color: replace color
-    //public static native Color.ByReference ImageExtractPalette(Image image, int maxPaletteSize, IntByReference extractCount);                    // Extract color palette from image to maximum size (memory should be freed)
+    public static native void ImageToPOT(Image.ByReference image, Color fillColor);                                                    // Convert image to POT (power-of-two)
+    public static native void ImageFormat(Image.ByReference image, int newFormat);                                                     // Convert image data to desired format
+    public static native void ImageAlphaMask(Image.ByReference image, Image alphaMask);                                                // Apply alpha mask to image
+    public static native void ImageAlphaClear(Image.ByReference image, Color color, float threshold);                                  // Clear alpha channel to desired color
+    public static native void ImageAlphaCrop(Image.ByReference image, float threshold);                                                // Crop image depending on alpha value
+    public static native void ImageAlphaPremultiply(Image.ByReference image);                                                          // Premultiply alpha channel
+    public static native void ImageCrop(Image.ByReference image, Rectangle crop);                                                      // Crop an image to a defined rectangle
+    public static native void ImageResize(Image.ByReference image, int newWidth, int newHeight);                                       // Resize image (Bicubic scaling algorithm)
+    public static native void ImageResizeNN(Image.ByReference image, int newWidth,int newHeight);                                      // Resize image (Nearest-Neighbor scaling algorithm)
+    public static native void ImageResizeCanvas(Image.ByReference image, int newWidth, int newHeight, int offsetX, int offsetY, Color color);  // Resize canvas and fill with color
+    public static native void ImageMipmaps(Image.ByReference image);                                                                   // Generate all mipmap levels for a provided image
+    public static native void ImageDither(Image.ByReference image, int rBpp, int gBpp, int bBpp, int aBpp);                            // Dither image data to 16bpp or lower (Floyd-Steinberg dithering)
+    public static native void ImageFlipVertical(Image.ByReference image);                                                              // Flip image vertically
+    public static native void ImageFlipHorizontal(Image.ByReference image);                                                            // Flip image horizontally
+    public static native void ImageRotateCW(Image.ByReference image);                                                                  // Rotate image clockwise 90deg
+    public static native void ImageRotateCCW(Image.ByReference image);                                                                 // Rotate image counter-clockwise 90deg
+    public static native void ImageColorTint(Image.ByReference image, Color color);                                                    // Modify image color: tint
+    public static native void ImageColorInvert(Image.ByReference image);                                                               // Modify image color: invert
+    public static native void ImageColorGrayscale(Image.ByReference image);                                                            // Modify image color: grayscale
+    public static native void ImageColorContrast(Image.ByReference image, float contrast);                                             // Modify image color: contrast (-100 to 100)
+    public static native void ImageColorBrightness(Image.ByReference image, int brightness);                                           // Modify image color: brightness (-255 to 255)
+    public static native void ImageColorReplace(Image.ByReference image, Color color, Color replace);                                  // Modify image color: replace color
+    public static native Color.ByReference ImageExtractPalette(Image image, int maxPaletteSize, IntByReference extractCount);                    // Extract color palette from image to maximum size (memory should be freed)
     public static native Rectangle GetImageAlphaBorder(Image image, float threshold);                                       // Get image alpha border rectangle
 
     // Image drawing functions
     // NOTE: Image software-rendering functions (CPU)
-    //public static native void ImageClearBackground(Image.ByReference dst, Color color);                                                // Clear image background with given color
-    //public static native void ImageDrawPixel(Image.ByReference dst, int posX, int posY, Color color);                                  // Draw pixel within an image
-    //public static native void ImageDrawPixelV(Image.ByReference dst, Vector2 position, Color color);                                   // Draw pixel within an image (Vector version)
-    //public static native void ImageDrawLine(Image.ByReference dst, int startPosX, int startPosY, int endPosX, int endPosY, Color color); // Draw line within an image
-    //public static native void ImageDrawLineV(Image.ByReference dst, Vector2 start, Vector2 end, Color color);                          // Draw line within an image (Vector version)
-    //public static native void ImageDrawCircle(Image.ByReference dst, int centerX, int centerY, int radius, Color color);               // Draw circle within an image
-    //public static native void ImageDrawCircleV(Image.ByReference dst, Vector2 center, int radius, Color color);                        // Draw circle within an image (Vector version)
-    //public static native void ImageDrawRectangle(Image.ByReference dst, int posX, int posY, int width, int height, Color color);       // Draw rectangle within an image
-    //public static native void ImageDrawRectangleV(Image.ByReference dst, Vector2 position, Vector2 size, Color color);                 // Draw rectangle within an image (Vector version)
-    //public static native void ImageDrawRectangleRec(Image.ByReference dst, Rectangle rec, Color color);                                // Draw rectangle within an image 
-    //public static native void ImageDrawRectangleLines(Image.ByReference dst, Rectangle rec, int thick, Color color);                   // Draw rectangle lines within an image
-    //public static native void ImageDraw(Image.ByReference dst, Image src, Rectangle srcRec, Rectangle dstRec, Color tint);             // Draw a source image within a destination image (tint applied to source)
-    //public static native void ImageDrawText(Image.ByReference dst, Vector2 position, String text, int fontSize, Color color);     // Draw text (default font) within an image (destination)
-    //public static native void ImageDrawTextEx(Image.ByReference dst, Vector2 position, Font font, String text, float fontSize, float spacing, Color color); // Draw text (custom sprite font) within an image (destination)
+    public static native void ImageClearBackground(Image.ByReference dst, Color color);                                                // Clear image background with given color
+    public static native void ImageDrawPixel(Image.ByReference dst, int posX, int posY, Color color);                                  // Draw pixel within an image
+    public static native void ImageDrawPixelV(Image.ByReference dst, Vector2 position, Color color);                                   // Draw pixel within an image (Vector version)
+    public static native void ImageDrawLine(Image.ByReference dst, int startPosX, int startPosY, int endPosX, int endPosY, Color color); // Draw line within an image
+    public static native void ImageDrawLineV(Image.ByReference dst, Vector2 start, Vector2 end, Color color);                          // Draw line within an image (Vector version)
+    public static native void ImageDrawCircle(Image.ByReference dst, int centerX, int centerY, int radius, Color color);               // Draw circle within an image
+    public static native void ImageDrawCircleV(Image.ByReference dst, Vector2 center, int radius, Color color);                        // Draw circle within an image (Vector version)
+    public static native void ImageDrawRectangle(Image.ByReference dst, int posX, int posY, int width, int height, Color color);       // Draw rectangle within an image
+    public static native void ImageDrawRectangleV(Image.ByReference dst, Vector2 position, Vector2 size, Color color);                 // Draw rectangle within an image (Vector version)
+    public static native void ImageDrawRectangleRec(Image.ByReference dst, Rectangle rec, Color color);                                // Draw rectangle within an image 
+    public static native void ImageDrawRectangleLines(Image.ByReference dst, Rectangle rec, int thick, Color color);                   // Draw rectangle lines within an image
+    public static native void ImageDraw(Image.ByReference dst, Image src, Rectangle srcRec, Rectangle dstRec, Color tint);             // Draw a source image within a destination image (tint applied to source)
+    public static native void ImageDrawText(Image.ByReference dst, Vector2 position, String text, int fontSize, Color color);     // Draw text (default font) within an image (destination)
+    public static native void ImageDrawTextEx(Image.ByReference dst, Vector2 position, Font font, String text, float fontSize, float spacing, Color color); // Draw text (custom sprite font) within an image (destination)
 
     // Texture loading functions
     // NOTE: These functions require GPU access
@@ -422,16 +422,16 @@ public class Raylib {
     public static native void UnloadModel(Model model);                                                                    // Unload model from memory (RAM and/or VRAM)
 
     // Mesh loading/unloading functions
-    //public static native Mesh.ByReference LoadMeshes(String fileName, IntByReference meshCount);                                           // Load meshes from model file
+    public static native Mesh.ByReference LoadMeshes(String fileName, IntByReference meshCount);                                           // Load meshes from model file
     public static native void ExportMesh(Mesh mesh, String fileName);                                                 // Export mesh data to file
     public static native void UnloadMesh(Mesh mesh);                                                                       // Unload mesh from memory (RAM and/or VRAM)
 
     // Material loading/unloading functions
-    //public static native Material.ByReference LoadMaterials(String fileName, IntByReference materialCount);                                // Load materials from model file
+    public static native Material.ByReference LoadMaterials(String fileName, IntByReference materialCount);                                // Load materials from model file
     public static native Material LoadMaterialDefault();                                                               // Load default material (Supports: DIFFUSE, SPECULAR, NORMAL maps)
     public static native void UnloadMaterial(Material material);                                                           // Unload material from GPU memory (VRAM)
-    //public static native void SetMaterialTexture(Material.ByReference material, int mapType, Texture2D texture);                      // Set texture for a material map type (MAP_DIFFUSE, MAP_SPECULAR...)
-    //public static native void SetModelMeshMaterial(Model.ByReference model, int meshId, int materialId);                              // Set material for a mesh
+    public static native void SetMaterialTexture(Material.ByReference material, int mapType, Texture2D texture);                      // Set texture for a material map type (MAP_DIFFUSE, MAP_SPECULAR...)
+    public static native void SetModelMeshMaterial(Model.ByReference model, int meshId, int materialId);                              // Set material for a mesh
 
     // Model animations loading/unloading functions
     //public static native ModelAnimation.ByReference LoadModelAnimations(String fileName, IntByReference animsCount);                       // Load model animations from file
@@ -453,8 +453,8 @@ public class Raylib {
 
     // Mesh manipulation functions
     public static native BoundingBox MeshBoundingBox(Mesh mesh);                                                           // Compute mesh bounding box limits
-    //public static native void MeshTangents(Mesh.ByReference mesh);                                                                    // Compute mesh tangents
-    //public static native void MeshBinormals(Mesh.ByReference mesh);                                                                   // Compute mesh binormals
+    public static native void MeshTangents(Mesh.ByReference mesh);                                                                    // Compute mesh tangents
+    public static native void MeshBinormals(Mesh.ByReference mesh);                                                                   // Compute mesh binormals
 
     // Model drawing functions
     public static native void DrawModel(Model model, Vector3 position, float scale, Color tint);                           // Draw a model (with texture if set)
@@ -470,7 +470,7 @@ public class Raylib {
     public static native boolean CheckCollisionBoxes(BoundingBox box1, BoundingBox box2);                                     // Detect collision between two bounding boxes
     public static native boolean CheckCollisionBoxSphere(BoundingBox box, Vector3 center, float radius);                      // Detect collision between box and sphere
     public static native boolean CheckCollisionRaySphere(Ray ray, Vector3 center, float radius);                              // Detect collision between ray and sphere
-    //public static native boolean CheckCollisionRaySphereEx(Ray ray, Vector3 center, float radius, Vector3.ByReference collisionPoint);   // Detect collision between ray and sphere, returns collision point
+    public static native boolean CheckCollisionRaySphereEx(Ray ray, Vector3 center, float radius, Vector3.ByReference collisionPoint);   // Detect collision between ray and sphere, returns collision point
     public static native boolean CheckCollisionRayBox(Ray ray, BoundingBox box);                                              // Detect collision between ray and box
     public static native RayHitInfo GetCollisionRayModel(Ray ray, Model model);                                            // Get collision info between ray and model
     public static native RayHitInfo GetCollisionRayTriangle(Ray ray, Vector3 p1, Vector3 p2, Vector3 p3);                  // Get collision info between ray and triangle
@@ -519,7 +519,7 @@ public class Raylib {
     // VR control functions
     public static native void InitVrSimulator();                       // Init VR simulator for selected device parameters
     public static native void CloseVrSimulator();                      // Close VR simulator for current device
-    //public static native void UpdateVrTracking(Camera3D.ByReference camera);            // Update VR tracking (position and orientation) and camera
+    public static native void UpdateVrTracking(Camera3D.ByReference camera);            // Update VR tracking (position and orientation) and camera
     public static native void SetVrConfiguration(VrDeviceInfo info, Shader distortion);      // Set stereo rendering configuration parameters
     public static native boolean IsVrSimulatorReady();                    // Detect if VR simulator is ready
     public static native void ToggleVrMode();                          // Enable/Disable VR experience
@@ -557,9 +557,9 @@ public class Raylib {
     public static native boolean IsSoundPlaying(Sound sound);                               // Check if a sound is currently playing
     public static native void SetSoundVolume(Sound sound, float volume);                 // Set volume for a sound (1.0 is max level)
     public static native void SetSoundPitch(Sound sound, float pitch);                   // Set pitch for a sound (1.0 is base level)
-    //public static native void WaveFormat(Wave.ByReference wave, int sampleRate, int sampleSize, int channels);  // Convert wave data to desired format
+    public static native void WaveFormat(Wave.ByReference wave, int sampleRate, int sampleSize, int channels);  // Convert wave data to desired format
     public static native Wave WaveCopy(Wave wave);                                       // Copy a wave to a new wave
-    //public static native void WaveCrop(Wave.ByReference wave, int initSample, int finalSample);     // Crop a wave to defined samples range
+    public static native void WaveCrop(Wave.ByReference wave, int initSample, int finalSample);     // Crop a wave to defined samples range
     public static native FloatByReference GetWaveData(Wave wave);                                  // Get samples data from wave as a floats array
 
     // Music management functions

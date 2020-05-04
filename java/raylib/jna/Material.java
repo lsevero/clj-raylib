@@ -47,6 +47,7 @@ public class Material extends Structure{
     }
 
     public Material(APersistentMap map){
+        super();
         Object shader = map.get(Keyword.intern("shader"));
         if(shader == null)
             throw new IllegalArgumentException("Map needs key :shader");

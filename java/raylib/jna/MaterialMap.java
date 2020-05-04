@@ -47,6 +47,7 @@ public class MaterialMap extends Structure{
 
 
     public MaterialMap(APersistentMap map){
+        super();
         Object texture = map.get(Keyword.intern("texture"));
         if(texture == null)
             throw new IllegalArgumentException("Map needs key :texture");
