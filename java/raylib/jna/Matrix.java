@@ -61,6 +61,27 @@ public class Matrix extends Structure{
        this.m15 = ((Number)vec.get(15)).floatValue();
     }
 
+    public Matrix(Matrix m){
+        super();
+        this.m0 = m.m0;
+        this.m1 = m.m1;
+        this.m2 = m.m2;
+        this.m3 = m.m3;
+        this.m4 = m.m4;
+        this.m5 = m.m5;
+        this.m6 = m.m6;
+        this.m7 = m.m7;
+        this.m8 = m.m8;
+        this.m9 = m.m9;
+        this.m10 = m.m10;
+        this.m11 = m.m11;
+        this.m12 = m.m12;
+        this.m13 = m.m13;
+        this.m14 = m.m14;
+        this.m15 = m.m15;
+
+    }
+
     public Matrix(APersistentMap map){
         super();
         Number m0 = (Number)map.get(Keyword.intern("m0"));

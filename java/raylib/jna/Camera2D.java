@@ -22,6 +22,14 @@ public class Camera2D extends Structure{
         this.zoom = zoom;
     }
 
+    public Camera2D(Camera2D c2d){
+        super();
+        this.offset = new Vector2(c2d.offset);
+        this.target = new Vector2(c2d.target);
+        this.rotation = c2d.rotation;
+        this.zoom = c2d.zoom;
+    }
+
     public Camera2D(APersistentMap map){
         super();
         Object offset = map.get(Keyword.intern("offset"));
@@ -32,6 +40,9 @@ public class Camera2D extends Structure{
         }
         else if(offset instanceof APersistentVector){
             this.offset = new Vector2((APersistentVector)offset);
+        }
+        else if(offset instanceof Vector2){
+            this.offset = new Vector2((Vector2)offset);
         }
         else{
             throw new IllegalArgumentException(":offset is of unsupported type");
@@ -44,6 +55,9 @@ public class Camera2D extends Structure{
         }
         else if(target instanceof APersistentVector){
             this.target = new Vector2((APersistentVector)target);
+        }
+        else if(target instanceof Vector2){
+            this.target = new Vector2((Vector2)target);
         }
         else{
             throw new IllegalArgumentException(":target is of unsupported type");

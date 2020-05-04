@@ -18,6 +18,11 @@ public class BoundingBox extends Structure{
         this.max = max;
     }
 
+    public BoundingBox(BoundingBox bb){
+        this.min = new Vector3(bb.min);
+        this.max = new Vector3(bb.max);
+    }
+
     public BoundingBox(APersistentMap map){
         super();
         Object min = map.get(Keyword.intern("min"));
@@ -28,6 +33,9 @@ public class BoundingBox extends Structure{
         }
         else if(min instanceof APersistentVector){
             this.min = new Vector3((APersistentVector)min);
+        }
+        else if(min instanceof Vector3){
+            this.min = new Vector3((Vector3)min);
         }
         else{
             throw new IllegalArgumentException(":min is of unsupported type");
@@ -40,6 +48,9 @@ public class BoundingBox extends Structure{
         }
         else if(max instanceof APersistentVector){
             this.max = new Vector3((APersistentVector)max);
+        }
+        else if(max instanceof Vector3){
+            this.max = new Vector3((Vector3)max);
         }
         else{
             throw new IllegalArgumentException(":max is of unsupported type");

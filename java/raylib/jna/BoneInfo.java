@@ -19,6 +19,10 @@ public class BoneInfo extends Structure{
         public ByReference(APersistentMap map){
             super(map);
         }
+
+        public ByReference(BoneInfo boneinfo){
+            super(boneinfo);
+        }
     }
 
     public byte[] name = new byte[32];
@@ -28,6 +32,12 @@ public class BoneInfo extends Structure{
         super();
         this.name = name;
         this.parent = parent;
+    }
+
+    public BoneInfo(BoneInfo boneinfo){
+        super();
+        System.arraycopy(boneinfo.name, 0, this.name, 0, boneinfo.name.length);
+        this.parent = boneinfo.parent;
     }
 
     public BoneInfo(APersistentMap map){

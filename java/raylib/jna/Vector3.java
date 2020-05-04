@@ -37,6 +37,13 @@ public class Vector3 extends Structure{
         this.z = z;
     }
 
+    public Vector3(Vector3 v){
+        super();
+        this.x = v.x;
+        this.y = v.y;
+        this.z = v.z;
+    }
+
     public Vector3(APersistentVector vec) throws IllegalArgumentException{
        super();
        if(vec.count() != 3)

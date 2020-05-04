@@ -35,6 +35,14 @@ public class Vector4 extends Structure{
         this.w = w;
     }
 
+    public Vector4(Vector4 v){
+        super();
+        this.x = v.x;
+        this.y = v.y;
+        this.z = v.z;
+        this.w = v.w;
+    }
+
     public Vector4(APersistentVector vec) throws IllegalArgumentException{
        super();
        if(vec.count() != 4)

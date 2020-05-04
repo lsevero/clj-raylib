@@ -21,6 +21,14 @@ public class AudioStream extends Structure{
         this.buffer = buffer;
     }
 
+    public AudioStream(AudioStream as){
+        super();
+        this.sampleRate = as.sampleRate;
+        this.sampleSize = as.sampleSize;
+        this.channels = as.channels;
+        this.buffer = as.buffer;
+    }
+
     public AudioStream(APersistentMap map) throws IllegalArgumentException{
         super();
         Number sampleRate = (Number)map.get(Keyword.intern("sampleRate"));

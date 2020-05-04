@@ -2,6 +2,8 @@ package raylib.jna;
 
 import com.sun.jna.Structure;
 import com.sun.jna.Structure.FieldOrder;
+import clojure.lang.Keyword;
+import clojure.lang.APersistentMap;
 
 @FieldOrder({"r","g","b","a"})
 public class Color extends Structure{
@@ -16,6 +18,34 @@ public class Color extends Structure{
         this.g = g;
         this.b = b;
         this.a = a;
+    }
+
+    public Color(Color c){
+        super();
+        this.r = c.r;
+        this.g = c.g;
+        this.b = c.b;
+        this.a = c.a;
+    }
+
+    public Color(APersistentMap map){
+        super();
+        Number r = (Number)map.get(Keyword.intern("r"));
+        if(r == null)
+            throw new IllegalArgumentException("Map needs key :r");
+        this.r = r.byteValue();
+        Number g = (Number)map.get(Keyword.intern("g"));
+        if(g == null)
+            throw new IllegalArgumentException("Map needs key :g");
+        this.g = g.byteValue();
+        Number b = (Number)map.get(Keyword.intern("b"));
+        if(b == null)
+            throw new IllegalArgumentException("Map needs key :b");
+        this.b = b.byteValue();
+        Number a = (Number)map.get(Keyword.intern("a"));
+        if(a == null)
+            throw new IllegalArgumentException("Map needs key :a");
+        this.a = a.byteValue();
     }
 
     public Color(){

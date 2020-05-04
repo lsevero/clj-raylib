@@ -35,6 +35,12 @@ public class Vector2 extends Structure{
         this.y = y;
     }
 
+    public Vector2(Vector2 v){
+        super();
+        this.x = v.x;
+        this.y = v.y;
+    }
+
     public Vector2(APersistentVector vec) throws IllegalArgumentException{
        super();
        if(vec.count() != 2)
