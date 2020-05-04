@@ -16,6 +16,14 @@ public class Image extends Structure{
         public ByReference(){
             super();
         }
+
+        public ByReference(APersistentMap map){
+            super(map);
+        }
+
+        public ByReference(ByReference br){
+            super((Image)br);
+        }
     }
 
     public Pointer data;

@@ -20,6 +20,10 @@ public class CharInfo extends Structure{
         public ByReference(APersistentMap map){
             super(map);
         }
+
+        public ByReference(ByReference ci){
+            super((CharInfo)ci);
+        }
     }
     public int value;
     public int offsetX;
@@ -66,6 +70,15 @@ public class CharInfo extends Structure{
         this.offsetY = offsetY;
         this.advanceX = advanceX;
         this.image = image;
+    }
+
+    public CharInfo(CharInfo ci){
+        super();
+        this.value = ci.value;
+        this.offsetX = ci.offsetX;
+        this.offsetY = ci.offsetY;
+        this.advanceX = ci.advanceX;
+        this.image = new Image(ci.image);
     }
 
     public CharInfo(){

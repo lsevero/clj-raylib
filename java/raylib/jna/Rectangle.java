@@ -2,6 +2,8 @@ package raylib.jna;
 
 import com.sun.jna.Structure;
 import com.sun.jna.Structure.FieldOrder;
+import clojure.lang.APersistentMap;
+import clojure.lang.Keyword;
 
 @FieldOrder({"x","y","width","height"})
 public class Rectangle extends Structure{
@@ -12,6 +14,14 @@ public class Rectangle extends Structure{
 
         public ByReference(){
             super();
+        }
+
+        public ByReference(ByReference r){
+            super((Rectangle)r);
+        }
+
+        public ByReference(APersistentMap map){
+            super(map);
         }
     }
 
@@ -26,6 +36,34 @@ public class Rectangle extends Structure{
         this.y = y;
         this.width = width;
         this.height = height;
+    }
+
+    public Rectangle(Rectangle r){
+        super();
+        this.x = r.x;
+        this.y = r.y;
+        this.width = r.width;
+        this.height = r.height;
+    }
+
+    public Rectangle(APersistentMap map) throws IllegalArgumentException{
+        super();
+        Number x = (Number)map.get(Keyword.intern("x"));
+        if(x == null)
+            throw new IllegalArgumentException("Map needs key :x");
+        this.x = x.floatValue();
+        Number y = (Number)map.get(Keyword.intern("y"));
+        if(y == null)
+            throw new IllegalArgumentException("Map needs key :y");
+        this.y = y.floatValue();
+        Number width = (Number)map.get(Keyword.intern("width"));
+        if(width == null)
+            throw new IllegalArgumentException("Map needs key :width");
+        this.width = width.floatValue();
+        Number height = (Number)map.get(Keyword.intern("height"));
+        if(height == null)
+            throw new IllegalArgumentException("Map needs key :height");
+        this.height = height.floatValue();
     }
 
     public Rectangle(){
