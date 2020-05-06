@@ -19,6 +19,14 @@ public class RenderTexture2D extends Structure{
         this.depthTexture = depthTexture;
     }
 
+    public RenderTexture2D(RenderTexture2D r){
+        super();
+        this.id = r.id;
+        this.texture = new Texture2D(r.texture);
+        this.depth = new Texture2D(r.depth);
+        this.depthTexture = depthTexture;
+    }
+
     public RenderTexture2D(){
         super();
     }
