@@ -3,6 +3,9 @@ package raylib.jna;
 import com.sun.jna.Structure;
 import com.sun.jna.Structure.FieldOrder;
 import raylib.jna.Vector3;
+import clojure.lang.APersistentMap;
+import clojure.lang.Keyword;
+import clojure.lang.APersistentVector;
 
 @FieldOrder({"hit","distance","position","normal"})
 public class RayHitInfo extends Structure{
@@ -11,7 +14,7 @@ public class RayHitInfo extends Structure{
     public Vector3 position;
     public Vector3 normal;
 
-    public Ray(APersistentMap map){
+    public RayHitInfo(APersistentMap map){
         super();
         Object position = map.get(Keyword.intern("position"));
         if(position == null)

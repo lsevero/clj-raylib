@@ -21,10 +21,29 @@ public class CharInfo extends Structure{
             super(map);
         }
 
-        public ByReference(ByReference ci){
+        public ByReference(ByValue ci){
             super((CharInfo)ci);
         }
     }
+
+    public static class ByValue extends CharInfo implements Structure.ByValue {
+        public ByValue(int value, int offsetX, int offsetY, int advanceX, Image image){
+            super(value, offsetX, offsetY, advanceX, image);
+        }
+
+        public ByValue(){
+            super();
+        }
+
+        public ByValue(APersistentMap map){
+            super(map);
+        }
+
+        public ByValue(ByReference ci){
+            super((CharInfo)ci);
+        }
+    }
+
     public int value;
     public int offsetX;
     public int offsetY;

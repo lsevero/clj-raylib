@@ -9,6 +9,20 @@ import clojure.lang.APersistentVector;
 
 @FieldOrder({"offset","target","rotation","zoom"})
 public class Camera2D extends Structure{
+    public static class ByValue extends Camera2D implements Structure.ByValue{
+        public ByValue(){
+            super();
+        }
+
+        public ByValue(APersistentMap map){
+            super(map);
+        }
+
+        public ByValue(Vector2 offset, Vector2 target, float rotation, int zoom){
+            super(offset, target, rotation, zoom);
+        }
+    }
+
     public Vector2 offset;
     public Vector2 target;
     public float rotation;

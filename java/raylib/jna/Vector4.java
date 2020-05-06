@@ -22,6 +22,20 @@ public class Vector4 extends Structure{
         }
     }
 
+    public static class ByValue extends Vector4 implements Structure.ByValue{
+        public ByValue(float x, float y, float z, float w){
+            super(x,y,z,w);
+        }
+
+        public ByValue(){
+            super();
+        }
+
+        public ByValue(APersistentVector vec){
+            super(vec);
+        }
+    }
+
     public float x;
     public float y;
     public float z;

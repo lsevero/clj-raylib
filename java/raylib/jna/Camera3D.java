@@ -14,9 +14,37 @@ public class Camera3D extends Structure{
             super(position, target, up, fovy, type);
         }
 
+        public ByReference(APersistentMap map){
+            super(map);
+        }
+
         public ByReference(){
             super();
         }
+
+        public ByReference(ByValue b){
+            super(b);
+        }
+
+    }
+
+    public static class ByValue extends Camera3D implements Structure.ByValue{
+        public ByValue(Vector3 position, Vector3 target, Vector3 up, float fovy, int type){
+            super(position, target, up, fovy, type);
+        }
+
+        public ByValue(APersistentMap map){
+            super(map);
+        }
+
+        public ByValue(){
+            super();
+        }
+
+        public ByValue(ByReference b){
+            super(b);
+        }
+
     }
 
     public Vector3 position;
@@ -32,6 +60,15 @@ public class Camera3D extends Structure{
         this.up = up;
         this.fovy = fovy;
         this.type = type;
+    }
+
+    public Camera3D(Camera3D c){
+        super();
+        this.position = new Vector3(c.position);
+        this.target = new Vector3(c.target);
+        this.up = new Vector3(c.up);
+        this.fovy = c.fovy;
+        this.type = c.type;
     }
 
     public Camera3D(APersistentMap map){

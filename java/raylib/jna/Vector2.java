@@ -26,6 +26,24 @@ public class Vector2 extends Structure{
         }
     }
 
+    public static class ByValue extends Vector2 implements Structure.ByValue{
+        public ByValue(float x, float y){
+            super(x,y);
+        }
+
+        public ByValue(){
+            super();
+        }
+
+        public ByValue(APersistentVector vec){
+            super(vec);
+        }
+
+        public ByValue(APersistentMap map){
+            super(map);
+        }
+    }
+
     public float x;
     public float y;
 

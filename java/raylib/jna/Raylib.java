@@ -33,7 +33,7 @@ public class Raylib {
     public static native int GetMonitorHeight(int monitor);                          // Get primary monitor height
     public static native int GetMonitorPhysicalWidth(int monitor);                   // Get primary monitor physical width in millimetres
     public static native int GetMonitorPhysicalHeight(int monitor);                  // Get primary monitor physical height in millimetres
-    public static native Vector2 GetWindowPosition();                            // Get window position XY on monitor
+    public static native Vector2.ByValue GetWindowPosition();                            // Get window position XY on monitor
     public static native String GetMonitorName(int monitor);                    // Get the human-readable, UTF-8 encoded name of the primary monitor
     public static native String GetClipboardText();                         // Get clipboard text content
     public static native void SetClipboardText(String text);                    // Set clipboard text content
@@ -46,7 +46,7 @@ public class Raylib {
     public static native void DisableCursor();                                   // Disables cursor (lock cursor)
 
     // Drawing-related functions
-    public static native void ClearBackground(Color color);                          // Set background color (framebuffer clear color)
+    public static native void ClearBackground(Color.ByValue color);                          // Set background color (framebuffer clear color)
     public static native void BeginDrawing();                                    // Setup canvas (framebuffer) to start drawing
     public static native void EndDrawing();                                      // End canvas drawing and swap buffers (double buffering)
     public static native void BeginMode2D(Camera2D camera);                          // Initialize 2D mode with custom camera (2D)
@@ -59,13 +59,13 @@ public class Raylib {
     public static native void EndScissorMode();                                  // End scissor mode
 
     // Screen-space-related functions
-    public static native Ray GetMouseRay(Vector2 mousePosition, Camera3D camera);      // Returns a ray trace from mouse position
+    public static native Ray GetMouseRay(Vector2.ByValue mousePosition, Camera3D camera);      // Returns a ray trace from mouse position
     public static native Matrix GetCameraMatrix(Camera3D camera);                      // Returns camera transform matrix (view matrix)
     public static native Matrix GetCameraMatrix2D(Camera2D camera);                  // Returns camera 2d transform matrix
-    public static native Vector2 GetWorldToScreen(Vector3 position, Camera3D camera);  // Returns the screen space position for a 3d world space position
-    public static native Vector2 GetWorldToScreenEx(Vector3 position, Camera3D camera, int width, int height); // Returns size position for a 3d world space position
-    public static native Vector2 GetWorldToScreen2D(Vector2 position, Camera2D camera); // Returns the screen space position for a 2d camera world space position
-    public static native Vector2 GetScreenToWorld2D(Vector2 position, Camera2D camera); // Returns the world space position for a 2d camera screen space position
+    public static native Vector2.ByValue GetWorldToScreen(Vector3.ByValue position, Camera3D camera);  // Returns the screen space position for a 3d world space position
+    public static native Vector2.ByValue GetWorldToScreenEx(Vector3.ByValue position, Camera3D camera, int width, int height); // Returns size position for a 3d world space position
+    public static native Vector2.ByValue GetWorldToScreen2D(Vector2.ByValue position, Camera2D camera); // Returns the screen space position for a 2d camera world space position
+    public static native Vector2.ByValue GetScreenToWorld2D(Vector2.ByValue position, Camera2D camera); // Returns the world space position for a 2d camera screen space position
 
     // Timing-related functions
     public static native void SetTargetFPS(int fps);                                 // Set target FPS (maximum)
@@ -74,13 +74,13 @@ public class Raylib {
     public static native double GetTime();                                       // Returns elapsed time in seconds since InitWindow()
 
     // Color-related functions
-    public static native int ColorToInt(Color color);                                // Returns hexadecimal value for a Color
-    public static native Vector4 ColorNormalize(Color color);                        // Returns color normalized as float [0..1]
-    public static native Color ColorFromNormalized(Vector4 normalized);              // Returns color from normalized values [0..1]
-    public static native Vector3 ColorToHSV(Color color);                            // Returns HSV values for a Color
-    public static native Color ColorFromHSV(Vector3 hsv);                            // Returns a Color from HSV values
-    public static native Color GetColor(int hexValue);                               // Returns a Color struct from hexadecimal value
-    public static native Color Fade(Color color, float alpha);                       // Color fade-in or fade-out, alpha goes from 0.0f to 1.0f
+    public static native int ColorToInt(Color.ByValue color);                                // Returns hexadecimal value for a Color
+    public static native Vector4.ByValue ColorNormalize(Color.ByValue color);                        // Returns color normalized as float [0..1]
+    public static native Color.ByValue ColorFromNormalized(Vector4.ByValue normalized);              // Returns color from normalized values [0..1]
+    public static native Vector3.ByValue ColorToHSV(Color.ByValue color);                            // Returns HSV values for a Color
+    public static native Color.ByValue ColorFromHSV(Vector3.ByValue hsv);                            // Returns a Color.ByValue from HSV values
+    public static native Color.ByValue GetColor(int hexValue);                               // Returns a Color.ByValue struct from hexadecimal value
+    public static native Color.ByValue Fade(Color.ByValue color, float alpha);                       // Color.ByValue fade-in or fade-out, alpha goes from 0.0f to 1.0f
 
     // Misc. functions
     public static native void SetConfigFlags(int flags);                    // Setup window configuration flags (view FLAGS)
@@ -151,7 +151,7 @@ public class Raylib {
     public static native boolean IsMouseButtonUp(int button);                       // Detect if a mouse button is NOT being pressed
     public static native int GetMouseX();                                    // Returns mouse position X
     public static native int GetMouseY();                                    // Returns mouse position Y
-    public static native Vector2 GetMousePosition();                         // Returns mouse position XY
+    public static native Vector2.ByValue GetMousePosition();                         // Returns mouse position XY
     public static native void SetMousePosition(int x, int y);                    // Set mouse position XY
     public static native void SetMouseOffset(int offsetX, int offsetY);          // Set mouse offset
     public static native void SetMouseScale(float scaleX, float scaleY);         // Set mouse scaling
@@ -160,7 +160,7 @@ public class Raylib {
     // Input-related functions: touch
     public static native int GetTouchX();                                    // Returns touch position X for touch point 0 (relative to screen size)
     public static native int GetTouchY();                                    // Returns touch position Y for touch point 0 (relative to screen size)
-    public static native Vector2 GetTouchPosition(int index);                    // Returns touch position XY for a touch point index (relative to screen size)
+    public static native Vector2.ByValue GetTouchPosition(int index);                    // Returns touch position XY for a touch point index (relative to screen size)
 
     //------------------------------------------------------------------------------------
     // Gestures and Touch Handling Functions (Module: gestures)
@@ -170,9 +170,9 @@ public class Raylib {
     public static native int GetGestureDetected();                           // Get latest detected gesture
     public static native int GetTouchPointsCount();                          // Get touch points count
     public static native float GetGestureHoldDuration();                     // Get gesture hold time in milliseconds
-    public static native Vector2 GetGestureDragVector();                     // Get gesture drag vector
+    public static native Vector2.ByValue GetGestureDragVector();                     // Get gesture drag vector
     public static native float GetGestureDragAngle();                        // Get gesture drag angle
-    public static native Vector2 GetGesturePinchVector();                    // Get gesture pinch delta
+    public static native Vector2.ByValue GetGesturePinchVector();                    // Get gesture pinch delta
     public static native float GetGesturePinchAngle();                       // Get gesture pinch angle
 
     //------------------------------------------------------------------------------------
@@ -191,49 +191,49 @@ public class Raylib {
     //------------------------------------------------------------------------------------
 
     // Basic shapes drawing functions
-    public static native void DrawPixel(int posX, int posY, Color color);                                                   // Draw a pixel
-    public static native void DrawPixelV(Vector2 position, Color color);                                                    // Draw a pixel (Vector version)
-    public static native void DrawLine(int startPosX, int startPosY, int endPosX, int endPosY, Color color);                // Draw a line
-    public static native void DrawLineV(Vector2 startPos, Vector2 endPos, Color color);                                     // Draw a line (Vector version)
-    public static native void DrawLineEx(Vector2 startPos, Vector2 endPos, float thick, Color color);                       // Draw a line defining thickness
-    public static native void DrawLineBezier(Vector2 startPos, Vector2 endPos, float thick, Color color);                   // Draw a line using cubic-bezier curves in-out
-    public static native void DrawLineStrip(Vector2.ByReference points, int numPoints, Color color);                                   // Draw lines sequence
-    public static native void DrawCircle(int centerX, int centerY, float radius, Color color);                              // Draw a color-filled circle
-    public static native void DrawCircleSector(Vector2 center, float radius, int startAngle, int endAngle, int segments, Color color);     // Draw a piece of a circle
-    public static native void DrawCircleSectorLines(Vector2 center, float radius, int startAngle, int endAngle, int segments, Color color);    // Draw circle sector outline
-    public static native void DrawCircleGradient(int centerX, int centerY, float radius, Color color1, Color color2);       // Draw a gradient-filled circle
-    public static native void DrawCircleV(Vector2 center, float radius, Color color);                                       // Draw a color-filled circle (Vector version)
-    public static native void DrawCircleLines(int centerX, int centerY, float radius, Color color);                         // Draw circle outline
-    public static native void DrawEllipse(int centerX, int centerY, float radiusH, float radiusV, Color color);             // Draw ellipse
-    public static native void DrawEllipseLines(int centerX, int centerY, float radiusH, float radiusV, Color color);        // Draw ellipse outline
-    public static native void DrawRing(Vector2 center, float innerRadius, float outerRadius, int startAngle, int endAngle, int segments, Color color); // Draw ring
-    public static native void DrawRingLines(Vector2 center, float innerRadius, float outerRadius, int startAngle, int endAngle, int segments, Color color);    // Draw ring outline
-    public static native void DrawRectangle(int posX, int posY, int width, int height, Color color);                        // Draw a color-filled rectangle
-    public static native void DrawRectangleV(Vector2 position, Vector2 size, Color color);                                  // Draw a color-filled rectangle (Vector version)
-    public static native void DrawRectangleRec(Rectangle rec, Color color);                                                 // Draw a color-filled rectangle
-    public static native void DrawRectanglePro(Rectangle rec, Vector2 origin, float rotation, Color color);                 // Draw a color-filled rectangle with pro parameters
-    public static native void DrawRectangleGradientV(int posX, int posY, int width, int height, Color color1, Color color2);// Draw a vertical-gradient-filled rectangle
-    public static native void DrawRectangleGradientH(int posX, int posY, int width, int height, Color color1, Color color2);// Draw a horizontal-gradient-filled rectangle
-    public static native void DrawRectangleGradientEx(Rectangle rec, Color col1, Color col2, Color col3, Color col4);       // Draw a gradient-filled rectangle with custom vertex colors
-    public static native void DrawRectangleLines(int posX, int posY, int width, int height, Color color);                   // Draw rectangle outline
-    public static native void DrawRectangleLinesEx(Rectangle rec, int lineThick, Color color);                              // Draw rectangle outline with extended parameters
-    public static native void DrawRectangleRounded(Rectangle rec, float roundness, int segments, Color color);              // Draw rectangle with rounded edges
-    public static native void DrawRectangleRoundedLines(Rectangle rec, float roundness, int segments, int lineThick, Color color); // Draw rectangle with rounded edges outline
-    public static native void DrawTriangle(Vector2 v1, Vector2 v2, Vector2 v3, Color color);                                // Draw a color-filled triangle (vertex in counter-clockwise order!)
-    public static native void DrawTriangleLines(Vector2 v1, Vector2 v2, Vector2 v3, Color color);                           // Draw triangle outline (vertex in counter-clockwise order!)
-    public static native void DrawTriangleFan(Vector2.ByReference points, int numPoints, Color color);                                 // Draw a triangle fan defined by points (first vertex is the center)
-    public static native void DrawTriangleStrip(Vector2.ByReference points, int pointsCount, Color color);                             // Draw a triangle strip defined by points
-    public static native void DrawPoly(Vector2 center, int sides, float radius, float rotation, Color color);               // Draw a regular polygon (Vector version)
-    public static native void DrawPolyLines(Vector2 center, int sides, float radius, float rotation, Color color);          // Draw a polygon outline of n sides
+    public static native void DrawPixel(int posX, int posY, Color.ByValue color);                                                   // Draw a pixel
+    public static native void DrawPixelV(Vector2.ByValue position, Color.ByValue color);                                                    // Draw a pixel (Vector version)
+    public static native void DrawLine(int startPosX, int startPosY, int endPosX, int endPosY, Color.ByValue color);                // Draw a line
+    public static native void DrawLineV(Vector2.ByValue startPos, Vector2.ByValue endPos, Color.ByValue color);                                     // Draw a line (Vector version)
+    public static native void DrawLineEx(Vector2.ByValue startPos, Vector2.ByValue endPos, float thick, Color.ByValue color);                       // Draw a line defining thickness
+    public static native void DrawLineBezier(Vector2.ByValue startPos, Vector2.ByValue endPos, float thick, Color.ByValue color);                   // Draw a line using cubic-bezier curves in-out
+    public static native void DrawLineStrip(Vector2.ByReference points, int numPoints, Color.ByValue color);                                   // Draw lines sequence
+    public static native void DrawCircle(int centerX, int centerY, float radius, Color.ByValue color);                              // Draw a color-filled circle
+    public static native void DrawCircleSector(Vector2.ByValue center, float radius, int startAngle, int endAngle, int segments, Color.ByValue color);     // Draw a piece of a circle
+    public static native void DrawCircleSectorLines(Vector2.ByValue center, float radius, int startAngle, int endAngle, int segments, Color.ByValue color);    // Draw circle sector outline
+    public static native void DrawCircleGradient(int centerX, int centerY, float radius, Color.ByValue color1, Color.ByValue color2);       // Draw a gradient-filled circle
+    public static native void DrawCircleV(Vector2.ByValue center, float radius, Color.ByValue color);                                       // Draw a color-filled circle (Vector version)
+    public static native void DrawCircleLines(int centerX, int centerY, float radius, Color.ByValue color);                         // Draw circle outline
+    public static native void DrawEllipse(int centerX, int centerY, float radiusH, float radiusV, Color.ByValue color);             // Draw ellipse
+    public static native void DrawEllipseLines(int centerX, int centerY, float radiusH, float radiusV, Color.ByValue color);        // Draw ellipse outline
+    public static native void DrawRing(Vector2.ByValue center, float innerRadius, float outerRadius, int startAngle, int endAngle, int segments, Color.ByValue color); // Draw ring
+    public static native void DrawRingLines(Vector2.ByValue center, float innerRadius, float outerRadius, int startAngle, int endAngle, int segments, Color.ByValue color);    // Draw ring outline
+    public static native void DrawRectangle(int posX, int posY, int width, int height, Color.ByValue color);                        // Draw a color-filled rectangle
+    public static native void DrawRectangleV(Vector2.ByValue position, Vector2.ByValue size, Color.ByValue color);                                  // Draw a color-filled rectangle (Vector version)
+    public static native void DrawRectangleRec(Rectangle rec, Color.ByValue color);                                                 // Draw a color-filled rectangle
+    public static native void DrawRectanglePro(Rectangle rec, Vector2.ByValue origin, float rotation, Color.ByValue color);                 // Draw a color-filled rectangle with pro parameters
+    public static native void DrawRectangleGradientV(int posX, int posY, int width, int height, Color.ByValue color1, Color.ByValue color2);// Draw a vertical-gradient-filled rectangle
+    public static native void DrawRectangleGradientH(int posX, int posY, int width, int height, Color.ByValue color1, Color.ByValue color2);// Draw a horizontal-gradient-filled rectangle
+    public static native void DrawRectangleGradientEx(Rectangle rec, Color.ByValue col1, Color.ByValue col2, Color.ByValue col3, Color.ByValue col4);       // Draw a gradient-filled rectangle with custom vertex colors
+    public static native void DrawRectangleLines(int posX, int posY, int width, int height, Color.ByValue color);                   // Draw rectangle outline
+    public static native void DrawRectangleLinesEx(Rectangle rec, int lineThick, Color.ByValue color);                              // Draw rectangle outline with extended parameters
+    public static native void DrawRectangleRounded(Rectangle rec, float roundness, int segments, Color.ByValue color);              // Draw rectangle with rounded edges
+    public static native void DrawRectangleRoundedLines(Rectangle rec, float roundness, int segments, int lineThick, Color.ByValue color); // Draw rectangle with rounded edges outline
+    public static native void DrawTriangle(Vector2.ByValue v1, Vector2.ByValue v2, Vector2.ByValue v3, Color.ByValue color);                                // Draw a color-filled triangle (vertex in counter-clockwise order!)
+    public static native void DrawTriangleLines(Vector2.ByValue v1, Vector2.ByValue v2, Vector2.ByValue v3, Color.ByValue color);                           // Draw triangle outline (vertex in counter-clockwise order!)
+    public static native void DrawTriangleFan(Vector2.ByReference points, int numPoints, Color.ByValue color);                                 // Draw a triangle fan defined by points (first vertex is the center)
+    public static native void DrawTriangleStrip(Vector2.ByReference points, int pointsCount, Color.ByValue color);                             // Draw a triangle strip defined by points
+    public static native void DrawPoly(Vector2.ByValue center, int sides, float radius, float rotation, Color.ByValue color);               // Draw a regular polygon (Vector version)
+    public static native void DrawPolyLines(Vector2.ByValue center, int sides, float radius, float rotation, Color.ByValue color);          // Draw a polygon outline of n sides
 
     // Basic shapes collision detection functions
     public static native boolean CheckCollisionRecs(Rectangle rec1, Rectangle rec2);                                           // Check collision between two rectangles
-    public static native boolean CheckCollisionCircles(Vector2 center1, float radius1, Vector2 center2, float radius2);        // Check collision between two circles
-    public static native boolean CheckCollisionCircleRec(Vector2 center, float radius, Rectangle rec);                         // Check collision between circle and rectangle
+    public static native boolean CheckCollisionCircles(Vector2.ByValue center1, float radius1, Vector2.ByValue center2, float radius2);        // Check collision between two circles
+    public static native boolean CheckCollisionCircleRec(Vector2.ByValue center, float radius, Rectangle rec);                         // Check collision between circle and rectangle
     public static native Rectangle GetCollisionRec(Rectangle rec1, Rectangle rec2);                                         // Get collision rectangle for two rectangles collision
-    public static native boolean CheckCollisionPointRec(Vector2 point, Rectangle rec);                                         // Check if point is inside rectangle
-    public static native boolean CheckCollisionPointCircle(Vector2 point, Vector2 center, float radius);                       // Check if point is inside circle
-    public static native boolean CheckCollisionPointTriangle(Vector2 point, Vector2 p1, Vector2 p2, Vector2 p3);               // Check if point is inside a triangle
+    public static native boolean CheckCollisionPointRec(Vector2.ByValue point, Rectangle rec);                                         // Check if point is inside rectangle
+    public static native boolean CheckCollisionPointCircle(Vector2.ByValue point, Vector2.ByValue center, float radius);                       // Check if point is inside circle
+    public static native boolean CheckCollisionPointTriangle(Vector2.ByValue point, Vector2.ByValue p1, Vector2.ByValue p2, Vector2.ByValue p3);               // Check if point is inside a triangle
 
     //------------------------------------------------------------------------------------
     // Texture Loading and Drawing Functions (Module: textures)
@@ -242,21 +242,21 @@ public class Raylib {
     // Image loading functions
     // NOTE: This functions do not require GPU access
     public static native Image LoadImage(String fileName);                                                             // Load image from file into CPU memory (RAM)
-    //public static native Image LoadImageEx(Color.ByReference pixels, int width, int height);                                           // Load image from Color array data (RGBA - 32bit)
+    public static native Image LoadImageEx(Color.ByReference pixels, int width, int height);                                           // Load image from Color.ByValue array data (RGBA - 32bit)
     public static native Image LoadImagePro(Pointer data, int width, int height, int format);                                 // Load image from raw data with parameters
     public static native Image LoadImageRaw(String fileName, int width, int height, int format, int headerSize);       // Load image from RAW file data
     public static native void UnloadImage(Image image);                                                                     // Unload image from CPU memory (RAM)
     public static native void ExportImage(Image image, String fileName);                                               // Export image data to file
     public static native void ExportImageAsCode(Image image, String fileName);                                         // Export image as code file defining an array of bytes
-    //public static native Color.ByReference GetImageData(Image image);                                                                  // Get pixel data from image as a Color struct array
-    //public static native Vector4.ByReference GetImageDataNormalized(Image image);                                                      // Get pixel data from image as Vector4 array (float normalized)
+    public static native Color.ByReference GetImageData(Image image);                                                                  // Get pixel data from image as a Color.ByValue struct array
+    public static native Vector4.ByReference GetImageDataNormalized(Image image);                                                      // Get pixel data from image as Vector4.ByValue array (float normalized)
 
     // Image generation functions
-    public static native Image GenImageColor(int width, int height, Color color);                                           // Generate image: plain color
-    public static native Image GenImageGradientV(int width, int height, Color top, Color bottom);                           // Generate image: vertical gradient
-    public static native Image GenImageGradientH(int width, int height, Color left, Color right);                           // Generate image: horizontal gradient
-    public static native Image GenImageGradientRadial(int width, int height, float density, Color inner, Color outer);      // Generate image: radial gradient
-    public static native Image GenImageChecked(int width, int height, int checksX, int checksY, Color col1, Color col2);    // Generate image: checked
+    public static native Image GenImageColor(int width, int height, Color.ByValue color);                                           // Generate image: plain color
+    public static native Image GenImageGradientV(int width, int height, Color.ByValue top, Color.ByValue bottom);                           // Generate image: vertical gradient
+    public static native Image GenImageGradientH(int width, int height, Color.ByValue left, Color.ByValue right);                           // Generate image: horizontal gradient
+    public static native Image GenImageGradientRadial(int width, int height, float density, Color.ByValue inner, Color.ByValue outer);      // Generate image: radial gradient
+    public static native Image GenImageChecked(int width, int height, int checksX, int checksY, Color.ByValue col1, Color.ByValue col2);    // Generate image: checked
     public static native Image GenImageWhiteNoise(int width, int height, float factor);                                     // Generate image: white noise
     public static native Image GenImagePerlinNoise(int width, int height, int offsetX, int offsetY, float scale);           // Generate image: perlin noise
     public static native Image GenImageCellular(int width, int height, int tileSize);                                       // Generate image: cellular algorithm. Bigger tileSize means bigger cells
@@ -264,49 +264,49 @@ public class Raylib {
     // Image manipulation functions
     public static native Image ImageCopy(Image image);                                                                      // Create an image duplicate (useful for transformations)
     public static native Image ImageFromImage(Image image, Rectangle rec);                                                  // Create an image from another image piece
-    public static native Image ImageText(String text, int fontSize, Color color);                                      // Create an image from text (default font)
-    public static native Image ImageTextEx(Font font, String text, float fontSize, float spacing, Color tint);         // Create an image from text (custom sprite font)
-    public static native void ImageToPOT(Image.ByReference image, Color fillColor);                                                    // Convert image to POT (power-of-two)
+    public static native Image ImageText(String text, int fontSize, Color.ByValue color);                                      // Create an image from text (default font)
+    public static native Image ImageTextEx(Font font, String text, float fontSize, float spacing, Color.ByValue tint);         // Create an image from text (custom sprite font)
+    public static native void ImageToPOT(Image.ByReference image, Color.ByValue fillColor);                                                    // Convert image to POT (power-of-two)
     public static native void ImageFormat(Image.ByReference image, int newFormat);                                                     // Convert image data to desired format
     public static native void ImageAlphaMask(Image.ByReference image, Image alphaMask);                                                // Apply alpha mask to image
-    public static native void ImageAlphaClear(Image.ByReference image, Color color, float threshold);                                  // Clear alpha channel to desired color
+    public static native void ImageAlphaClear(Image.ByReference image, Color.ByValue color, float threshold);                                  // Clear alpha channel to desired color
     public static native void ImageAlphaCrop(Image.ByReference image, float threshold);                                                // Crop image depending on alpha value
     public static native void ImageAlphaPremultiply(Image.ByReference image);                                                          // Premultiply alpha channel
     public static native void ImageCrop(Image.ByReference image, Rectangle crop);                                                      // Crop an image to a defined rectangle
     public static native void ImageResize(Image.ByReference image, int newWidth, int newHeight);                                       // Resize image (Bicubic scaling algorithm)
     public static native void ImageResizeNN(Image.ByReference image, int newWidth,int newHeight);                                      // Resize image (Nearest-Neighbor scaling algorithm)
-    public static native void ImageResizeCanvas(Image.ByReference image, int newWidth, int newHeight, int offsetX, int offsetY, Color color);  // Resize canvas and fill with color
+    public static native void ImageResizeCanvas(Image.ByReference image, int newWidth, int newHeight, int offsetX, int offsetY, Color.ByValue color);  // Resize canvas and fill with color
     public static native void ImageMipmaps(Image.ByReference image);                                                                   // Generate all mipmap levels for a provided image
     public static native void ImageDither(Image.ByReference image, int rBpp, int gBpp, int bBpp, int aBpp);                            // Dither image data to 16bpp or lower (Floyd-Steinberg dithering)
     public static native void ImageFlipVertical(Image.ByReference image);                                                              // Flip image vertically
     public static native void ImageFlipHorizontal(Image.ByReference image);                                                            // Flip image horizontally
     public static native void ImageRotateCW(Image.ByReference image);                                                                  // Rotate image clockwise 90deg
     public static native void ImageRotateCCW(Image.ByReference image);                                                                 // Rotate image counter-clockwise 90deg
-    public static native void ImageColorTint(Image.ByReference image, Color color);                                                    // Modify image color: tint
+    public static native void ImageColorTint(Image.ByReference image, Color.ByValue color);                                                    // Modify image color: tint
     public static native void ImageColorInvert(Image.ByReference image);                                                               // Modify image color: invert
     public static native void ImageColorGrayscale(Image.ByReference image);                                                            // Modify image color: grayscale
     public static native void ImageColorContrast(Image.ByReference image, float contrast);                                             // Modify image color: contrast (-100 to 100)
     public static native void ImageColorBrightness(Image.ByReference image, int brightness);                                           // Modify image color: brightness (-255 to 255)
-    public static native void ImageColorReplace(Image.ByReference image, Color color, Color replace);                                  // Modify image color: replace color
+    public static native void ImageColorReplace(Image.ByReference image, Color.ByValue color, Color.ByValue replace);                                  // Modify image color: replace color
     public static native Color.ByReference ImageExtractPalette(Image image, int maxPaletteSize, IntByReference extractCount);                    // Extract color palette from image to maximum size (memory should be freed)
     public static native Rectangle GetImageAlphaBorder(Image image, float threshold);                                       // Get image alpha border rectangle
 
     // Image drawing functions
     // NOTE: Image software-rendering functions (CPU)
-    public static native void ImageClearBackground(Image.ByReference dst, Color color);                                                // Clear image background with given color
-    public static native void ImageDrawPixel(Image.ByReference dst, int posX, int posY, Color color);                                  // Draw pixel within an image
-    public static native void ImageDrawPixelV(Image.ByReference dst, Vector2 position, Color color);                                   // Draw pixel within an image (Vector version)
-    public static native void ImageDrawLine(Image.ByReference dst, int startPosX, int startPosY, int endPosX, int endPosY, Color color); // Draw line within an image
-    public static native void ImageDrawLineV(Image.ByReference dst, Vector2 start, Vector2 end, Color color);                          // Draw line within an image (Vector version)
-    public static native void ImageDrawCircle(Image.ByReference dst, int centerX, int centerY, int radius, Color color);               // Draw circle within an image
-    public static native void ImageDrawCircleV(Image.ByReference dst, Vector2 center, int radius, Color color);                        // Draw circle within an image (Vector version)
-    public static native void ImageDrawRectangle(Image.ByReference dst, int posX, int posY, int width, int height, Color color);       // Draw rectangle within an image
-    public static native void ImageDrawRectangleV(Image.ByReference dst, Vector2 position, Vector2 size, Color color);                 // Draw rectangle within an image (Vector version)
-    public static native void ImageDrawRectangleRec(Image.ByReference dst, Rectangle rec, Color color);                                // Draw rectangle within an image 
-    public static native void ImageDrawRectangleLines(Image.ByReference dst, Rectangle rec, int thick, Color color);                   // Draw rectangle lines within an image
-    public static native void ImageDraw(Image.ByReference dst, Image src, Rectangle srcRec, Rectangle dstRec, Color tint);             // Draw a source image within a destination image (tint applied to source)
-    public static native void ImageDrawText(Image.ByReference dst, Vector2 position, String text, int fontSize, Color color);     // Draw text (default font) within an image (destination)
-    public static native void ImageDrawTextEx(Image.ByReference dst, Vector2 position, Font font, String text, float fontSize, float spacing, Color color); // Draw text (custom sprite font) within an image (destination)
+    public static native void ImageClearBackground(Image.ByReference dst, Color.ByValue color);                                                // Clear image background with given color
+    public static native void ImageDrawPixel(Image.ByReference dst, int posX, int posY, Color.ByValue color);                                  // Draw pixel within an image
+    public static native void ImageDrawPixelV(Image.ByReference dst, Vector2.ByValue position, Color.ByValue color);                                   // Draw pixel within an image (Vector version)
+    public static native void ImageDrawLine(Image.ByReference dst, int startPosX, int startPosY, int endPosX, int endPosY, Color.ByValue color); // Draw line within an image
+    public static native void ImageDrawLineV(Image.ByReference dst, Vector2.ByValue start, Vector2.ByValue end, Color.ByValue color);                          // Draw line within an image (Vector version)
+    public static native void ImageDrawCircle(Image.ByReference dst, int centerX, int centerY, int radius, Color.ByValue color);               // Draw circle within an image
+    public static native void ImageDrawCircleV(Image.ByReference dst, Vector2.ByValue center, int radius, Color.ByValue color);                        // Draw circle within an image (Vector version)
+    public static native void ImageDrawRectangle(Image.ByReference dst, int posX, int posY, int width, int height, Color.ByValue color);       // Draw rectangle within an image
+    public static native void ImageDrawRectangleV(Image.ByReference dst, Vector2.ByValue position, Vector2.ByValue size, Color.ByValue color);                 // Draw rectangle within an image (Vector version)
+    public static native void ImageDrawRectangleRec(Image.ByReference dst, Rectangle rec, Color.ByValue color);                                // Draw rectangle within an image 
+    public static native void ImageDrawRectangleLines(Image.ByReference dst, Rectangle rec, int thick, Color.ByValue color);                   // Draw rectangle lines within an image
+    public static native void ImageDraw(Image.ByReference dst, Image src, Rectangle srcRec, Rectangle dstRec, Color.ByValue tint);             // Draw a source image within a destination image (tint applied to source)
+    public static native void ImageDrawText(Image.ByReference dst, Vector2.ByValue position, String text, int fontSize, Color.ByValue color);     // Draw text (default font) within an image (destination)
+    public static native void ImageDrawTextEx(Image.ByReference dst, Vector2.ByValue position, Font font, String text, float fontSize, float spacing, Color.ByValue color); // Draw text (custom sprite font) within an image (destination)
 
     // Texture loading functions
     // NOTE: These functions require GPU access
@@ -326,13 +326,13 @@ public class Raylib {
     public static native void SetTextureWrap(Texture2D texture, int wrapMode);                                              // Set texture wrapping mode
 
     // Texture drawing functions
-    public static native void DrawTexture(Texture2D texture, int posX, int posY, Color tint);                               // Draw a Texture2D
-    public static native void DrawTextureV(Texture2D texture, Vector2 position, Color tint);                                // Draw a Texture2D with position defined as Vector2
-    public static native void DrawTextureEx(Texture2D texture, Vector2 position, float rotation, float scale, Color tint);  // Draw a Texture2D with extended parameters
-    public static native void DrawTextureRec(Texture2D texture, Rectangle sourceRec, Vector2 position, Color tint);         // Draw a part of a texture defined by a rectangle
-    public static native void DrawTextureQuad(Texture2D texture, Vector2 tiling, Vector2 offset, Rectangle quad, Color tint);  // Draw texture quad with tiling and offset parameters
-    public static native void DrawTexturePro(Texture2D texture, Rectangle sourceRec, Rectangle destRec, Vector2 origin, float rotation, Color tint);       // Draw a part of a texture defined by a rectangle with 'pro' parameters
-    public static native void DrawTextureNPatch(Texture2D texture, NPatchInfo nPatchInfo, Rectangle destRec, Vector2 origin, float rotation, Color tint);  // Draws a texture (or part of it) that stretches or shrinks nicely
+    public static native void DrawTexture(Texture2D texture, int posX, int posY, Color.ByValue tint);                               // Draw a Texture2D
+    public static native void DrawTextureV(Texture2D texture, Vector2.ByValue position, Color.ByValue tint);                                // Draw a Texture2D with position defined as Vector2
+    public static native void DrawTextureEx(Texture2D texture, Vector2.ByValue position, float rotation, float scale, Color.ByValue tint);  // Draw a Texture2D with extended parameters
+    public static native void DrawTextureRec(Texture2D texture, Rectangle sourceRec, Vector2.ByValue position, Color.ByValue tint);         // Draw a part of a texture defined by a rectangle
+    public static native void DrawTextureQuad(Texture2D texture, Vector2.ByValue tiling, Vector2.ByValue offset, Rectangle quad, Color.ByValue tint);  // Draw texture quad with tiling and offset parameters
+    public static native void DrawTexturePro(Texture2D texture, Rectangle sourceRec, Rectangle destRec, Vector2.ByValue origin, float rotation, Color.ByValue tint);       // Draw a part of a texture defined by a rectangle with 'pro' parameters
+    public static native void DrawTextureNPatch(Texture2D texture, NPatchInfo nPatchInfo, Rectangle destRec, Vector2.ByValue origin, float rotation, Color.ByValue tint);  // Draws a texture (or part of it) that stretches or shrinks nicely
 
     // Image/Texture misc functions
     public static native int GetPixelDataSize(int width, int height, int format);                                           // Get pixel data size in bytes (image or texture)
@@ -345,23 +345,23 @@ public class Raylib {
     public static native Font GetFontDefault();                                                            // Get the default Font
     public static native Font LoadFont(String fileName);                                                  // Load font from file into GPU memory (VRAM)
     public static native Font LoadFontEx(String fileName, int fontSize, IntByReference fontChars, int charsCount);  // Load font from file with extended parameters
-    public static native Font LoadFontFromImage(Image image, Color key, int firstChar);                        // Load font from Image (XNA style)
+    public static native Font LoadFontFromImage(Image image, Color.ByValue key, int firstChar);                        // Load font from Image (XNA style)
     //public static native CharInfo.ByReference LoadFontData(String fileName, int fontSize, IntByReference fontChars, int charsCount, int type); // Load font data for further use
     //public static native Image GenImageFontAtlas(CharInfo.ByReference chars, Rectangle.ByReference[] recs, int charsCount, int fontSize, int padding, int packMethod);  // Generate image font atlas using chars info
     public static native void UnloadFont(Font font);                                                           // Unload Font from GPU memory (VRAM)
 
     // Text drawing functions
     public static native void DrawFPS(int posX, int posY);                                                     // Shows current FPS
-    public static native void DrawText(String text, int posX, int posY, int fontSize, Color color);       // Draw text (using default font)
-    public static native void DrawTextEx(Font font, String text, Vector2 position, float fontSize, float spacing, Color tint);                // Draw text using font and additional parameters
-    public static native void DrawTextRec(Font font, String text, Rectangle rec, float fontSize, float spacing, boolean wordWrap, Color tint);   // Draw text using font inside rectangle limits
-    public static native void DrawTextRecEx(Font font, String text, Rectangle rec, float fontSize, float spacing, boolean wordWrap, Color tint,
-            int selectStart, int selectLength, Color selectTint, Color selectBackTint); // Draw text using font inside rectangle limits with support for text selection
-    public static native void DrawTextCodepoint(Font font, int codepoint, Vector2 position, float scale, Color tint);   // Draw one character (codepoint)
+    public static native void DrawText(String text, int posX, int posY, int fontSize, Color.ByValue color);       // Draw text (using default font)
+    public static native void DrawTextEx(Font font, String text, Vector2.ByValue position, float fontSize, float spacing, Color.ByValue tint);                // Draw text using font and additional parameters
+    public static native void DrawTextRec(Font font, String text, Rectangle rec, float fontSize, float spacing, boolean wordWrap, Color.ByValue tint);   // Draw text using font inside rectangle limits
+    public static native void DrawTextRecEx(Font font, String text, Rectangle rec, float fontSize, float spacing, boolean wordWrap, Color.ByValue tint,
+            int selectStart, int selectLength, Color.ByValue selectTint, Color.ByValue selectBackTint); // Draw text using font inside rectangle limits with support for text selection
+    public static native void DrawTextCodepoint(Font font, int codepoint, Vector2.ByValue position, float scale, Color.ByValue tint);   // Draw one character (codepoint)
 
     // Text misc. functions
     public static native int MeasureText(String text, int fontSize);                                      // Measure string width for default font
-    public static native Vector2 MeasureTextEx(Font font, String text, float fontSize, float spacing);    // Measure string size for Font
+    public static native Vector2.ByValue MeasureTextEx(Font font, String text, float fontSize, float spacing);    // Measure string size for Font
     public static native int GetGlyphIndex(Font font, int codepoint);                                          // Get index position for a unicode character on font
 
     // Text strings management functions (no utf8 strings, only byte chars)
@@ -393,23 +393,23 @@ public class Raylib {
     //------------------------------------------------------------------------------------
 
     // Basic geometric 3D shapes drawing functions
-    public static native void DrawLine3D(Vector3 startPos, Vector3 endPos, Color color);                                    // Draw a line in 3D world space
-    public static native void DrawPoint3D(Vector3 position, Color color);                                                   // Draw a point in 3D space, actually a small line
-    public static native void DrawCircle3D(Vector3 center, float radius, Vector3 rotationAxis, float rotationAngle, Color color); // Draw a circle in 3D world space
-    public static native void DrawCube(Vector3 position, float width, float height, float length, Color color);             // Draw cube
-    public static native void DrawCubeV(Vector3 position, Vector3 size, Color color);                                       // Draw cube (Vector version)
-    public static native void DrawCubeWires(Vector3 position, float width, float height, float length, Color color);        // Draw cube wires
-    public static native void DrawCubeWiresV(Vector3 position, Vector3 size, Color color);                                  // Draw cube wires (Vector version)
-    public static native void DrawCubeTexture(Texture2D texture, Vector3 position, float width, float height, float length, Color color); // Draw cube textured
-    public static native void DrawSphere(Vector3 centerPos, float radius, Color color);                                     // Draw sphere
-    public static native void DrawSphereEx(Vector3 centerPos, float radius, int rings, int slices, Color color);            // Draw sphere with extended parameters
-    public static native void DrawSphereWires(Vector3 centerPos, float radius, int rings, int slices, Color color);         // Draw sphere wires
-    public static native void DrawCylinder(Vector3 position, float radiusTop, float radiusBottom, float height, int slices, Color color); // Draw a cylinder/cone
-    public static native void DrawCylinderWires(Vector3 position, float radiusTop, float radiusBottom, float height, int slices, Color color); // Draw a cylinder/cone wires
-    public static native void DrawPlane(Vector3 centerPos, Vector2 size, Color color);                                      // Draw a plane XZ
-    public static native void DrawRay(Ray ray, Color color);                                                                // Draw a ray line
+    public static native void DrawLine3D(Vector3.ByValue startPos, Vector3.ByValue endPos, Color.ByValue color);                                    // Draw a line in 3D world space
+    public static native void DrawPoint3D(Vector3.ByValue position, Color.ByValue color);                                                   // Draw a point in 3D space, actually a small line
+    public static native void DrawCircle3D(Vector3.ByValue center, float radius, Vector3.ByValue rotationAxis, float rotationAngle, Color.ByValue color); // Draw a circle in 3D world space
+    public static native void DrawCube(Vector3.ByValue position, float width, float height, float length, Color.ByValue color);             // Draw cube
+    public static native void DrawCubeV(Vector3.ByValue position, Vector3.ByValue size, Color.ByValue color);                                       // Draw cube (Vector version)
+    public static native void DrawCubeWires(Vector3.ByValue position, float width, float height, float length, Color.ByValue color);        // Draw cube wires
+    public static native void DrawCubeWiresV(Vector3.ByValue position, Vector3.ByValue size, Color.ByValue color);                                  // Draw cube wires (Vector version)
+    public static native void DrawCubeTexture(Texture2D texture, Vector3.ByValue position, float width, float height, float length, Color.ByValue color); // Draw cube textured
+    public static native void DrawSphere(Vector3.ByValue centerPos, float radius, Color.ByValue color);                                     // Draw sphere
+    public static native void DrawSphereEx(Vector3.ByValue centerPos, float radius, int rings, int slices, Color.ByValue color);            // Draw sphere with extended parameters
+    public static native void DrawSphereWires(Vector3.ByValue centerPos, float radius, int rings, int slices, Color.ByValue color);         // Draw sphere wires
+    public static native void DrawCylinder(Vector3.ByValue position, float radiusTop, float radiusBottom, float height, int slices, Color.ByValue color); // Draw a cylinder/cone
+    public static native void DrawCylinderWires(Vector3.ByValue position, float radiusTop, float radiusBottom, float height, int slices, Color.ByValue color); // Draw a cylinder/cone wires
+    public static native void DrawPlane(Vector3.ByValue centerPos, Vector2.ByValue size, Color.ByValue color);                                      // Draw a plane XZ
+    public static native void DrawRay(Ray ray, Color.ByValue color);                                                                // Draw a ray line
     public static native void DrawGrid(int slices, float spacing);                                                          // Draw a grid (centered at (0, 0, 0))
-    public static native void DrawGizmo(Vector3 position);                                                                  // Draw simple gizmo
+    public static native void DrawGizmo(Vector3.ByValue position);                                                                  // Draw simple gizmo
     //DrawTorus(), DrawTeapot() could be useful?
 
     //------------------------------------------------------------------------------------
@@ -448,8 +448,8 @@ public class Raylib {
     public static native Mesh GenMeshCylinder(float radius, float height, int slices);                                     // Generate cylinder mesh
     public static native Mesh GenMeshTorus(float radius, float size, int radSeg, int sides);                               // Generate torus mesh
     public static native Mesh GenMeshKnot(float radius, float size, int radSeg, int sides);                                // Generate trefoil knot mesh
-    public static native Mesh GenMeshHeightmap(Image heightmap, Vector3 size);                                             // Generate heightmap mesh from image data
-    public static native Mesh GenMeshCubicmap(Image cubicmap, Vector3 cubeSize);                                           // Generate cubes-based map mesh from image data
+    public static native Mesh GenMeshHeightmap(Image heightmap, Vector3.ByValue size);                                             // Generate heightmap mesh from image data
+    public static native Mesh GenMeshCubicmap(Image cubicmap, Vector3.ByValue cubeSize);                                           // Generate cubes-based map mesh from image data
 
     // Mesh manipulation functions
     public static native BoundingBox MeshBoundingBox(Mesh mesh);                                                           // Compute mesh bounding box limits
@@ -457,23 +457,23 @@ public class Raylib {
     public static native void MeshBinormals(Mesh.ByReference mesh);                                                                   // Compute mesh binormals
 
     // Model drawing functions
-    public static native void DrawModel(Model model, Vector3 position, float scale, Color tint);                           // Draw a model (with texture if set)
-    public static native void DrawModelEx(Model model, Vector3 position, Vector3 rotationAxis, float rotationAngle, Vector3 scale, Color tint); // Draw a model with extended parameters
-    public static native void DrawModelWires(Model model, Vector3 position, float scale, Color tint);                      // Draw a model wires (with texture if set)
-    public static native void DrawModelWiresEx(Model model, Vector3 position, Vector3 rotationAxis, float rotationAngle, Vector3 scale, Color tint); // Draw a model wires (with texture if set) with extended parameters
-    public static native void DrawBoundingBox(BoundingBox box, Color color);                                               // Draw bounding box (wires)
-    public static native void DrawBillboard(Camera3D camera, Texture2D texture, Vector3 center, float size, Color tint);     // Draw a billboard texture
-    public static native void DrawBillboardRec(Camera3D camera, Texture2D texture, Rectangle sourceRec, Vector3 center, float size, Color tint); // Draw a billboard texture defined by sourceRec
+    public static native void DrawModel(Model model, Vector3.ByValue position, float scale, Color.ByValue tint);                           // Draw a model (with texture if set)
+    public static native void DrawModelEx(Model model, Vector3.ByValue position, Vector3.ByValue rotationAxis, float rotationAngle, Vector3.ByValue scale, Color.ByValue tint); // Draw a model with extended parameters
+    public static native void DrawModelWires(Model model, Vector3.ByValue position, float scale, Color.ByValue tint);                      // Draw a model wires (with texture if set)
+    public static native void DrawModelWiresEx(Model model, Vector3.ByValue position, Vector3.ByValue rotationAxis, float rotationAngle, Vector3.ByValue scale, Color.ByValue tint); // Draw a model wires (with texture if set) with extended parameters
+    public static native void DrawBoundingBox(BoundingBox box, Color.ByValue color);                                               // Draw bounding box (wires)
+    public static native void DrawBillboard(Camera3D camera, Texture2D texture, Vector3.ByValue center, float size, Color.ByValue tint);     // Draw a billboard texture
+    public static native void DrawBillboardRec(Camera3D camera, Texture2D texture, Rectangle sourceRec, Vector3.ByValue center, float size, Color.ByValue tint); // Draw a billboard texture defined by sourceRec
 
     // Collision detection functions
-    public static native boolean CheckCollisionSpheres(Vector3 centerA, float radiusA, Vector3 centerB, float radiusB);       // Detect collision between two spheres
+    public static native boolean CheckCollisionSpheres(Vector3.ByValue centerA, float radiusA, Vector3.ByValue centerB, float radiusB);       // Detect collision between two spheres
     public static native boolean CheckCollisionBoxes(BoundingBox box1, BoundingBox box2);                                     // Detect collision between two bounding boxes
-    public static native boolean CheckCollisionBoxSphere(BoundingBox box, Vector3 center, float radius);                      // Detect collision between box and sphere
-    public static native boolean CheckCollisionRaySphere(Ray ray, Vector3 center, float radius);                              // Detect collision between ray and sphere
-    public static native boolean CheckCollisionRaySphereEx(Ray ray, Vector3 center, float radius, Vector3.ByReference collisionPoint);   // Detect collision between ray and sphere, returns collision point
+    public static native boolean CheckCollisionBoxSphere(BoundingBox box, Vector3.ByValue center, float radius);                      // Detect collision between box and sphere
+    public static native boolean CheckCollisionRaySphere(Ray ray, Vector3.ByValue center, float radius);                              // Detect collision between ray and sphere
+    public static native boolean CheckCollisionRaySphereEx(Ray ray, Vector3.ByValue center, float radius, Vector3.ByReference collisionPoint);   // Detect collision between ray and sphere, returns collision point
     public static native boolean CheckCollisionRayBox(Ray ray, BoundingBox box);                                              // Detect collision between ray and box
     public static native RayHitInfo GetCollisionRayModel(Ray ray, Model model);                                            // Get collision info between ray and model
-    public static native RayHitInfo GetCollisionRayTriangle(Ray ray, Vector3 p1, Vector3 p2, Vector3 p3);                  // Get collision info between ray and triangle
+    public static native RayHitInfo GetCollisionRayTriangle(Ray ray, Vector3.ByValue p1, Vector3.ByValue p2, Vector3.ByValue p3);                  // Get collision info between ray and triangle
     public static native RayHitInfo GetCollisionRayGround(Ray ray, float groundHeight);                                    // Get collision info between ray and ground plane (Y-normal plane)
 
     //------------------------------------------------------------------------------------

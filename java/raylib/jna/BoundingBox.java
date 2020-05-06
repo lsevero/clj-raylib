@@ -9,6 +9,16 @@ import clojure.lang.APersistentVector;
 
 @FieldOrder({"min","max"})
 public class BoundingBox extends Structure{
+    public static class ByValue extends BoundingBox implements Structure.ByValue{
+        public ByValue(){
+            super();
+        }
+
+        public ByValue(APersistentMap map){
+            super(map);
+        }
+    }
+
     public Vector3 min;
     public Vector3 max;
 

@@ -5,6 +5,7 @@ import com.sun.jna.Structure.FieldOrder;
 import raylib.jna.Vector3;
 import clojure.lang.APersistentMap;
 import clojure.lang.Keyword;
+import clojure.lang.APersistentVector;
 
 @FieldOrder({"position","direction"})
 public class Ray extends Structure{

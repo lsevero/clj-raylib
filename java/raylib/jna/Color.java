@@ -24,8 +24,30 @@ public class Color extends Structure{
             super(map);
         }
 
-        public ByReference(ByReference br){
-            super((Color)br);
+        public ByReference(ByValue br){
+            super(br);
+        }
+    }
+
+    public static class ByValue extends Color implements Structure.ByValue{
+        public ByValue(){
+            super();
+        }
+
+        public ByValue(byte r, byte g, byte b, byte a){
+            super();
+            this.r = r;
+            this.g = g;
+            this.b = b;
+            this.a = a;
+        }
+
+        public ByValue(APersistentMap map){
+            super(map);
+        }
+
+        public ByValue(ByReference br){
+            super(br);
         }
     }
 

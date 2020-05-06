@@ -8,6 +8,29 @@ import clojure.lang.Keyword;
 
 @FieldOrder({"sampleRate","sampleSize","channels","buffer"})
 public class AudioStream extends Structure{
+    public static class ByValue extends AudioStream implements Structure.ByValue{
+        public ByValue(){
+            super();
+        }
+
+        public ByValue(int sampleRate, int sampleSize, int channels, RAudioBuffer.ByReference buffer){
+            super();
+            this.sampleRate = sampleRate;
+            this.sampleSize = sampleSize;
+            this.channels = channels;
+            this.buffer = buffer;
+        }
+
+
+        public ByValue(APersistentMap map){
+            super(map);
+        }
+
+        public ByValue(ByValue br){
+            super((AudioStream)br);
+        }
+    }
+
     public int sampleRate;
     public int sampleSize;
     public int channels;

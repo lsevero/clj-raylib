@@ -3,7 +3,9 @@
             CharInfo Color Font Image Material MaterialMap Matrix Mesh Model
             ModelAnimation Music NPatchInfo RAudioBuffer Ray RayHitInfo
             Raylib Rectangle RenderTexture2D Shader Sound Texture2D Transform
-            Vector2 Vector3 Vector4 VrDeviceInfo Wave])
+            Vector2 Vector3 Vector4 VrDeviceInfo Wave
+            Color$ByValue
+            ])
   (:require [clojure.test :refer [is]])
   )
 
@@ -395,32 +397,32 @@
 ;end NPatchType
 
 ;begin basic colors
-(def ^:const LIGHTGRAY (Color. (Raylib/intToByte (int 200)) (Raylib/intToByte (int 200)) (Raylib/intToByte (int 200)) (Raylib/intToByte (int 255))))
-(def ^:const GRAY (Color. (Raylib/intToByte (int 130)) (Raylib/intToByte (int 130)) (Raylib/intToByte (int 130)) (Raylib/intToByte (int 255))))
-(def ^:const DARKGRAY (Color. (Raylib/intToByte (int 80)) (Raylib/intToByte (int 80)) (Raylib/intToByte (int 80)) (Raylib/intToByte (int 255))))
-(def ^:const YELLOW (Color. (Raylib/intToByte (int 253)) (Raylib/intToByte (int 249)) (Raylib/intToByte (int 0)) (Raylib/intToByte (int 255))))
-(def ^:const GOLD (Color. (Raylib/intToByte (int 255)) (Raylib/intToByte (int 203)) (Raylib/intToByte (int 0)) (Raylib/intToByte (int 255))))
-(def ^:const ORANGE (Color. (Raylib/intToByte (int 255)) (Raylib/intToByte (int 161)) (Raylib/intToByte (int 0)) (Raylib/intToByte (int 255))))
-(def ^:const PINK (Color. (Raylib/intToByte (int 255)) (Raylib/intToByte (int 109)) (Raylib/intToByte (int 194)) (Raylib/intToByte (int 255))))
-(def ^:const RED (Color. (Raylib/intToByte (int 230)) (Raylib/intToByte (int 41)) (Raylib/intToByte (int 55)) (Raylib/intToByte (int 255))))
-(def ^:const MAROON (Color. (Raylib/intToByte (int 190)) (Raylib/intToByte (int 33)) (Raylib/intToByte (int 55)) (Raylib/intToByte (int 255))))
-(def ^:const GREEN (Color. (Raylib/intToByte (int 0)) (Raylib/intToByte (int 228)) (Raylib/intToByte (int 48)) (Raylib/intToByte (int 255))))
-(def ^:const LIME (Color. (Raylib/intToByte (int 0)) (Raylib/intToByte (int 158)) (Raylib/intToByte (int 47)) (Raylib/intToByte (int 255))))
-(def ^:const DARKGREEN (Color. (Raylib/intToByte (int 0)) (Raylib/intToByte (int 117)) (Raylib/intToByte (int 44)) (Raylib/intToByte (int 255))))
-(def ^:const SKYBLUE (Color. (Raylib/intToByte (int 102)) (Raylib/intToByte (int 191)) (Raylib/intToByte (int 255)) (Raylib/intToByte (int 255))))
-(def ^:const BLUE (Color. (Raylib/intToByte (int 0)) (Raylib/intToByte (int 121)) (Raylib/intToByte (int 241)) (Raylib/intToByte (int 255))))
-(def ^:const DARKBLUE (Color. (Raylib/intToByte (int 0)) (Raylib/intToByte (int 82)) (Raylib/intToByte (int 172)) (Raylib/intToByte (int 255))))
-(def ^:const PURPLE (Color. (Raylib/intToByte (int 200)) (Raylib/intToByte (int 122)) (Raylib/intToByte (int 255)) (Raylib/intToByte (int 255))))
-(def ^:const VIOLET (Color. (Raylib/intToByte (int 135)) (Raylib/intToByte (int 60)) (Raylib/intToByte (int 190)) (Raylib/intToByte (int 255))))
-(def ^:const DARKPURPLE (Color. (Raylib/intToByte (int 112)) (Raylib/intToByte (int 31)) (Raylib/intToByte (int 126)) (Raylib/intToByte (int 255))))
-(def ^:const BEIGE (Color. (Raylib/intToByte (int 211)) (Raylib/intToByte (int 176)) (Raylib/intToByte (int 131)) (Raylib/intToByte (int 255))))
-(def ^:const BROWN (Color. (Raylib/intToByte (int 127)) (Raylib/intToByte (int 106)) (Raylib/intToByte (int 79)) (Raylib/intToByte (int 255))))
-(def ^:const DARKBROWN (Color. (Raylib/intToByte (int 76)) (Raylib/intToByte (int 63)) (Raylib/intToByte (int 47)) (Raylib/intToByte (int 255))))
-(def ^:const WHITE (Color. (Raylib/intToByte (int 255)) (Raylib/intToByte (int 255)) (Raylib/intToByte (int 255)) (Raylib/intToByte (int 255))))
-(def ^:const BLACK (Color. (Raylib/intToByte (int 0)) (Raylib/intToByte (int 0)) (Raylib/intToByte (int 0)) (Raylib/intToByte (int 255))))
-(def ^:const BLANK (Color. (Raylib/intToByte (int 0)) (Raylib/intToByte (int 0)) (Raylib/intToByte (int 0)) (Raylib/intToByte (int 0))))
-(def ^:const MAGENTA (Color. (Raylib/intToByte (int 255)) (Raylib/intToByte (int 0)) (Raylib/intToByte (int 255)) (Raylib/intToByte (int 255))))
-(def ^:const RAYWHITE (Color. (Raylib/intToByte (int 245)) (Raylib/intToByte (int 245)) (Raylib/intToByte (int 245)) (Raylib/intToByte (int 255))))
+(def LIGHTGRAY (Color$ByValue. (Raylib/intToByte (int 200)) (Raylib/intToByte (int 200)) (Raylib/intToByte (int 200)) (Raylib/intToByte (int 255))))
+(def GRAY (Color$ByValue. (Raylib/intToByte (int 130)) (Raylib/intToByte (int 130)) (Raylib/intToByte (int 130)) (Raylib/intToByte (int 255))))
+(def DARKGRAY (Color$ByValue. (Raylib/intToByte (int 80)) (Raylib/intToByte (int 80)) (Raylib/intToByte (int 80)) (Raylib/intToByte (int 255))))
+(def YELLOW (Color$ByValue. (Raylib/intToByte (int 253)) (Raylib/intToByte (int 249)) (Raylib/intToByte (int 0)) (Raylib/intToByte (int 255))))
+(def GOLD (Color$ByValue. (Raylib/intToByte (int 255)) (Raylib/intToByte (int 203)) (Raylib/intToByte (int 0)) (Raylib/intToByte (int 255))))
+(def ORANGE (Color$ByValue. (Raylib/intToByte (int 255)) (Raylib/intToByte (int 161)) (Raylib/intToByte (int 0)) (Raylib/intToByte (int 255))))
+(def PINK (Color$ByValue. (Raylib/intToByte (int 255)) (Raylib/intToByte (int 109)) (Raylib/intToByte (int 194)) (Raylib/intToByte (int 255))))
+(def RED (Color$ByValue. (Raylib/intToByte (int 230)) (Raylib/intToByte (int 41)) (Raylib/intToByte (int 55)) (Raylib/intToByte (int 255))))
+(def MAROON (Color$ByValue. (Raylib/intToByte (int 190)) (Raylib/intToByte (int 33)) (Raylib/intToByte (int 55)) (Raylib/intToByte (int 255))))
+(def GREEN (Color$ByValue. (Raylib/intToByte (int 0)) (Raylib/intToByte (int 228)) (Raylib/intToByte (int 48)) (Raylib/intToByte (int 255))))
+(def LIME (Color$ByValue. (Raylib/intToByte (int 0)) (Raylib/intToByte (int 158)) (Raylib/intToByte (int 47)) (Raylib/intToByte (int 255))))
+(def DARKGREEN (Color$ByValue. (Raylib/intToByte (int 0)) (Raylib/intToByte (int 117)) (Raylib/intToByte (int 44)) (Raylib/intToByte (int 255))))
+(def SKYBLUE (Color$ByValue. (Raylib/intToByte (int 102)) (Raylib/intToByte (int 191)) (Raylib/intToByte (int 255)) (Raylib/intToByte (int 255))))
+(def BLUE (Color$ByValue. (Raylib/intToByte (int 0)) (Raylib/intToByte (int 121)) (Raylib/intToByte (int 241)) (Raylib/intToByte (int 255))))
+(def DARKBLUE (Color$ByValue. (Raylib/intToByte (int 0)) (Raylib/intToByte (int 82)) (Raylib/intToByte (int 172)) (Raylib/intToByte (int 255))))
+(def PURPLE (Color$ByValue. (Raylib/intToByte (int 200)) (Raylib/intToByte (int 122)) (Raylib/intToByte (int 255)) (Raylib/intToByte (int 255))))
+(def VIOLET (Color$ByValue. (Raylib/intToByte (int 135)) (Raylib/intToByte (int 60)) (Raylib/intToByte (int 190)) (Raylib/intToByte (int 255))))
+(def DARKPURPLE (Color$ByValue. (Raylib/intToByte (int 112)) (Raylib/intToByte (int 31)) (Raylib/intToByte (int 126)) (Raylib/intToByte (int 255))))
+(def BEIGE (Color$ByValue. (Raylib/intToByte (int 211)) (Raylib/intToByte (int 176)) (Raylib/intToByte (int 131)) (Raylib/intToByte (int 255))))
+(def BROWN (Color$ByValue. (Raylib/intToByte (int 127)) (Raylib/intToByte (int 106)) (Raylib/intToByte (int 79)) (Raylib/intToByte (int 255))))
+(def DARKBROWN (Color$ByValue. (Raylib/intToByte (int 76)) (Raylib/intToByte (int 63)) (Raylib/intToByte (int 47)) (Raylib/intToByte (int 255))))
+(def WHITE (Color$ByValue. (Raylib/intToByte (int 255)) (Raylib/intToByte (int 255)) (Raylib/intToByte (int 255)) (Raylib/intToByte (int 255))))
+(def BLACK (Color$ByValue. (Raylib/intToByte (int 0)) (Raylib/intToByte (int 0)) (Raylib/intToByte (int 0)) (Raylib/intToByte (int 255))))
+(def BLANK (Color$ByValue. (Raylib/intToByte (int 0)) (Raylib/intToByte (int 0)) (Raylib/intToByte (int 0)) (Raylib/intToByte (int 0))))
+(def MAGENTA (Color$ByValue. (Raylib/intToByte (int 255)) (Raylib/intToByte (int 0)) (Raylib/intToByte (int 255)) (Raylib/intToByte (int 255))))
+(def RAYWHITE (Color$ByValue. (Raylib/intToByte (int 245)) (Raylib/intToByte (int 245)) (Raylib/intToByte (int 245)) (Raylib/intToByte (int 255))))
 ;end basic colors
 
 (defn init-window
