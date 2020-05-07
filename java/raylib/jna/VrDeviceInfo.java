@@ -6,7 +6,7 @@ import clojure.lang.APersistentMap;
 import clojure.lang.Keyword;
 
 @FieldOrder({"hResolution","vResolution","hScreenSize","vScreenSize","vScreenCenter","eyeToScreenDistance","lensSeparationDistance",
-             "interpupillaryDistance","lenDistortionValues","chromaAbCorrection"})
+             "interpupillaryDistance","lensDistortionValues","chromaAbCorrection"})
 public class VrDeviceInfo extends Structure{
     public static class ByValue extends VrDeviceInfo implements Structure.ByValue{
 

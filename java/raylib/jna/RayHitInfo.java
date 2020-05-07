@@ -9,6 +9,20 @@ import clojure.lang.APersistentVector;
 
 @FieldOrder({"hit","distance","position","normal"})
 public class RayHitInfo extends Structure{
+    public static class ByValue extends RayHitInfo implements Structure.ByValue{
+        public ByValue(){
+            super();
+        }
+
+        public ByValue(APersistentMap map){
+            super(map);
+        }
+
+        public ByValue(boolean hit, float distance, Vector3 position, Vector3 normal){
+            super(hit,distance,position,normal);
+        }
+
+    }
     public boolean hit;
     public float distance;
     public Vector3 position;

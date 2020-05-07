@@ -347,7 +347,7 @@ public class Raylib {
     public static native Font.ByValue LoadFontEx(String fileName, int fontSize, IntByReference fontChars, int charsCount);  // Load font from file with extended parameters
     public static native Font.ByValue LoadFontFromImage(Image.ByValue image, Color.ByValue key, int firstChar);                        // Load font from Image.ByValue (XNA style)
     public static native CharInfo.ByReference LoadFontData(String fileName, int fontSize, IntByReference fontChars, int charsCount, int type); // Load font data for further use
-    public static native Image.ByValue GenImageFontAtlas(CharInfo.ByReference chars, Rectangle.ByReference[] recs, int charsCount, int fontSize, int padding, int packMethod);  // Generate image font atlas using chars info
+    //public static native Image.ByValue GenImageFontAtlas(CharInfo.ByReference chars, Rectangle.ByReference[] recs, int charsCount, int fontSize, int padding, int packMethod);  // Generate image font atlas using chars info
     public static native void UnloadFont(Font.ByValue font);                                                           // Unload Font.ByValue from GPU memory (VRAM)
 
     // Text drawing functions

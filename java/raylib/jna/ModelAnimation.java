@@ -44,9 +44,11 @@ public class ModelAnimation extends Structure{
     public int boneCount;
     public BoneInfo.ByReference bones;
     public int frameCount;
-    public Transform.ByReference[] framePoses;
+    public Transform.ByReference framePoses;
+    //public Transform.ByReference[] framePoses;
 
-    public ModelAnimation(int boneCount, BoneInfo.ByReference bones, int frameCount, Transform.ByReference[] framePoses){
+    public ModelAnimation(int boneCount, BoneInfo.ByReference bones, int frameCount, Transform.ByReference framePoses){
+    //public ModelAnimation(int boneCount, BoneInfo.ByReference bones, int frameCount, Transform.ByReference[] framePoses){
         super();
         this.boneCount = boneCount;
         this.bones = bones;
@@ -90,7 +92,8 @@ public class ModelAnimation extends Structure{
         Object framePoses = map.get(Keyword.intern("framePoses"));
         if(framePoses == null)
             throw new IllegalArgumentException("Map needs key :framePoses");
-        this.framePoses = (Transform.ByReference[])framePoses;
+        this.framePoses = (Transform.ByReference)framePoses;
+        //this.framePoses = (Transform.ByReference[])framePoses;
     }
 
     public ModelAnimation(){
