@@ -3,35 +3,20 @@
   (:import [raylib.jna Vector2$ByReference Vector2$ByValue Raylib])
   (:gen-class))
 
-;(defmethod print-method Vector2 [^Vector2 o ^java.io.Writer w]
-  ;(.write w (str "#vector2[" (.-x o) (.-y o) "]")))
-;(defmethod print-dup Vector2 [^Vector2 o ^java.io.Writer w]
-  ;(print-method o w))
-
 (defn -main
   [& _]
   (let [width 800
         height 450]
-    (init-window width height "testeeee")
-    (Raylib/SetTargetFPS 60)
+    (init-window! width height "testeeee")
+    (set-target-fps! 60)
     (loop [state {:ball [(/ width 2) (/ height 2)]}]
-      (if (Raylib/WindowShouldClose)
-        nil
-        (do
-          (Raylib/BeginDrawing)
-
-          (Raylib/ClearBackground RAYWHITE)
-          (Raylib/DrawText "move the ball with arrow keys" (long 10) (long 10) (long 20) DARKGRAY) 
-          (Raylib/DrawCircle (long 400) (long 300) (double 50) PURPLE) 
-          (Raylib/DrawCircleV (-> state ^clojure.lang.APersistentVector (:ball) Vector2$ByValue.) (double 50) BLUE) 
-          (Raylib/DrawRectangle (long 800) (long 400) (long 80) (long 80) RED)
-
-          (Raylib/EndDrawing)
-          (recur state))
-        )
-      )
-    )
-  )
-
-(comment (-main))
-(comment (str (Vector2. 0 0)))
+      (when-not (Raylib/WindowShouldClose)
+        (with-drawing
+          (clear-background! RAYWHITE)
+          (draw-text! "move the ball with arrow keys" 10 10 20 DARKGRAY) 
+          (draw-circle! (:ball state) 50 MAROON))
+        (recur (-> state
+                   (#(if (is-key-down? KEY-RIGHT) (update-in % [:ball 0] inc) %))
+                   (#(if (is-key-down? KEY-LEFT) (update-in % [:ball 0] dec) %))
+                   (#(if (is-key-down? KEY-UP) (update-in % [:ball 1] dec) %))
+                   (#(if (is-key-down? KEY-DOWN) (update-in % [:ball 1] inc) %))))))))

@@ -4,8 +4,13 @@
             ModelAnimation Music NPatchInfo RAudioBuffer Ray RayHitInfo
             Raylib Rectangle RenderTexture2D Shader Sound Texture2D Transform
             Vector2 Vector3 Vector4 VrDeviceInfo Wave
-            Color$ByValue
-            ])
+            AudioStream$ByValue BoneInfo$ByValue BoundingBox$ByValue Camera2D$ByValue Camera3D$ByValue
+            CharInfo$ByValue Color$ByValue Font$ByValue Image$ByValue Material$ByValue MaterialMap$ByValue Matrix$ByValue Mesh$ByValue Model$ByValue
+            ModelAnimation$ByValue Music$ByValue NPatchInfo$ByValue RAudioBuffer$ByValue Ray$ByValue RayHitInfo$ByValue
+            Rectangle$ByValue RenderTexture2D$ByValue Shader$ByValue Sound$ByValue Texture2D$ByValue Transform$ByValue
+            Vector2$ByValue Vector3$ByValue Vector4$ByValue VrDeviceInfo$ByValue Wave$ByValue]
+           [clojure.lang APersistentMap]
+           )
   (:require [clojure.test :refer [is]])
   )
 
@@ -425,7 +430,41 @@
 (def RAYWHITE (Color$ByValue. (int 245) (int 245) (int 245) (int 255)))
 ;end basic colors
 
-(defn init-window
+(defmacro with-drawing
+  [& body]
+  `(do
+     (Raylib/BeginDrawing)
+     ~@body
+     (Raylib/EndDrawing)))
+
+(defn init-window!
   [width height title]
-  {:pre [(is (number? width)) (is (number? height)) (is (string? title))]}
   (Raylib/InitWindow (int width) (int height) title))
+
+(defn close-window!
+  []
+  (Raylib/CloseWindow))
+
+(defn set-target-fps!
+  [fps]
+  (Raylib/SetTargetFPS (int fps)))
+
+(defn clear-background!
+  [color]
+  (Raylib/ClearBackground (Color$ByValue. color)))
+
+(defn draw-text!
+  [^String text posx posy size color]
+  (Raylib/DrawText text  posx  posy  size color))
+
+(defn draw-circle!
+  ([v2 size color]
+   (Raylib/DrawCircleV (Vector2$ByValue. v2) size color))
+  ([posx posy size color]
+   (Raylib/DrawCircle posx posy size color)))
+
+(defn is-key-down?
+  [k]
+  (Raylib/IsKeyDown k))
+
+

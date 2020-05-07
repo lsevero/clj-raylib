@@ -27,6 +27,10 @@ public class Color extends Structure{
         public ByReference(int r, int g, int b, int a){
             super(r,g,b,a);
         }
+
+        public ByReference(Object obj){
+            super(obj);
+        }
     }
 
     public static class ByValue extends Color implements Structure.ByValue{
@@ -48,6 +52,10 @@ public class Color extends Structure{
 
         public ByValue(int r, int g, int b, int a){
             super(r,g,b,a);
+        }
+
+        public ByValue(Object obj){
+            super(obj);
         }
     }
 
@@ -98,6 +106,37 @@ public class Color extends Structure{
         if(a == null)
             throw new IllegalArgumentException("Map needs key :a");
         this.a = a.byteValue();
+    }
+
+    public Color(Object obj) throws IllegalArgumentException{
+        super();
+        if(obj instanceof Color){
+            Color c = (Color)obj;
+            this.r = c.r;
+            this.g = c.g;
+            this.b = c.b;
+            this.a = c.a;
+        }else if(obj instanceof APersistentMap){
+            APersistentMap map = (APersistentMap)obj;
+            Number r = (Number)map.get(Keyword.intern("r"));
+            if(r == null)
+                throw new IllegalArgumentException("Map needs key :r");
+            this.r = r.byteValue();
+            Number g = (Number)map.get(Keyword.intern("g"));
+            if(g == null)
+                throw new IllegalArgumentException("Map needs key :g");
+            this.g = g.byteValue();
+            Number b = (Number)map.get(Keyword.intern("b"));
+            if(b == null)
+                throw new IllegalArgumentException("Map needs key :b");
+            this.b = b.byteValue();
+            Number a = (Number)map.get(Keyword.intern("a"));
+            if(a == null)
+                throw new IllegalArgumentException("Map needs key :a");
+            this.a = a.byteValue();
+        }else{
+            throw new IllegalArgumentException("obj of unsupported type");
+        }
     }
 
     public Color(){

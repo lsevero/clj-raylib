@@ -24,6 +24,10 @@ public class Vector3 extends Structure{
         public ByReference(APersistentMap map){
             super(map);
         }
+
+        public ByReference(Object obj){
+            super(obj);
+        }
     }
 
     public static class ByValue extends Vector3 implements Structure.ByValue{
@@ -41,6 +45,10 @@ public class Vector3 extends Structure{
 
         public ByValue(APersistentMap map){
             super(map);
+        }
+
+        public ByValue(Object obj){
+            super(obj);
         }
     }
 
@@ -63,12 +71,12 @@ public class Vector3 extends Structure{
     }
 
     public Vector3(APersistentVector vec) throws IllegalArgumentException{
-       super();
-       if(vec.count() != 3)
-         throw new IllegalArgumentException("PersistentVector needs to be of size 3");
-       this.x = ((Number)vec.nth(0)).floatValue();
-       this.y = ((Number)vec.nth(1)).floatValue();
-       this.z = ((Number)vec.nth(2)).floatValue();
+        super();
+        if(vec.count() != 3)
+            throw new IllegalArgumentException("PersistentVector needs to be of size 3");
+        this.x = ((Number)vec.nth(0)).floatValue();
+        this.y = ((Number)vec.nth(1)).floatValue();
+        this.z = ((Number)vec.nth(2)).floatValue();
     }
 
     public Vector3(APersistentMap map) throws IllegalArgumentException{
@@ -85,6 +93,39 @@ public class Vector3 extends Structure{
         if(z == null)
             throw new IllegalArgumentException("Map needs key :z");
         this.z = z.floatValue();
+    }
+
+    public Vector3(Object obj){
+        super();
+        if(obj instanceof Vector3){
+            Vector3 v = (Vector3)obj;    
+            this.x = v.x;
+            this.y = v.y;
+            this.z = v.z;
+        }else if(obj instanceof APersistentVector){
+            APersistentVector vec = (APersistentVector)obj;
+            if(vec.count() != 3)
+                throw new IllegalArgumentException("PersistentVector needs to be of size 3");
+            this.x = ((Number)vec.nth(0)).floatValue();
+            this.y = ((Number)vec.nth(1)).floatValue();
+            this.z = ((Number)vec.nth(2)).floatValue();
+        }else if(obj instanceof APersistentMap){
+            APersistentMap map = (APersistentMap)obj; 
+            Number x = (Number)map.get(Keyword.intern("x"));
+            if(x == null)
+                throw new IllegalArgumentException("Map needs key :x");
+            this.x = x.floatValue();
+            Number y = (Number)map.get(Keyword.intern("y"));
+            if(y == null)
+                throw new IllegalArgumentException("Map needs key :y");
+            this.y = y.floatValue();
+            Number z = (Number)map.get(Keyword.intern("z"));
+            if(z == null)
+                throw new IllegalArgumentException("Map needs key :z");
+            this.z = z.floatValue();
+        }else{
+            throw new IllegalArgumentException("obj of unsupported type");
+        }
     }
 
     public Vector3(){

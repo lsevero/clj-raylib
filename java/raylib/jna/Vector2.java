@@ -24,6 +24,10 @@ public class Vector2 extends Structure{
         public ByReference(APersistentMap map){
             super(map);
         }
+
+        public ByReference(Object obj){
+            super(obj);
+        }
     }
 
     public static class ByValue extends Vector2 implements Structure.ByValue{
@@ -41,6 +45,10 @@ public class Vector2 extends Structure{
 
         public ByValue(APersistentMap map){
             super(map);
+        }
+
+        public ByValue(Object obj){
+            super(obj);
         }
     }
 
@@ -60,11 +68,11 @@ public class Vector2 extends Structure{
     }
 
     public Vector2(APersistentVector vec) throws IllegalArgumentException{
-       super();
-       if(vec.count() != 2)
-         throw new IllegalArgumentException("Vector needs to be of size 2");
-       this.x = ((Number)vec.get(0)).floatValue();
-       this.y = ((Number)vec.get(1)).floatValue();
+        super();
+        if(vec.count() != 2)
+            throw new IllegalArgumentException("Vector needs to be of size 2");
+        this.x = ((Number)vec.get(0)).floatValue();
+        this.y = ((Number)vec.get(1)).floatValue();
     }
 
     public Vector2(APersistentMap map) throws IllegalArgumentException{
@@ -77,6 +85,34 @@ public class Vector2 extends Structure{
         if(y == null)
             throw new IllegalArgumentException("Map needs key :y");
         this.y = y.floatValue();
+    }
+
+    public Vector2(Object obj) throws IllegalArgumentException{
+        super();
+        if(obj instanceof Vector2){
+            Vector2 v = (Vector2)obj;
+            this.x = v.x;
+            this.y = v.y;
+        }else if(obj instanceof APersistentVector){
+            APersistentVector vec = (APersistentVector)obj;
+            if(vec.count() != 2)
+                throw new IllegalArgumentException("Vector needs to be of size 2");
+            this.x = ((Number)vec.get(0)).floatValue();
+            this.y = ((Number)vec.get(1)).floatValue();
+        }else if(obj instanceof APersistentMap){
+            APersistentMap map = (APersistentMap)obj;
+            Number x = (Number)map.get(Keyword.intern("x"));
+            if(x == null)
+                throw new IllegalArgumentException("Map needs key :x");
+            this.x = x.floatValue();
+            Number y = (Number)map.get(Keyword.intern("y"));
+            if(y == null)
+                throw new IllegalArgumentException("Map needs key :y");
+            this.y = y.floatValue();
+        }else{
+            throw new IllegalArgumentException("obj of unsupported type");
+        }
+
     }
 
     public Vector2(){
