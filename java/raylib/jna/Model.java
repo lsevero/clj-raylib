@@ -25,6 +25,22 @@ public class Model extends Structure{
         public ByReference(ByReference br){
             super((Model)br);
         }
+        public ByReference(ByValue br){
+            super((Model)br);
+        }
+    }
+    public static class ByValue extends Model implements Structure.ByValue{
+        public ByValue(){
+            super();
+        }
+
+        public ByValue(APersistentMap map){
+            super(map);
+        }
+
+        public ByValue(ByReference br){
+            super((Model)br);
+        }
     }
 
     public Matrix transform;

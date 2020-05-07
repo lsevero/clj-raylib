@@ -25,6 +25,28 @@ public class MaterialMap extends Structure{
         public ByReference(ByReference br){
             super((MaterialMap)br);
         }
+
+        public ByReference(ByValue br){
+            super((MaterialMap)br);
+        }
+    }
+
+    public static class ByValue extends MaterialMap implements Structure.ByValue {
+        public ByValue(Texture2D texture, Color color, float value){
+            super(texture, color, value);
+        }
+
+        public ByValue(){
+            super();
+        }
+
+        public ByValue(APersistentMap map){
+            super(map);
+        }
+
+        public ByValue(ByReference br){
+            super((MaterialMap)br);
+        }
     }
 
     public Texture2D texture;

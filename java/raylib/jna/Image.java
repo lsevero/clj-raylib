@@ -21,7 +21,25 @@ public class Image extends Structure{
             super(map);
         }
 
-        public ByReference(ByReference br){
+        public ByReference(ByValue br){
+            super((Image)br);
+        }
+    }
+
+    public static class ByValue extends Image implements Structure.ByValue{
+        public ByValue(Pointer data, int width, int height, int mipmaps, int format){
+            super(data, width, height, mipmaps, format);
+        }
+
+        public ByValue(){
+            super();
+        }
+
+        public ByValue(APersistentMap map){
+            super(map);
+        }
+
+        public ByValue(ByReference br){
             super((Image)br);
         }
     }

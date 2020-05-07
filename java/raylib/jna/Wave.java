@@ -20,7 +20,25 @@ public class Wave extends Structure{
         public ByReference(ByReference br){
             super((Wave)br);
         }
+        public ByReference(ByValue br){
+            super((Wave)br);
+        }
     }
+
+    public static class ByValue extends Wave implements Structure.ByValue{
+        public ByValue(){
+            super();
+        }
+
+        public ByValue(APersistentMap map){
+            super(map);
+        }
+
+        public ByValue(ByReference br){
+            super((Wave)br);
+        }
+    }
+
 
     public int sampleCount;
     public int sampleRate;

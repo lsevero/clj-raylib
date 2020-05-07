@@ -22,11 +22,32 @@ public class Transform extends Structure{
         public ByReference(ByReference br){
             super((Transform)br);
         }
+        public ByReference(ByValue br){
+            super((Transform)br);
+        }
 
         public ByReference(APersistentMap map){
             super(map);
         }
     }
+    public static class ByValue extends Transform implements Structure.ByValue{
+        public ByValue(Vector3 translation, Vector4 rotation, Vector3 scale){
+            super(translation, rotation, scale);
+        }
+
+        public ByValue(){
+            super();
+        }
+
+        public ByValue(ByReference br){
+            super((Transform)br);
+        }
+
+        public ByValue(APersistentMap map){
+            super(map);
+        }
+    }
+
 
     public Vector3 translation;
     public Vector4 rotation;

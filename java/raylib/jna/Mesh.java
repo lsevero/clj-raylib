@@ -32,7 +32,33 @@ public class Mesh extends Structure{
         public ByReference(ByReference br){
             super((Mesh)br);
         }
+        public ByReference(ByValue br){
+            super((Mesh)br);
+        }
     }
+
+    public static class ByValue extends Mesh implements Structure.ByValue{
+        public ByValue(int vertexCount, int triangleCount, FloatByReference vertices, FloatByReference texcoords, FloatByReference texcoords2,
+                FloatByReference normals, FloatByReference tangents, ByteByReference colors, ShortByReference indices,
+                FloatByReference animVertices, FloatByReference animNormals, IntByReference boneIds, FloatByReference boneWeights,
+                int vaoId, IntByReference vboId){
+            super(vertexCount,triangleCount,vertices,texcoords,texcoords2,normals,tangents,colors,indices,
+                  animVertices,animNormals,boneIds,boneWeights,vaoId,vboId);
+        }
+
+        public ByValue(){
+            super();
+        }
+
+        public ByValue(APersistentMap map){
+            super(map);
+        }
+
+        public ByValue(ByReference br){
+            super((Mesh)br);
+        }
+    }
+
 
     public int vertexCount;
     public int triangleCount;

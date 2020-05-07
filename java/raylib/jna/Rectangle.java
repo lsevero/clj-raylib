@@ -20,10 +20,32 @@ public class Rectangle extends Structure{
             super((Rectangle)r);
         }
 
+        public ByReference(ByValue r){
+            super((Rectangle)r);
+        }
+
         public ByReference(APersistentMap map){
             super(map);
         }
     }
+    public static class ByValue extends Rectangle implements Structure.ByValue {
+        public ByValue(float x, float y, float width, float height){
+            super(x,y,width,height);
+        }
+
+        public ByValue(){
+            super();
+        }
+
+        public ByValue(ByReference r){
+            super((Rectangle)r);
+        }
+
+        public ByValue(APersistentMap map){
+            super(map);
+        }
+    }
+
 
     public float x;
     public float y;

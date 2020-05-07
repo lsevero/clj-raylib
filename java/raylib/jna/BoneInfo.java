@@ -23,6 +23,9 @@ public class BoneInfo extends Structure{
         public ByReference(ByValue boneinfo){
             super(boneinfo);
         }
+        public ByReference(ByReference boneinfo){
+            super(boneinfo);
+        }
     }
     public static class ByValue extends BoneInfo implements Structure.ByValue{
         public ByValue(byte[] name, int parent){

@@ -7,6 +7,19 @@ import clojure.lang.Keyword;
 
 @FieldOrder({"id","width","height","mipmaps","format"})
 public class Texture2D extends Structure{
+    public static class ByValue extends Texture2D implements Structure.ByValue {
+        public ByValue(){
+            super();
+        }
+
+        public ByValue(APersistentMap map){
+            super(map);
+        }
+
+        public ByValue(int id, int width, int height, int mipmaps, int format){
+            super(id, width, height, mipmaps, format);
+        }
+    }
     public int id;
     public int width;
     public int height;

@@ -9,6 +9,19 @@ import clojure.lang.APersistentVector;
 
 @FieldOrder({"position","direction"})
 public class Ray extends Structure{
+    public static class ByValue extends Ray implements Structure.ByValue{
+        public ByValue(){
+            super();
+        }
+
+        public ByValue(APersistentMap map){
+            super(map);
+        }
+        
+        public ByValue(Vector3 position, Vector3 direction){
+            super(position, direction);
+        }
+    }
     public Vector3 position;
     public Vector3 direction;
 

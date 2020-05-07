@@ -21,7 +21,25 @@ public class ModelAnimation extends Structure{
         public ByReference(ByReference br){
             super((ModelAnimation)br);
         }
+
+        public ByReference(ByValue br){
+            super((ModelAnimation)br);
+        }
     }
+    public static class ByValue extends ModelAnimation implements Structure.ByValue{
+        public ByValue(){
+            super();
+        }
+
+        public ByValue(APersistentMap map){
+            super(map);
+        }
+
+        public ByValue(ByReference br){
+            super((ModelAnimation)br);
+        }
+    }
+
 
     public int boneCount;
     public BoneInfo.ByReference bones;

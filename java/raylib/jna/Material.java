@@ -23,7 +23,29 @@ public class Material extends Structure{
             super(map);
         }
 
+        public ByReference(ByValue br){
+            super((Material)br);
+        }
+
         public ByReference(ByReference br){
+            super((Material)br);
+        }
+    }
+
+    public static class ByValue extends Material implements Structure.ByValue{
+        public ByValue(Texture2D shader, MaterialMap.ByReference maps, FloatByReference value){
+            super(shader, maps, value);
+        }
+
+        public ByValue(){
+            super();
+        }
+
+        public ByValue(APersistentMap map){
+            super(map);
+        }
+
+        public ByValue(ByReference br){
             super((Material)br);
         }
     }

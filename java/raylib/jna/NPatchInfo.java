@@ -8,6 +8,20 @@ import clojure.lang.Keyword;
 
 @FieldOrder({"sourceRec","left","top","right","bottom","type"})
 public class NPatchInfo extends Structure{
+    public static class ByValue extends NPatchInfo implements Structure.ByValue{
+        public ByValue(){
+            super();
+        }
+
+        public ByValue(APersistentMap map){
+            super(map);
+        }
+        
+        public ByValue(Rectangle sourceRec, int left, int top, int right, int bottom, int type){
+            super(sourceRec, left, top, right, bottom, type);
+        }
+    }
+
     public Rectangle sourceRec;
     public int left;
     public int top;

@@ -24,6 +24,10 @@ public class CharInfo extends Structure{
         public ByReference(ByValue ci){
             super((CharInfo)ci);
         }
+
+        public ByReference(ByReference ci){
+            super((CharInfo)ci);
+        }
     }
 
     public static class ByValue extends CharInfo implements Structure.ByValue {

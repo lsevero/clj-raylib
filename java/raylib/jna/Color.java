@@ -13,11 +13,7 @@ public class Color extends Structure{
         }
 
         public ByReference(byte r, byte g, byte b, byte a){
-            super();
-            this.r = r;
-            this.g = g;
-            this.b = b;
-            this.a = a;
+            super(r,g,b,a);
         }
 
         public ByReference(APersistentMap map){
@@ -27,6 +23,10 @@ public class Color extends Structure{
         public ByReference(ByValue br){
             super(br);
         }
+
+        public ByReference(int r, int g, int b, int a){
+            super(r,g,b,a);
+        }
     }
 
     public static class ByValue extends Color implements Structure.ByValue{
@@ -35,11 +35,7 @@ public class Color extends Structure{
         }
 
         public ByValue(byte r, byte g, byte b, byte a){
-            super();
-            this.r = r;
-            this.g = g;
-            this.b = b;
-            this.a = a;
+            super(r,g,b,a);
         }
 
         public ByValue(APersistentMap map){
@@ -48,6 +44,10 @@ public class Color extends Structure{
 
         public ByValue(ByReference br){
             super(br);
+        }
+
+        public ByValue(int r, int g, int b, int a){
+            super(r,g,b,a);
         }
     }
 
@@ -62,6 +62,14 @@ public class Color extends Structure{
         this.g = g;
         this.b = b;
         this.a = a;
+    }
+
+    public Color(int r, int g, int b, int a){
+        super();
+        this.r = intToByte(r);
+        this.g = intToByte(g);
+        this.b = intToByte(b);
+        this.a = intToByte(a);
     }
 
     public Color(Color c){
@@ -94,5 +102,11 @@ public class Color extends Structure{
 
     public Color(){
         super();
+    }
+
+    public static byte intToByte(final int data) throws IllegalArgumentException{
+        if(data > 255 || data < 0)
+            throw new IllegalArgumentException("Data argument must be between 0 and 255");
+        return (byte)((data >> 0) & 0xff);
     }
 }

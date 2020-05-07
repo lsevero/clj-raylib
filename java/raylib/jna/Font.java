@@ -10,6 +10,21 @@ import clojure.lang.Keyword;
 
 @FieldOrder({"baseSize","charsCount","texture","recs","chars"})
 public class Font extends Structure{
+    public static class ByValue extends Font implements Structure.ByValue{
+        public ByValue(){
+            super();
+        }
+
+        public ByValue(APersistentMap map){
+            super(map);
+        }
+
+        public ByValue(int baseSize, int charsCount, Texture2D texture, Rectangle.ByReference recs, CharInfo.ByReference chars){
+            super(baseSize, charsCount, texture, recs, chars);
+        }
+    }
+
+
     public int baseSize;
     public int charsCount;
     public Texture2D texture;

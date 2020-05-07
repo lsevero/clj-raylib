@@ -9,6 +9,20 @@ import clojure.lang.Keyword;
 
 @FieldOrder({"ctxType","ctxData","sampleCount","loopCount","stream"})
 public class Music extends Structure{
+    public static class ByValue extends Music implements Structure.ByValue{
+        public ByValue(){
+            super();
+        }
+
+        public ByValue(APersistentMap map){
+            super(map);
+        }
+        
+        public ByValue(int ctxType, Pointer ctxData, int sampleCount, int loopCount, AudioStream stream){
+            super(ctxType,ctxData,sampleCount,loopCount,stream);
+        }
+    }
+
     public int ctxType;
     public Pointer ctxData;
     public int sampleCount;
