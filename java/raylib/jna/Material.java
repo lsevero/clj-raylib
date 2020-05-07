@@ -30,6 +30,9 @@ public class Material extends Structure{
         public ByReference(ByReference br){
             super((Material)br);
         }
+        public ByReference(Object obj){
+            super(obj);
+        }
     }
 
     public static class ByValue extends Material implements Structure.ByValue{
@@ -47,6 +50,9 @@ public class Material extends Structure{
 
         public ByValue(ByReference br){
             super((Material)br);
+        }
+        public ByValue(Object obj){
+            super(obj);
         }
     }
 
@@ -93,6 +99,44 @@ public class Material extends Structure{
         }
         else{
             throw new IllegalArgumentException(":maps is of unsupported type");
+        }
+    }
+
+    public Material(Object obj){
+        super();
+        if(obj instanceof Material){
+            Material b = (Material)obj;
+            this.shader = new Texture2D(shader);
+            this.maps = new MaterialMap.ByReference(maps);
+            this.value = value;
+        }else if(obj instanceof APersistentMap){
+            APersistentMap map = (APersistentMap)obj;
+            Object shader = map.get(Keyword.intern("shader"));
+            if(shader == null)
+                throw new IllegalArgumentException("Map needs key :shader");
+            if(shader instanceof APersistentMap){
+                this.shader = new Texture2D((APersistentMap)shader);
+            }
+            else if(shader instanceof Texture2D){
+                this.shader = new Texture2D((Texture2D)shader);
+            }
+            else{
+                throw new IllegalArgumentException(":shader is of unsupported type");
+            }
+            Object maps = map.get(Keyword.intern("maps"));
+            if(maps == null)
+                throw new IllegalArgumentException("Map needs key :maps");
+            if(maps instanceof APersistentMap){
+                this.maps = new MaterialMap.ByReference((APersistentMap)maps);
+            }
+            else if(maps instanceof MaterialMap.ByReference){
+                this.maps = new MaterialMap.ByReference((MaterialMap.ByReference)maps);
+            }
+            else{
+                throw new IllegalArgumentException(":maps is of unsupported type");
+            }
+        }else{
+            throw new IllegalArgumentException("obj of unsupported type");
         }
     }
 

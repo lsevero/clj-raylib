@@ -26,6 +26,9 @@ public class BoneInfo extends Structure{
         public ByReference(ByReference boneinfo){
             super(boneinfo);
         }
+        public ByReference(Object obj){
+            super(obj);
+        }
     }
     public static class ByValue extends BoneInfo implements Structure.ByValue{
         public ByValue(byte[] name, int parent){
@@ -42,6 +45,9 @@ public class BoneInfo extends Structure{
 
         public ByValue(ByReference boneinfo){
             super(boneinfo);
+        }
+        public ByValue(Object obj){
+            super(obj);
         }
     }
 
@@ -70,6 +76,27 @@ public class BoneInfo extends Structure{
         if(parent == null)
             throw new IllegalArgumentException("Map needs key :parent");
         this.parent = parent.intValue();
+    }
+
+    public BoneInfo(Object obj){
+        super();
+        if(obj instanceof BoneInfo){
+            BoneInfo b = (BoneInfo)obj;
+            System.arraycopy(b.name, 0, this.name, 0, b.name.length);
+            this.parent = b.parent;
+        }else if(obj instanceof APersistentMap){
+            APersistentMap map = (APersistentMap)obj;
+            Object name = map.get(Keyword.intern("name"));
+            if(name == null)
+                throw new IllegalArgumentException("Map needs key :name");
+            this.name = (byte[])name;
+            Number parent = (Number)map.get(Keyword.intern("parent"));
+            if(parent == null)
+                throw new IllegalArgumentException("Map needs key :parent");
+            this.parent = parent.intValue();
+        }else{
+            throw new IllegalArgumentException("obj of unsupported type");
+        }
     }
 
     public BoneInfo(){

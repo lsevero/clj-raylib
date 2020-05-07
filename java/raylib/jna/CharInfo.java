@@ -28,6 +28,9 @@ public class CharInfo extends Structure{
         public ByReference(ByReference ci){
             super((CharInfo)ci);
         }
+        public ByReference(Object obj){
+            super(obj);
+        }
     }
 
     public static class ByValue extends CharInfo implements Structure.ByValue {
@@ -45,6 +48,9 @@ public class CharInfo extends Structure{
 
         public ByValue(ByReference ci){
             super((CharInfo)ci);
+        }
+        public ByValue(Object obj){
+            super(obj);
         }
     }
 
@@ -102,6 +108,51 @@ public class CharInfo extends Structure{
         this.offsetY = ci.offsetY;
         this.advanceX = ci.advanceX;
         this.image = new Image(ci.image);
+    }
+
+    public CharInfo(Object obj){
+        super();
+        if(obj instanceof CharInfo){
+            CharInfo ci = (CharInfo)obj;
+
+            this.value = ci.value;
+            this.offsetX = ci.offsetX;
+            this.offsetY = ci.offsetY;
+            this.advanceX = ci.advanceX;
+            this.image = new Image(ci.image);
+        }else if(obj instanceof APersistentMap){
+            APersistentMap map = (APersistentMap)obj;
+            Number value = (Number)map.get(Keyword.intern("value"));
+            if(value == null)
+                throw new IllegalArgumentException("Map needs key :value");
+            this.value = value.intValue();
+            Number offsetX = (Number)map.get(Keyword.intern("offsetX"));
+            if(offsetX == null)
+                throw new IllegalArgumentException("Map needs key :offsetX");
+            this.offsetX = offsetX.intValue();
+            Number offsetY = (Number)map.get(Keyword.intern("offsetY"));
+            if(offsetY == null)
+                throw new IllegalArgumentException("Map needs key :offsetY");
+            this.offsetY = offsetY.intValue();
+            Number advanceX = (Number)map.get(Keyword.intern("advanceX"));
+            if(advanceX == null)
+                throw new IllegalArgumentException("Map needs key :advanceX");
+            this.advanceX = advanceX.intValue();
+            Object image = map.get(Keyword.intern("image"));
+            if(image == null)
+                throw new IllegalArgumentException("Map needs key :image");
+            if(image instanceof APersistentMap){
+                this.image = new Image((APersistentMap)image);
+            }
+            else if(image instanceof Image){
+                this.image = new Image((Image)image);
+            }
+            else{
+                throw new IllegalArgumentException(":image is of unsupported type");
+            }
+        }else{
+            throw new IllegalArgumentException("obj of unsupported type");
+        }
     }
 
     public CharInfo(){

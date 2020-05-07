@@ -17,6 +17,9 @@ public class BoundingBox extends Structure{
         public ByValue(APersistentMap map){
             super(map);
         }
+        public ByValue(Object obj){
+            super(obj);
+        }
     }
 
     public Vector3 min;
@@ -67,6 +70,49 @@ public class BoundingBox extends Structure{
         }
     }
 
+
+    public BoundingBox(Object obj){
+        super();
+        if(obj instanceof BoundingBox){
+            BoundingBox b = (BoundingBox)obj;
+            this.min = new Vector3(b.min);
+            this.max = new Vector3(b.max);
+        }else if(obj instanceof APersistentMap){
+            APersistentMap map = (APersistentMap)obj;
+            Object min = map.get(Keyword.intern("min"));
+            if(min == null)
+                throw new IllegalArgumentException("Map needs key :min");
+            if(min instanceof APersistentMap){
+                this.min = new Vector3((APersistentMap)min);
+            }
+            else if(min instanceof APersistentVector){
+                this.min = new Vector3((APersistentVector)min);
+            }
+            else if(min instanceof Vector3){
+                this.min = new Vector3((Vector3)min);
+            }
+            else{
+                throw new IllegalArgumentException(":min is of unsupported type");
+            }
+            Object max = map.get(Keyword.intern("max"));
+            if(max == null)
+                throw new IllegalArgumentException("Map needs key :max");
+            if(max instanceof APersistentMap){
+                this.max = new Vector3((APersistentMap)max);
+            }
+            else if(max instanceof APersistentVector){
+                this.max = new Vector3((APersistentVector)max);
+            }
+            else if(max instanceof Vector3){
+                this.max = new Vector3((Vector3)max);
+            }
+            else{
+                throw new IllegalArgumentException(":max is of unsupported type");
+            }
+        }else{
+            throw new IllegalArgumentException("obj of unsupported type");
+        }
+    }
 
     public BoundingBox(){
         super();

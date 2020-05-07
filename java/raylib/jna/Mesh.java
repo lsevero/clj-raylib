@@ -10,7 +10,7 @@ import clojure.lang.APersistentMap;
 import clojure.lang.Keyword;
 
 @FieldOrder({"vertexCount","triangleCount","vertices","texcoords","texcoords2","normals","tangents","colors","indices",
-             "animVertices","animNormals","boneIds","boneWeights","vaoId","vboId"})
+"animVertices","animNormals","boneIds","boneWeights","vaoId","vboId"})
 public class Mesh extends Structure{
     public static class ByReference extends Mesh implements Structure.ByReference{
         public ByReference(int vertexCount, int triangleCount, FloatByReference vertices, FloatByReference texcoords, FloatByReference texcoords2,
@@ -18,7 +18,7 @@ public class Mesh extends Structure{
                 FloatByReference animVertices, FloatByReference animNormals, IntByReference boneIds, FloatByReference boneWeights,
                 int vaoId, IntByReference vboId){
             super(vertexCount,triangleCount,vertices,texcoords,texcoords2,normals,tangents,colors,indices,
-                  animVertices,animNormals,boneIds,boneWeights,vaoId,vboId);
+                    animVertices,animNormals,boneIds,boneWeights,vaoId,vboId);
         }
 
         public ByReference(){
@@ -35,6 +35,9 @@ public class Mesh extends Structure{
         public ByReference(ByValue br){
             super((Mesh)br);
         }
+        public ByReference(Object obj){
+            super(obj);
+        }
     }
 
     public static class ByValue extends Mesh implements Structure.ByValue{
@@ -43,7 +46,7 @@ public class Mesh extends Structure{
                 FloatByReference animVertices, FloatByReference animNormals, IntByReference boneIds, FloatByReference boneWeights,
                 int vaoId, IntByReference vboId){
             super(vertexCount,triangleCount,vertices,texcoords,texcoords2,normals,tangents,colors,indices,
-                  animVertices,animNormals,boneIds,boneWeights,vaoId,vboId);
+                    animVertices,animNormals,boneIds,boneWeights,vaoId,vboId);
         }
 
         public ByValue(){
@@ -56,6 +59,9 @@ public class Mesh extends Structure{
 
         public ByValue(ByReference br){
             super((Mesh)br);
+        }
+        public ByValue(Object obj){
+            super(obj);
         }
     }
 
@@ -77,9 +83,9 @@ public class Mesh extends Structure{
     public IntByReference vboId;
 
     public Mesh(int vertexCount, int triangleCount, FloatByReference vertices, FloatByReference texcoords, FloatByReference texcoords2,
-                FloatByReference normals, FloatByReference tangents, ByteByReference colors, ShortByReference indices,
-                FloatByReference animVertices, FloatByReference animNormals, IntByReference boneIds, FloatByReference boneWeights,
-                int vaoId, IntByReference vboId){
+            FloatByReference normals, FloatByReference tangents, ByteByReference colors, ShortByReference indices,
+            FloatByReference animVertices, FloatByReference animNormals, IntByReference boneIds, FloatByReference boneWeights,
+            int vaoId, IntByReference vboId){
         super();
         this.vertexCount = vertexCount;
         this.triangleCount = triangleCount;
@@ -179,6 +185,93 @@ public class Mesh extends Structure{
         this.boneWeights = m.boneWeights;
         this.vaoId = m.vaoId;
         this.vboId = m.vboId;
+    }
+
+
+    public Mesh(Object obj){
+        super();
+        if(obj instanceof Mesh){
+            Mesh m = (Mesh)obj;
+            this.vertexCount = m.vertexCount;
+            this.triangleCount = m.triangleCount;
+            this.vertices = m.vertices;
+            this.texcoords = m.texcoords;
+            this.texcoords2 = m.texcoords2;
+            this.normals = m.normals;
+            this.tangents = m.tangents;
+            this.colors = m.colors;
+            this.indices = m.indices;
+            this.animVertices = m.animVertices;
+            this.animNormals = m.animNormals;
+            this.boneIds = m.boneIds;
+            this.boneWeights = m.boneWeights;
+            this.vaoId = m.vaoId;
+            this.vboId = m.vboId;
+        }else if(obj instanceof APersistentMap){
+            APersistentMap map = (APersistentMap)obj;
+            Number vertexCount = (Number)map.get(Keyword.intern("vertexCount"));
+            if(vertexCount == null)
+                throw new IllegalArgumentException("Map needs key :vertexCount");
+            this.vertexCount = vertexCount.intValue();
+            Number triangleCount = (Number)map.get(Keyword.intern("triangleCount"));
+            if(triangleCount == null)
+                throw new IllegalArgumentException("Map needs key :triangleCount");
+            this.triangleCount = triangleCount.intValue();
+            Object vertices = map.get(Keyword.intern("vertices"));
+            if(vertices == null)
+                throw new IllegalArgumentException("Map needs key :vertices");
+            this.vertices = (FloatByReference)vertices;
+            Object texcoords = map.get(Keyword.intern("texcoords"));
+            if(texcoords == null)
+                throw new IllegalArgumentException("Map needs key :texcoords");
+            this.texcoords = (FloatByReference)texcoords;
+            Object texcoords2 = map.get(Keyword.intern("texcoords2"));
+            if(texcoords2 == null)
+                throw new IllegalArgumentException("Map needs key :texcoords2");
+            this.texcoords2 = (FloatByReference)texcoords2;
+            Object normals = map.get(Keyword.intern("normals"));
+            if(normals == null)
+                throw new IllegalArgumentException("Map needs key :normals");
+            this.normals = (FloatByReference)normals;
+            Object tangents = map.get(Keyword.intern("tangents"));
+            if(tangents == null)
+                throw new IllegalArgumentException("Map needs key :tangents");
+            this.tangents = (FloatByReference)tangents;
+            Object colors = map.get(Keyword.intern("colors"));
+            if(colors == null)
+                throw new IllegalArgumentException("Map needs key :colors");
+            this.colors = (ByteByReference)colors;
+            Object indices = map.get(Keyword.intern("indices"));
+            if(indices == null)
+                throw new IllegalArgumentException("Map needs key :indices");
+            this.indices = (ShortByReference)indices;
+            Object animVertices = map.get(Keyword.intern("animVertices"));
+            if(animVertices == null)
+                throw new IllegalArgumentException("Map needs key :animVertices");
+            this.animVertices = (FloatByReference)animVertices;
+            Object animNormals = map.get(Keyword.intern("animNormals"));
+            if(animNormals == null)
+                throw new IllegalArgumentException("Map needs key :animNormals");
+            this.animNormals = (FloatByReference)animNormals;
+            Object boneIds = map.get(Keyword.intern("boneIds"));
+            if(boneIds == null)
+                throw new IllegalArgumentException("Map needs key :boneIds");
+            this.boneIds = (IntByReference)boneIds;
+            Object boneWeights = map.get(Keyword.intern("boneWeights"));
+            if(boneWeights == null)
+                throw new IllegalArgumentException("Map needs key :boneWeights");
+            this.boneWeights = (FloatByReference)boneWeights;
+            Number vaoId = (Number)map.get(Keyword.intern("vaoId"));
+            if(vaoId == null)
+                throw new IllegalArgumentException("Map needs key :vaoId");
+            this.vaoId = vaoId.intValue();
+            Object vboId = map.get(Keyword.intern("vboId"));
+            if(vboId == null)
+                throw new IllegalArgumentException("Map needs key :vboId");
+            this.vboId = (IntByReference)vboId;
+        }else{
+            throw new IllegalArgumentException("obj of unsupported type");
+        }
     }
 
     public Mesh(){

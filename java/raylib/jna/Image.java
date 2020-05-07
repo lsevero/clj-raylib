@@ -24,6 +24,9 @@ public class Image extends Structure{
         public ByReference(ByValue br){
             super((Image)br);
         }
+        public ByReference(Object obj){
+            super(obj);
+        }
     }
 
     public static class ByValue extends Image implements Structure.ByValue{
@@ -41,6 +44,9 @@ public class Image extends Structure{
 
         public ByValue(ByReference br){
             super((Image)br);
+        }
+        public ByValue(Object obj){
+            super(obj);
         }
     }
 
@@ -90,6 +96,42 @@ public class Image extends Structure{
         if(format == null)
             throw new IllegalArgumentException("Map needs key :format");
         this.format = format.intValue();
+    }
+
+    public Image(Object obj){
+        super();
+        if(obj instanceof Image){
+            Image img = (Image)obj;
+            this.data = img.data;
+            this.width = img.width;
+            this.height = img.height;
+            this.mipmaps = img.mipmaps;
+            this.format = img.format;
+        }else if(obj instanceof APersistentMap){
+            APersistentMap map = (APersistentMap)obj;
+            Pointer data = (Pointer)map.get(Keyword.intern("data"));
+            if(data == null)
+                throw new IllegalArgumentException("Map needs key :data");
+            this.data = data;
+            Number width = (Number)map.get(Keyword.intern("width"));
+            if(width == null)
+                throw new IllegalArgumentException("Map needs key :width");
+            this.width = width.intValue();
+            Number height = (Number)map.get(Keyword.intern("height"));
+            if(height == null)
+                throw new IllegalArgumentException("Map needs key :height");
+            this.height = height.intValue();
+            Number mipmaps = (Number)map.get(Keyword.intern("mipmaps"));
+            if(mipmaps == null)
+                throw new IllegalArgumentException("Map needs key :mipmaps");
+            this.mipmaps = mipmaps.intValue();
+            Number format = (Number)map.get(Keyword.intern("format"));
+            if(format == null)
+                throw new IllegalArgumentException("Map needs key :format");
+            this.format = format.intValue();
+        }else{
+            throw new IllegalArgumentException("obj of unsupported type");
+        }
     }
 
     public Image(){

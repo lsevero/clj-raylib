@@ -439,15 +439,19 @@
 
 (defn init-window!
   [width height title]
-  (Raylib/InitWindow (int width) (int height) title))
+  (Raylib/InitWindow width height title))
 
 (defn close-window!
   []
   (Raylib/CloseWindow))
 
+(defn window-should-close?
+  []
+  (Raylib/WindowShouldClose))
+
 (defn set-target-fps!
   [fps]
-  (Raylib/SetTargetFPS (int fps)))
+  (Raylib/SetTargetFPS fps))
 
 (defn clear-background!
   [color]

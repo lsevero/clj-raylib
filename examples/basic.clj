@@ -10,7 +10,7 @@
     (init-window! width height "testeeee")
     (set-target-fps! 60)
     (loop [state {:ball [(/ width 2) (/ height 2)]}]
-      (when-not (Raylib/WindowShouldClose)
+      (when-not (window-should-close?)
         (with-drawing
           (clear-background! RAYWHITE)
           (draw-text! "move the ball with arrow keys" 10 10 20 DARKGRAY) 
