@@ -17,9 +17,12 @@ public class Ray extends Structure{
         public ByValue(APersistentMap map){
             super(map);
         }
-        
+
         public ByValue(Vector3 position, Vector3 direction){
             super(position, direction);
+        }
+        public ByValue(Object obj){
+            super(obj);
         }
     }
     public Vector3 position;
@@ -70,6 +73,50 @@ public class Ray extends Structure{
         super();
         this.position = new Vector3(r.position);
         this.direction = new Vector3(r.direction);
+    }
+
+    public Ray(Object obj){
+        super();
+        if(obj instanceof Ray){
+            Ray r = (Ray)obj;
+            this.position = new Vector3(r.position);
+            this.direction = new Vector3(r.direction);
+        }else if(obj instanceof APersistentMap){
+            APersistentMap map = (APersistentMap)obj;
+            Object position = map.get(Keyword.intern("position"));
+            if(position == null)
+                throw new IllegalArgumentException("Map needs key :position");
+            if(position instanceof APersistentMap){
+                this.position = new Vector3((APersistentMap)position);
+            }
+            else if(position instanceof APersistentVector){
+                this.position = new Vector3((APersistentVector)position);
+            }
+            else if(position instanceof Vector3){
+                this.position = new Vector3((Vector3)position);
+            }
+            else{
+                throw new IllegalArgumentException(":position is of unsupported type");
+            }
+
+            Object direction = map.get(Keyword.intern("direction"));
+            if(direction == null)
+                throw new IllegalArgumentException("Map needs key :direction");
+            if(direction instanceof APersistentMap){
+                this.direction = new Vector3((APersistentMap)direction);
+            }
+            else if(direction instanceof APersistentVector){
+                this.direction = new Vector3((APersistentVector)direction);
+            }
+            else if(direction instanceof Vector3){
+                this.direction = new Vector3((Vector3)direction);
+            }
+            else{
+                throw new IllegalArgumentException(":direction is of unsupported type");
+            }
+        }else{
+            throw new IllegalArgumentException("obj of unsupported type");
+        }
     }
 
     public Ray(){

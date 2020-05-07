@@ -16,9 +16,12 @@ public class NPatchInfo extends Structure{
         public ByValue(APersistentMap map){
             super(map);
         }
-        
+
         public ByValue(Rectangle sourceRec, int left, int top, int right, int bottom, int type){
             super(sourceRec, left, top, right, bottom, type);
+        }
+        public ByValue(Object obj){
+            super(obj);
         }
     }
 
@@ -81,12 +84,66 @@ public class NPatchInfo extends Structure{
 
     public NPatchInfo(NPatchInfo n){
         super();
-        this.sourceRec = new Rectangle(sourceRec);
-        this.left = left;
-        this.top = top;
-        this.right = right;
-        this.bottom = bottom;
-        this.type = type;
+        this.sourceRec = new Rectangle(n.sourceRec);
+        this.left = n.left;
+        this.top = n.top;
+        this.right = n.right;
+        this.bottom = n.bottom;
+        this.type = n.type;
+    }
+
+    public NPatchInfo(Object obj){
+        super();
+        if(obj instanceof NPatchInfo){
+            NPatchInfo n = (NPatchInfo)obj;
+            this.sourceRec = new Rectangle(n.sourceRec);
+            this.left = n.left;
+            this.top = n.top;
+            this.right = n.right;
+            this.bottom = n.bottom;
+            this.type = n.type;
+        }else if(obj instanceof APersistentMap){
+            APersistentMap map = (APersistentMap)obj;
+            Object sourceRec = map.get(Keyword.intern("sourceRec"));
+            if(sourceRec == null)
+                throw new IllegalArgumentException("Map needs key :sourceRec");
+            if(sourceRec instanceof APersistentMap){
+                this.sourceRec = new Rectangle((APersistentMap)sourceRec);
+            }
+            else if(sourceRec instanceof Rectangle){
+                this.sourceRec = new Rectangle((Rectangle)sourceRec);
+            }
+            else{
+                throw new IllegalArgumentException(":sourceRec is of unsupported type");
+            }
+
+            Number left = (Number)map.get(Keyword.intern("left"));
+            if(left == null)
+                throw new IllegalArgumentException("Map needs key :left");
+            this.left = left.intValue();
+
+            Number top = (Number)map.get(Keyword.intern("top"));
+            if(top == null)
+                throw new IllegalArgumentException("Map needs key :top");
+            this.top = top.intValue();
+
+            Number right = (Number)map.get(Keyword.intern("right"));
+            if(right == null)
+                throw new IllegalArgumentException("Map needs key :right");
+            this.right = right.intValue();
+
+            Number bottom = (Number)map.get(Keyword.intern("bottom"));
+            if(bottom == null)
+                throw new IllegalArgumentException("Map needs key :bottom");
+            this.bottom = bottom.intValue();
+
+            Number type = (Number)map.get(Keyword.intern("type"));
+            if(type == null)
+                throw new IllegalArgumentException("Map needs key :type");
+            this.type = type.intValue();
+        }else{
+            throw new IllegalArgumentException("obj of unsupported type");
+        }
     }
 
     public NPatchInfo(){

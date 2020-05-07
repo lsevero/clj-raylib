@@ -17,9 +17,12 @@ public class Music extends Structure{
         public ByValue(APersistentMap map){
             super(map);
         }
-        
+
         public ByValue(int ctxType, Pointer ctxData, int sampleCount, int loopCount, AudioStream stream){
             super(ctxType,ctxData,sampleCount,loopCount,stream);
+        }
+        public ByValue(Object obj){
+            super(obj);
         }
     }
 
@@ -82,7 +85,53 @@ public class Music extends Structure{
         this.loopCount = m.loopCount;
         this.stream = new AudioStream(m.stream);
     }
+    public Music(Object obj){
+        super();
+        if(obj instanceof Music){
+            Music m = (Music)obj;
+            this.ctxType = m.ctxType;
+            this.ctxData = m.ctxData;
+            this.sampleCount = m.sampleCount;
+            this.loopCount = m.loopCount;
+            this.stream = new AudioStream(m.stream);
+        }else if(obj instanceof APersistentMap){
+            APersistentMap map = (APersistentMap)obj;
+            Number ctxType = (Number)map.get(Keyword.intern("ctxType"));
+            if(ctxType == null)
+                throw new IllegalArgumentException("Map needs key :ctxType");
+            this.ctxType = ctxType.intValue();
 
+            Object ctxData = map.get(Keyword.intern("ctxData"));
+            if(ctxData == null)
+                throw new IllegalArgumentException("Map needs key :ctxData");
+            this.ctxData = (Pointer)ctxData;
+
+            Number sampleCount = (Number)map.get(Keyword.intern("sampleCount"));
+            if(sampleCount == null)
+                throw new IllegalArgumentException("Map needs key :sampleCount");
+            this.sampleCount = sampleCount.intValue();
+
+            Number loopCount = (Number)map.get(Keyword.intern("loopCount"));
+            if(loopCount == null)
+                throw new IllegalArgumentException("Map needs key :loopCount");
+            this.loopCount = loopCount.intValue();
+
+            Object stream = map.get(Keyword.intern("stream"));
+            if(stream == null)
+                throw new IllegalArgumentException("Map needs key :stream");
+            if(stream instanceof APersistentMap){
+                this.stream = new AudioStream((APersistentMap)stream);
+            }
+            else if(stream instanceof AudioStream){
+                this.stream = new AudioStream((AudioStream)stream);
+            }
+            else{
+                throw new IllegalArgumentException(":stream is of unsupported type");
+            }
+        }else{
+            throw new IllegalArgumentException("obj of unsupported type");
+        }
+    }
     public Music(){
         super();
     }

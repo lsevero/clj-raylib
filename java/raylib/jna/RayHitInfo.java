@@ -22,6 +22,9 @@ public class RayHitInfo extends Structure{
             super(hit,distance,position,normal);
         }
 
+        public ByValue(Object obj){
+            super(obj);
+        }
     }
     public boolean hit;
     public float distance;
@@ -77,6 +80,52 @@ public class RayHitInfo extends Structure{
         this.distance = r.distance;
         this.position = new Vector3(r.position);
         this.normal = new Vector3(r.normal);
+    }
+
+    public RayHitInfo(Object obj){
+        super();
+        if(obj instanceof RayHitInfo){
+            RayHitInfo r = (RayHitInfo)obj;
+            this.hit = r.hit;
+            this.distance = r.distance;
+            this.position = new Vector3(r.position);
+            this.normal = new Vector3(r.normal);
+        }else if(obj instanceof APersistentMap){
+            APersistentMap map = (APersistentMap)obj;
+            Object position = map.get(Keyword.intern("position"));
+            if(position == null)
+                throw new IllegalArgumentException("Map needs key :position");
+            if(position instanceof APersistentMap){
+                this.position = new Vector3((APersistentMap)position);
+            }
+            else if(position instanceof APersistentVector){
+                this.position = new Vector3((APersistentVector)position);
+            }
+            else if(position instanceof Vector3){
+                this.position = new Vector3((Vector3)position);
+            }
+            else{
+                throw new IllegalArgumentException(":position is of unsupported type");
+            }
+
+            Object normal = map.get(Keyword.intern("normal"));
+            if(normal == null)
+                throw new IllegalArgumentException("Map needs key :normal");
+            if(normal instanceof APersistentMap){
+                this.normal = new Vector3((APersistentMap)normal);
+            }
+            else if(normal instanceof APersistentVector){
+                this.normal = new Vector3((APersistentVector)normal);
+            }
+            else if(normal instanceof Vector3){
+                this.normal = new Vector3((Vector3)normal);
+            }
+            else{
+                throw new IllegalArgumentException(":normal is of unsupported type");
+            }
+        }else{
+            throw new IllegalArgumentException("obj of unsupported type");
+        }
     }
 
     public RayHitInfo(){

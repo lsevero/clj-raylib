@@ -20,6 +20,9 @@ public class Sound extends Structure{
         public ByValue(int sampleCount, AudioStream stream){
             super(sampleCount, stream);
         }
+        public ByValue(Object obj){
+            super(obj);
+        }
     }
 
     public int sampleCount;
@@ -57,6 +60,37 @@ public class Sound extends Structure{
         super();
         this.sampleCount = s.sampleCount;
         this.stream = new AudioStream(s.stream);
+    }
+
+    public Sound(Object obj) throws IllegalArgumentException{
+        super();
+        if(obj instanceof Sound){
+            Sound s = (Sound)obj;
+            this.sampleCount = s.sampleCount;
+            this.stream = new AudioStream(s.stream);
+        }else if(obj instanceof APersistentMap){
+            APersistentMap map = (APersistentMap)obj;
+            Number sampleCount = (Number)map.get(Keyword.intern("sampleCount"));
+            if(sampleCount == null)
+                throw new IllegalArgumentException("Map needs key :sampleCount");
+            this.sampleCount = sampleCount.intValue();
+
+
+            Object stream = map.get(Keyword.intern("stream"));
+            if(stream == null)
+                throw new IllegalArgumentException("Map needs key :stream");
+            if(stream instanceof APersistentMap){
+                this.stream = new AudioStream((APersistentMap)stream);
+            }
+            else if(stream instanceof AudioStream){
+                this.stream = new AudioStream((AudioStream)stream);
+            }
+            else{
+                throw new IllegalArgumentException(":stream is of unsupported type");
+            }
+        }else{
+            throw new IllegalArgumentException("obj of unsupported type");
+        }
     }
 
     public Sound(){

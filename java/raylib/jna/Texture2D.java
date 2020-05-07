@@ -19,6 +19,9 @@ public class Texture2D extends Structure{
         public ByValue(int id, int width, int height, int mipmaps, int format){
             super(id, width, height, mipmaps, format);
         }
+        public ByValue(Object obj){
+            super(obj);
+        }
     }
     public int id;
     public int width;
@@ -66,6 +69,42 @@ public class Texture2D extends Structure{
         if(format == null)
             throw new IllegalArgumentException("Map needs key :format");
         this.format = format.intValue();
+    }
+
+    public Texture2D(Object obj) throws IllegalArgumentException{
+        super();
+        if(obj instanceof Texture2D){
+            Texture2D t = (Texture2D)obj;
+            this.id = t.id;
+            this.width = t.width;
+            this.height = t.height;
+            this.mipmaps = t.mipmaps;
+            this.format = t.format;
+        }else if(obj instanceof APersistentMap){
+            APersistentMap map = (APersistentMap)obj;
+            Number id = (Number)map.get(Keyword.intern("id"));
+            if(id == null)
+                throw new IllegalArgumentException("Map needs key :id");
+            this.id = id.intValue();
+            Number width = (Number)map.get(Keyword.intern("width"));
+            if(width == null)
+                throw new IllegalArgumentException("Map needs key :width");
+            this.width = width.intValue();
+            Number height = (Number)map.get(Keyword.intern("height"));
+            if(height == null)
+                throw new IllegalArgumentException("Map needs key :height");
+            this.height = height.intValue();
+            Number mipmaps = (Number)map.get(Keyword.intern("mipmaps"));
+            if(mipmaps == null)
+                throw new IllegalArgumentException("Map needs key :mipmaps");
+            this.mipmaps = mipmaps.intValue();
+            Number format = (Number)map.get(Keyword.intern("format"));
+            if(format == null)
+                throw new IllegalArgumentException("Map needs key :format");
+            this.format = format.intValue();
+        }else{
+            throw new IllegalArgumentException("obj of unsupported type");
+        }
     }
 
     public Texture2D(){
