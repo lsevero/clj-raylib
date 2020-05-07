@@ -1,6 +1,5 @@
 (ns basic
   (:require [clj-raylib.core :refer :all])
-  (:import [raylib.jna Vector2$ByReference Vector2$ByValue Raylib])
   (:gen-class))
 
 (defn -main
