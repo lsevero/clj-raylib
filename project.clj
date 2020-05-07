@@ -8,7 +8,6 @@
   :min-lein-version "2.8.0"
   :java-source-paths ["java"]
   :profiles {:dev {:plugins [[cider/cider-nrepl "0.22.3"]]
-                   :global-vars {*warn-on-reflection* true}
                    :main main.examples
                    :source-paths ["src" "test" "examples"]}}
   :source-paths ["src"]

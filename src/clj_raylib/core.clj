@@ -441,13 +441,61 @@
   [width height title]
   (Raylib/InitWindow width height title))
 
+(defn window-should-close?
+  []
+  (Raylib/WindowShouldClose))
+
 (defn close-window!
   []
   (Raylib/CloseWindow))
 
-(defn window-should-close?
+(defn is-window-ready?
   []
-  (Raylib/WindowShouldClose))
+  (Raylib/IsWindowReady))
+
+(defn is-window-minimized?
+  []
+  (Raylib/IsWindowMinimized))
+
+(defn is-window-resized?
+  []
+  (Raylib/IsWindowResized))
+
+(defn is-window-hidden?
+  []
+  (Raylib/IsWindowHidden))
+
+(defn is-window-fullscreen?
+  []
+  (Raylib/IsWindowFullScreen))
+
+(defn toogle-fullscreen!
+  []
+  (Raylib/ToogleFullscreen))
+
+(defn unhide-window!
+  []
+  (Raylib/UnhideWindow))
+
+(defn set-window-icon!
+  [img]
+  (Raylib/SetWindowIcon (Image$ByValue. img)))
+
+(defn set-window-title!
+  [title]
+  (Raylib/SetWindowTitle title))
+
+(defn set-window-position!
+  [x y]
+  (Raylib/SetWindowPosition x y))
+
+(defn set-window-monitor!
+  [monitor]
+  (Raylib/SetWindowMonitor monitor))
+
+(defn set-window-min-size!
+  [w h]
+  (Raylib/SetWindowMinSize w h))
 
 (defn set-target-fps!
   [fps]
