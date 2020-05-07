@@ -7,7 +7,7 @@
   [& _]
   (let [width 800
         height 450]
-    (init-window! width height "testeeee")
+    (init-window! width height "input keys")
     (set-target-fps! 60)
     (loop [state {:ball [(/ width 2) (/ height 2)]}]
       (when-not (window-should-close?)

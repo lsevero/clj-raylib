@@ -467,11 +467,11 @@
 
 (defn is-window-fullscreen?
   []
-  (Raylib/IsWindowFullScreen))
+  (Raylib/IsWindowFullscreen))
 
-(defn toogle-fullscreen!
+(defn toggle-fullscreen!
   []
-  (Raylib/ToogleFullscreen))
+  (Raylib/ToggleFullscreen))
 
 (defn unhide-window!
   []
@@ -519,4 +519,22 @@
   [k]
   (Raylib/IsKeyDown k))
 
+(defn is-mouse-button-pressed?
+  [button]
+  (Raylib/IsMouseButtonPressed button))
 
+(defn is-mouse-button-down?
+  [button]
+  (Raylib/IsMouseButtonDown button))
+
+(defn is-mouse-button-released?
+  [button]
+  (Raylib/IsMouseButtonReleased button))
+
+(defn is-mouse-button-up?
+  [button]
+  (Raylib/IsMouseButtonUp button))
+
+(defn get-mouse-position
+  []
+  (Raylib/GetMousePosition))
