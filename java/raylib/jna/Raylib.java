@@ -2,6 +2,7 @@ package raylib.jna;
 
 import com.sun.jna.Native;
 import com.sun.jna.Pointer;
+import com.sun.jna.Platform;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.FloatByReference;
 import raylib.jna.*;
@@ -592,6 +593,13 @@ public class Raylib {
     public static native void SetAudioStreamBufferSizeDefault(int size);                 // Default size for new audio streams
 
     static {
-        Native.register("libraylib.so.3.0.0");
+        if(Platform.isLinux())
+            Native.register("libraylib.so.3.0.0");
+        else if(Platform.isMac())
+            Native.register("libraylib.3.0.0.dylib");
+        else if(Platform.isWindows())
+            Native.register("libraylib.dll");
+        else
+            throw new RuntimeException("Unrecognized OS. Supported OS are linux-x86, linux-x86-64, win32-x86, win32-x86-64, darwin");
     }
 }
