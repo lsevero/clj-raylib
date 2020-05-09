@@ -437,6 +437,20 @@
      ~@body
      (Raylib/EndDrawing)))
 
+(defmacro with-mode2d
+  [camera2d & body]
+  `(do
+     (Raylib/BeginMode2D (Camera2D$ByValue. ~camera2d))
+     ~@body
+     (Raylib/EndMode2D)))
+
+(defmacro with-mode3d
+  [camera3d & body]
+  `(do
+     (Raylib/BeginMode3D (Camera3D$ByValue. ~camera3d))
+     ~@body
+     (Raylib/EndMode3D)))
+
 (defn init-window!
   [width height title]
   (Raylib/InitWindow width height title))
@@ -507,13 +521,23 @@
 
 (defn draw-text!
   [^String text posx posy size color]
-  (Raylib/DrawText text  posx  posy  size color))
+  (Raylib/DrawText text posx posy size color))
 
 (defn draw-circle!
   ([v2 size color]
    (Raylib/DrawCircleV (Vector2$ByValue. v2) size color))
   ([posx posy size color]
    (Raylib/DrawCircle posx posy size color)))
+
+(defn draw-rectangle!
+  ([rec color]
+   (Raylib/DrawRectangleRec (Rectangle$ByValue. rec) (Color$ByValue. color)))
+  ([pos size color]
+   (Raylib/DrawRectangleV (Vector2$ByValue. pos)
+                          (Vector2$ByValue. size)
+                          (Color$ByValue. color)))
+  ([posx posy w h color]
+   (Raylib/DrawRectangle posx posy w h (Color$ByValue. color))))
 
 (defn is-key-down?
   [k]
@@ -538,3 +562,7 @@
 (defn get-mouse-position
   []
   (Raylib/GetMousePosition))
+
+(defn get-mouse-wheel-move
+  []
+  (Raylib/GetMouseWheelMove))

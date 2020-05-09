@@ -365,23 +365,27 @@ public class Raylib {
     public static native Vector2.ByValue MeasureTextEx(Font.ByValue font, String text, float fontSize, float spacing);    // Measure string size for Font
     public static native int GetGlyphIndex(Font.ByValue font, int codepoint);                                          // Get index position for a unicode character on font
 
+    //
+    // REMOVING THE RAYLIB TEXT FUNCIONS
+    // Really... They are useless in clojure....
+    //
     // Text strings management functions (no utf8 strings, only byte chars)
     // NOTE: Some strings allocate memory internally for returned strings, just be careful!
-    public static native int TextCopy(String dst, String src);                                             // Copy one string to another, returns bytes copied
-    public static native boolean TextIsEqual(String text1, String text2);                               // Check if two text string are equal
-    public static native int TextLength(String text);                                            // Get text length, checks for '\0' ending
-    public static native String TextSubtext(String text, int position, int length);                  // Get a piece of a text string
-    public static native String TextReplace(String text, String replace, String by);                   // Replace text string (memory must be freed!)
-    public static native String TextInsert(String text, String insert, int position);                 // Insert text in a position (memory must be freed!)
+    //public static native int TextCopy(String dst, String src);                                             // Copy one string to another, returns bytes copied
+    //public static native boolean TextIsEqual(String text1, String text2);                               // Check if two text string are equal
+    //public static native int TextLength(String text);                                            // Get text length, checks for '\0' ending
+    //public static native String TextSubtext(String text, int position, int length);                  // Get a piece of a text string
+    //public static native String TextReplace(String text, String replace, String by);                   // Replace text string (memory must be freed!)
+    //public static native String TextInsert(String text, String insert, int position);                 // Insert text in a position (memory must be freed!)
     //public static native String TextJoin(String[] textList, int count, String delimiter);        // Join text strings with delimiter
     //public static native String[] TextSplit(String text, char delimiter, IntByReference count);                 // Split text into multiple strings
-    public static native void TextAppend(String text, String append, IntByReference position);                       // Append text at specific position and move cursor!
-    public static native int TextFindIndex(String text, String find);                                // Find first text occurrence within a string
-    public static native String TextToUpper(String text);                      // Get upper case version of provided string
-    public static native String TextToLower(String text);                      // Get lower case version of provided string
-    public static native String TextToPascal(String text);                     // Get Pascal case notation version of provided string
-    public static native int TextToInteger(String text);                            // Get integer value from text (negative values not supported)
-    public static native String TextToUtf8(IntByReference codepoints, int length);                  // Encode text codepoint into utf8 text (memory must be freed!)
+    //public static native void TextAppend(String text, String append, IntByReference position);                       // Append text at specific position and move cursor!
+    //public static native int TextFindIndex(String text, String find);                                // Find first text occurrence within a string
+    //public static native String TextToUpper(String text);                      // Get upper case version of provided string
+    //public static native String TextToLower(String text);                      // Get lower case version of provided string
+    //public static native String TextToPascal(String text);                     // Get Pascal case notation version of provided string
+    //public static native int TextToInteger(String text);                            // Get integer value from text (negative values not supported)
+    //public static native String TextToUtf8(IntByReference codepoints, int length);                  // Encode text codepoint into utf8 text (memory must be freed!)
 
     // UTF8 text strings management functions
     public static native IntByReference GetCodepoints(String text, IntByReference count);               // Get all codepoints in a string, codepoints count returned by parameters
