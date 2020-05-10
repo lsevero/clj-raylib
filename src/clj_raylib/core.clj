@@ -850,15 +850,43 @@
   [points num-points color]
   (Raylib/DrawLineStrip (Vector2$ByReference. points) num-points (Color$ByValue. color)))
 
-(defn draw-text!
-  [^String text posx posy size color]
-  (Raylib/DrawText text posx posy size color))
-
 (defn draw-circle!
   ([v2 size color]
    (Raylib/DrawCircleV (Vector2$ByValue. v2) size color))
   ([posx posy size color]
    (Raylib/DrawCircle posx posy size color)))
+
+(defn draw-circle-sector!
+  [center radius start-angle end-angle segments color]
+  (Raylib/DrawCircleSector (Vector2$ByValue. center) radius start-angle end-angle segments (Color$ByValue. color)))
+
+(defn draw-circle-sector-lines!
+  [center radius start-angle end-angle segments color]
+  (Raylib/DrawCircleSectorLines (Vector2$ByValue. center) radius start-angle end-angle segments (Color$ByValue. color)))
+
+(defn draw-circle-gradient!
+  [centerx centery radius color1 color2]
+  (Raylib/DrawCircleGradient centerx centery radius (Color$ByValue. color1) (Color$ByValue. color2)))
+
+(defn draw-circle-lines!
+  [centerx centery radius color]
+  (Raylib/DrawCircleLines centerx centery radius (Color$ByValue. color)))
+
+(defn draw-ellipse!
+  [centerx centery radiush radiusv color]
+  (Raylib/DrawEllipse centerx centery radiush radiusv (Color$ByValue. color)))
+
+(defn draw-ellipse-lines!
+  [centerx centery radiush radiusv color]
+  (Raylib/DrawEllipseLines centerx centery radiush radiusv (Color$ByValue. color)))
+
+(defn draw-ring!
+  [center inner-radius outer-radius start-angle end-angle segments color]
+  (Raylib/DrawRing (Vector2$ByValue. center) inner-radius outer-radius start-angle end-angle segments (Color$ByValue. color)))
+
+(defn draw-ring-lines!
+  [center inner-radius outer-radius start-angle end-angle segments color]
+  (Raylib/DrawRingLines (Vector2$ByValue. center) inner-radius outer-radius start-angle end-angle segments (Color$ByValue. color)))
 
 (defn draw-rectangle!
   ([rec color]
@@ -869,4 +897,64 @@
                           (Color$ByValue. color)))
   ([posx posy w h color]
    (Raylib/DrawRectangle posx posy w h (Color$ByValue. color))))
+
+(defn draw-rectangle-pro!
+  [rec origin rotation color]
+  (Raylib/DrawRectanglePro (Rectangle$ByValue. rec) (Vector2$ByValue. origin) rotation (Color$ByValue. color)))
+
+(defn draw-rectangle-gradient-v!
+  [posx posy w h color1 color2]
+  (Raylib/DrawRectangleGradientV posx posy w h (Color$ByValue. color1) (Color$ByValue. color2)))
+
+(defn draw-rectangle-gradient-h!
+  [posx posy w h color1 color2]
+  (Raylib/DrawRectangleGradientH posx posy w h (Color$ByValue. color1) (Color$ByValue. color2)))
+
+(defn draw-rectangle-gradient-ex!
+  [rec color1 color2 color3 color4]
+  (Raylib/DrawRectangleGradientEx (Rectangle$ByValue. rec) (Color$ByValue. color1) (Color$ByValue. color2)
+                                  (Color$ByValue. color3) (Color$ByValue. color4)))
+
+(defn draw-rectangle-lines!
+  ([posx posy w h color]
+   (Raylib/DrawRectangleLines posx posy w h (Color$ByValue. color)))
+  ([rec linethick color]
+   (Raylib/DrawRectangleLinesEx (Rectangle$ByValue. rec) linethick (Color$ByValue. color))))
+
+(defn draw-rectangle-rounded!
+  [rec roundness segments color]
+  (Raylib/DrawRectangleRounded (Rectangle$ByValue. rec) roundness segments (Color$ByValue. color)))
+
+(defn draw-rectangle-rounded-lines!
+  [rec roundness segments linethick color]
+  (Raylib/DrawRectangleRoundedLines (Rectangle$ByValue. rec) roundness segments linethick (Color$ByValue. color)))
+
+
+(defn draw-triangle!
+  [v1 v2 v3 color]
+  (Raylib/DrawTriangle (Vector2$ByValue. v1) (Vector2$ByValue. v2) (Vector2$ByValue. v3) (Color$ByValue. color)))
+
+(defn draw-triangle-lines!
+  [v1 v2 v3 color]
+  (Raylib/DrawTriangleLines (Vector2$ByValue. v1) (Vector2$ByValue. v2) (Vector2$ByValue. v3) (Color$ByValue. color)))
+
+(defn draw-triangle-fan!
+  [points num-points color]
+  (Raylib/DrawTriangleFan (Vector2$ByReference. points) num-points (Color$ByValue. color)))
+
+(defn draw-triangle-strip!
+  [points num-points color]
+  (Raylib/DrawTriangleStrip (Vector2$ByReference. points) num-points (Color$ByValue. color)))
+
+(defn draw-poly!
+  [center sides radius rotation color]
+  (Raylib/DrawPoly (Vector2$ByValue. center) sides radius rotation (Color$ByValue. color)))
+
+(defn draw-poly-lines!
+  [center sides radius rotation color]
+  (Raylib/DrawPolyLines (Vector2$ByValue. center) sides radius rotation (Color$ByValue. color)))
+
+(defn draw-text!
+  [^String text posx posy size color]
+  (Raylib/DrawText text posx posy size color))
 
