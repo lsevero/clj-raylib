@@ -1,4 +1,5 @@
 (ns clj-raylib.core
+  (:refer-clojure :exclude [name])
   (:import [raylib.jna AudioStream BoneInfo BoundingBox Camera2D Camera3D
             CharInfo Color Font Image Material MaterialMap Matrix Mesh Model
             ModelAnimation Music NPatchInfo RAudioBuffer Ray RayHitInfo
@@ -8,11 +9,9 @@
             CharInfo$ByValue Color$ByValue Font$ByValue Image$ByValue Material$ByValue MaterialMap$ByValue Matrix$ByValue Mesh$ByValue Model$ByValue
             ModelAnimation$ByValue Music$ByValue NPatchInfo$ByValue RAudioBuffer$ByValue Ray$ByValue RayHitInfo$ByValue
             Rectangle$ByValue RenderTexture2D$ByValue Shader$ByValue Sound$ByValue Texture2D$ByValue Transform$ByValue
-            Vector2$ByValue Vector3$ByValue Vector4$ByValue VrDeviceInfo$ByValue Wave$ByValue]
-           [clojure.lang APersistentMap]
-           )
-  (:require [clojure.test :refer [is]])
-  )
+            Vector2$ByValue Vector3$ByValue Vector4$ByValue VrDeviceInfo$ByValue Wave$ByValue
+            Camera3D$ByReference Vector2$ByReference
+            ]))
 
 ; System config flags
 ; NOTE: Used for bit masks
@@ -430,27 +429,6 @@
 (def RAYWHITE (Color$ByValue. (int 245) (int 245) (int 245) (int 255)))
 ;end basic colors
 
-(defmacro with-drawing
-  [& body]
-  `(do
-     (Raylib/BeginDrawing)
-     ~@body
-     (Raylib/EndDrawing)))
-
-(defmacro with-mode2d
-  [camera2d & body]
-  `(do
-     (Raylib/BeginMode2D (Camera2D$ByValue. ~camera2d))
-     ~@body
-     (Raylib/EndMode2D)))
-
-(defmacro with-mode3d
-  [camera3d & body]
-  `(do
-     (Raylib/BeginMode3D (Camera3D$ByValue. ~camera3d))
-     ~@body
-     (Raylib/EndMode3D)))
-
 (defn init-window!
   [width height title]
   (Raylib/InitWindow width height title))
@@ -491,6 +469,10 @@
   []
   (Raylib/UnhideWindow))
 
+(defn hide-window!
+  []
+  (Raylib/HideWindow))
+
 (defn set-window-icon!
   [img]
   (Raylib/SetWindowIcon (Image$ByValue. img)))
@@ -511,13 +493,362 @@
   [w h]
   (Raylib/SetWindowMinSize w h))
 
-(defn set-target-fps!
-  [fps]
-  (Raylib/SetTargetFPS fps))
+(defn set-window-size!
+  [w h]
+  (Raylib/SetWindowSize w h))
+
+(defn get-window-handle
+  []
+  (Raylib/GetWindowHandle))
+
+(defn get-screen-width
+  []
+  (Raylib/GetScreenWidth))
+
+(defn get-screen-height
+  []
+  (Raylib/GetScreenHeight))
+
+(defn get-monitor-count
+  []
+  (Raylib/GetMonitorCount))
+
+(defn get-monitor-width
+  [monitor]
+  (Raylib/GetMonitorWidth monitor))
+
+(defn get-monitor-height
+  [monitor]
+  (Raylib/GetMonitorHeight monitor))
+
+(defn get-monitor-physical-width
+  [monitor]
+  (Raylib/GetMonitorPhysicalWidth monitor))
+
+(defn get-monitor-physical-height
+  [monitor]
+  (Raylib/GetMonitorPhysicalHeight monitor))
+
+(defn get-window-position
+  []
+  (Raylib/GetWindowPosition))
+
+(defn get-monitor-name
+  [monitor]
+  (Raylib/GetMonitorName monitor))
+
+(defn get-clipboard-text
+  []
+  (Raylib/GetClipboardText))
+
+(defn set-clipboard-text!
+  [txt]
+  (Raylib/SetClipboardText txt))
+
+(defn show-cursor!
+  []
+  (Raylib/ShowCursor))
+
+(defn hide-cursor!
+  []
+  (Raylib/HideCursor))
+
+(defn is-cursor-hidden?
+  []
+  (Raylib/IsCursorHidden))
+
+(defn enable-cursor!
+  []
+  (Raylib/EnableCursor))
+
+(defn disable-cursor!
+  []
+  (Raylib/DisableCursor))
 
 (defn clear-background!
   [color]
   (Raylib/ClearBackground (Color$ByValue. color)))
+
+(defmacro with-drawing
+  [& body]
+  `(do
+     (Raylib/BeginDrawing)
+     ~@body
+     (Raylib/EndDrawing)))
+
+(defmacro with-mode2d
+  [camera2d & body]
+  `(do
+     (Raylib/BeginMode2D (Camera2D$ByValue. ~camera2d))
+     ~@body
+     (Raylib/EndMode2D)))
+
+(defmacro with-mode3d
+  [camera3d & body]
+  `(do
+     (Raylib/BeginMode3D (Camera3D$ByValue. ~camera3d))
+     ~@body
+     (Raylib/EndMode3D)))
+
+(defmacro with-texture-mode
+  [target & body]
+  `(do
+     (Raylib/BeginTextureMode (RenderTexture2D$ByValue. ~target))
+     ~@body
+     (Raylib/EndTextureMode)))
+
+(defmacro with-scissor-mode
+  [x y w h & body]
+  `(do
+     (Raylib/BeginScissorMode ~x ~y ~w ~h)
+     ~@body
+     (Raylib/EndScissorMode)))
+
+(defn get-mouse-ray
+  [mouse-pos camera3d]
+  (Raylib/GetMouseRay (Vector2$ByValue. mouse-pos) (Camera3D$ByValue. camera3d)))
+
+(defn get-camera-matrix
+  [camera3d]
+  (Raylib/GetCameraMatrix (Camera3D$ByValue. camera3d)))
+
+(defn get-camera-matrix2d
+  [camera2d]
+  (Raylib/GetCameraMatrix2D (Camera2D$ByValue. camera2d)))
+
+(defn get-world-to-screen
+  ([vector3 camera3d]
+   (Raylib/GetWorldToScreen (Vector3$ByValue. vector3) (Camera3D$ByValue. camera3d)))
+  ([vector3 camera3d w h]
+   (Raylib/GetWorldToScreenEx (Vector3$ByValue. vector3) (Camera3D$ByValue. camera3d) w h)))
+
+(defn get-world-to-screen-2d
+  [vector2 camera2d]
+  (Raylib/GetWorldToScreen2D (Vector2$ByValue. vector2) (Camera2D$ByValue. camera2d)))
+
+(defn get-screen-to-world-2d
+  [vector2 camera2d]
+  (Raylib/GetScreenToWorld2D (Vector2$ByValue. vector2) (Camera2D$ByValue. camera2d)))
+
+(defn set-target-fps!
+  [fps]
+  (Raylib/SetTargetFPS fps))
+
+(defn get-fps
+  []
+  (Raylib/GetFPS))
+
+(defn get-frame-time
+  []
+  (Raylib/GetFrameTime))
+
+(defn get-time
+  []
+  (Raylib/GetTime))
+
+(defn is-key-pressed?
+  [k]
+  (Raylib/IsKeyPressed k))
+
+(defn is-key-down?
+  [k]
+  (Raylib/IsKeyDown k))
+
+(defn is-key-released?
+  [k]
+  (Raylib/IsKeyReleased k))
+
+(defn if-key-up?
+  [k]
+  (Raylib/IsKeyUp k))
+
+(defn set-exit-key!
+  [k]
+  (Raylib/SetExitKey k))
+
+(defn get-key-pressed
+  []
+  (Raylib/GetKeyPressed))
+
+(defn is-gamepad-available?
+  [gamepad]
+  (Raylib/IsGamepadAvailable gamepad))
+
+(defn is-gamepad-name?
+  [gamepad name]
+  (Raylib/IsGamepadName gamepad name))
+
+(defn get-gamepad-name
+  [gamepad]
+  (Raylib/GetGamepadName gamepad))
+
+(defn is-gamepad-button-pressed?
+  [gamepad button]
+  (Raylib/IsGamepadButtonPressed gamepad button))
+
+(defn is-gamepad-button-down?
+  [gamepad button]
+  (Raylib/IsGamepadButtonDown gamepad button))
+
+(defn is-gamepad-button-released?
+  [gamepad button]
+  (Raylib/IsGamepadButtonReleased gamepad button))
+
+(defn is-gamepad-button-up?
+  [gamepad button]
+  (Raylib/IsGamepadButtonUp gamepad button))
+
+(defn get-gamepad-button-pressed
+  []
+  (Raylib/GetGamepadButtonPressed))
+
+(defn get-gamepad-axis-count
+  [gamepad]
+  (Raylib/GetGamepadAxisCount gamepad))
+
+(defn get-gamepad-axis-movement
+  [gamepad axis]
+  (Raylib/GetGamepadAxisMovement gamepad axis))
+
+(defn is-mouse-button-pressed?
+  [button]
+  (Raylib/IsMouseButtonPressed button))
+
+(defn is-mouse-button-down?
+  [button]
+  (Raylib/IsMouseButtonDown button))
+
+(defn is-mouse-button-released?
+  [button]
+  (Raylib/IsMouseButtonReleased button))
+
+(defn is-mouse-button-up?
+  [button]
+  (Raylib/IsMouseButtonUp button))
+
+(defn get-mouse-x
+  []
+  (Raylib/GetMouseX))
+
+(defn get-mouse-y
+  []
+  (Raylib/GetMouseY))
+
+(defn get-mouse-position
+  []
+  (Raylib/GetMousePosition))
+
+(defn set-mouse-position!
+  [x y]
+  (Raylib/SetMousePosition x y))
+
+(defn set-mouse-offset!
+  [offsetx offsety]
+  (Raylib/SetMouseOffset offsetx offsety))
+
+(defn set-mouse-scale!
+  [scalex scaley]
+  (Raylib/SetMouseScale scalex scaley))
+
+(defn get-mouse-wheel-move
+  []
+  (Raylib/GetMouseWheelMove))
+
+(defn get-touch-x
+  []
+  (Raylib/GetTouchX))
+
+(defn get-touch-y
+  []
+  (Raylib/GetTouchY))
+
+(defn get-touch-position
+  [index]
+  (Raylib/GetTouchPosition index))
+
+(defn set-gestures-enabled
+  [gesture-flags]
+  (Raylib/SetGesturesEnabled gesture-flags))
+
+(defn is-gesture-detected?
+  [gesture]
+  (Raylib/IsGestureDetected gesture))
+
+(defn get-gesture-detect
+  []
+  (Raylib/GetGestureDetected))
+
+(defn get-touch-points-count
+  []
+  (Raylib/GetTouchPointsCount))
+
+(defn get-gesture-hold-duration
+  []
+  (Raylib/GetGestureHoldDuration))
+
+(defn get-gesture-drag-vector
+  []
+  (Raylib/GetGestureDragVector))
+
+(defn get-gesture-drag-angle
+  []
+  (Raylib/GetGestureDragAngle))
+
+(defn get-gesture-pinch-vector
+  []
+  (Raylib/GetGesturePinchVector))
+
+(defn get-gesture-pinch-angle
+  []
+  (Raylib/GetGesturePinchAngle))
+
+(defn set-camera-mode!
+  [camera3d mode]
+  (Raylib/SetCameraMode (Camera3D$ByValue. camera3d) mode))
+
+(defn update-camera!
+  [camera3d]
+  (let [camera-by-ref (Camera3D$ByReference. camera3d)]
+    (Raylib/UpdateCamera camera-by-ref)
+    camera-by-ref))
+
+(defn set-camera-pan-control!
+  [k]
+  (Raylib/SetCameraPanControl k))
+
+(defn set-camera-alt-control!
+  [k]
+  (Raylib/SetCameraAltControl k))
+
+(defn set-camera-smooth-zoom-control!
+  [k]
+  (Raylib/SetCameraSmoothZoomControl k))
+
+(defn set-camera-move-controls!
+  [front-key back-key right-key left-key up-key down-key]
+  (Raylib/SetCameraMoveControls front-key back-key right-key left-key up-key down-key))
+
+(defn draw-pixel!
+  ([posx posy color]
+   (Raylib/DrawPixel posx posy (Color$ByValue. color)))
+  ([pos color]
+   (Raylib/DrawPixelV (Vector2$ByValue. pos) (Color$ByValue. color))))
+
+(defn draw-line!
+  ([start-pos-x start-pos-y end-pos-x end-pos-y color]
+   (Raylib/DrawLine start-pos-x start-pos-y end-pos-x end-pos-y (Color$ByValue. color)))
+  ([start-vector end-vector color]
+   (Raylib/DrawLineV start-vector end-vector (Color$ByValue. color)))
+  ([start-vector end-vector thick color]
+   (Raylib/DrawLineEx start-vector end-vector thick (Color$ByValue. color))))
+
+(defn draw-line-bezier!
+  [start-vector end-vector thick color]
+   (Raylib/DrawLineBezier start-vector end-vector thick (Color$ByValue. color)))
+
+(defn draw-line-strip!
+  [points num-points color]
+  (Raylib/DrawLineStrip (Vector2$ByReference. points) num-points (Color$ByValue. color)))
 
 (defn draw-text!
   [^String text posx posy size color]
@@ -539,30 +870,3 @@
   ([posx posy w h color]
    (Raylib/DrawRectangle posx posy w h (Color$ByValue. color))))
 
-(defn is-key-down?
-  [k]
-  (Raylib/IsKeyDown k))
-
-(defn is-mouse-button-pressed?
-  [button]
-  (Raylib/IsMouseButtonPressed button))
-
-(defn is-mouse-button-down?
-  [button]
-  (Raylib/IsMouseButtonDown button))
-
-(defn is-mouse-button-released?
-  [button]
-  (Raylib/IsMouseButtonReleased button))
-
-(defn is-mouse-button-up?
-  [button]
-  (Raylib/IsMouseButtonUp button))
-
-(defn get-mouse-position
-  []
-  (Raylib/GetMousePosition))
-
-(defn get-mouse-wheel-move
-  []
-  (Raylib/GetMouseWheelMove))
