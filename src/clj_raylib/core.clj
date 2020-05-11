@@ -1,5 +1,5 @@
 (ns clj-raylib.core
-  (:refer-clojure :exclude [name])
+  (:refer-clojure :exclude [name format])
   (:import [raylib.jna AudioStream BoneInfo BoundingBox Camera2D Camera3D
             CharInfo Color Font Image Material MaterialMap Matrix Mesh Model
             ModelAnimation Music NPatchInfo RAudioBuffer Ray RayHitInfo
@@ -838,17 +838,17 @@
   ([start-pos-x start-pos-y end-pos-x end-pos-y color]
    (Raylib/DrawLine start-pos-x start-pos-y end-pos-x end-pos-y (Color$ByValue. color)))
   ([start-vector end-vector color]
-   (Raylib/DrawLineV start-vector end-vector (Color$ByValue. color)))
+   (Raylib/DrawLineV (Vector2$ByValue. start-vector) (Vector2$ByValue. end-vector) (Color$ByValue. color)))
   ([start-vector end-vector thick color]
-   (Raylib/DrawLineEx start-vector end-vector thick (Color$ByValue. color))))
+   (Raylib/DrawLineEx (Vector2$ByValue. start-vector) (Vector2$ByValue. end-vector) thick (Color$ByValue. color))))
 
 (defn draw-line-bezier!
   [start-vector end-vector thick color]
-   (Raylib/DrawLineBezier start-vector end-vector thick (Color$ByValue. color)))
+   (Raylib/DrawLineBezier (Vector2$ByValue. start-vector) (Vector2$ByValue. end-vector) thick (Color$ByValue. color)))
 
-(defn draw-line-strip!
-  [points num-points color]
-  (Raylib/DrawLineStrip (Vector2$ByReference. points) num-points (Color$ByValue. color)))
+;(defn draw-line-strip!
+  ;[points num-points color]
+  ;(Raylib/DrawLineStrip (Vector2$ByReference. points) num-points (Color$ByValue. color)))
 
 (defn draw-circle!
   ([v2 size color]
@@ -938,13 +938,13 @@
   [v1 v2 v3 color]
   (Raylib/DrawTriangleLines (Vector2$ByValue. v1) (Vector2$ByValue. v2) (Vector2$ByValue. v3) (Color$ByValue. color)))
 
-(defn draw-triangle-fan!
-  [points num-points color]
-  (Raylib/DrawTriangleFan (Vector2$ByReference. points) num-points (Color$ByValue. color)))
+;(defn draw-triangle-fan!
+  ;[points num-points color]
+  ;(Raylib/DrawTriangleFan (Vector2$ByReference. points) num-points (Color$ByValue. color)))
 
-(defn draw-triangle-strip!
-  [points num-points color]
-  (Raylib/DrawTriangleStrip (Vector2$ByReference. points) num-points (Color$ByValue. color)))
+;(defn draw-triangle-strip!
+  ;[points num-points color]
+  ;(Raylib/DrawTriangleStrip (Vector2$ByReference. points) num-points (Color$ByValue. color)))
 
 (defn draw-poly!
   [center sides radius rotation color]
@@ -953,6 +953,103 @@
 (defn draw-poly-lines!
   [center sides radius rotation color]
   (Raylib/DrawPolyLines (Vector2$ByValue. center) sides radius rotation (Color$ByValue. color)))
+
+(defn check-collision-recs?
+  [rec1 rec2]
+  (Raylib/CheckCollisionRecs (Rectangle$ByValue. rec1) (Rectangle$ByValue. rec2)))
+
+(defn check-collision-circles?
+  [center1 radius1 center2 radius2]
+  (Raylib/CheckCollisionCircles (Vector2$ByValue. center1) radius1 (Vector2$ByValue. center2) radius2))
+
+(defn check-collision-circle-rec?
+  [center radius rec]
+  (Raylib/CheckCollisionCircleRec (Vector2$ByValue. center) radius (Rectangle$ByValue. rec)))
+
+(defn get-collision-rec?
+  [rec1 rec2]
+  (Raylib/GetCollisionRec (Rectangle$ByValue. rec1) (Rectangle$ByValue. rec2)))
+
+(defn check-collision-point-rec?
+  [point rec]
+  (Raylib/CheckCollisionPointRec (Vector2$ByValue. point) (Rectangle$ByValue. rec)))
+
+(defn check-collision-point-circle?
+  [point center radius]
+  (Raylib/CheckCollisionPointCircle (Vector2$ByValue. point) (Vector2$ByValue. center) radius))
+
+(defn check-collision-point-triangle?
+  [point p1 p2 p3]
+  (Raylib/CheckCollisionPointTriangle (Vector2$ByValue. point) (Vector2$ByValue. p1) (Vector2$ByValue. p2) (Vector2$ByValue. p3)))
+
+(defn load-image!
+  [file-name]
+  (Raylib/LoadImage file-name))
+
+;(defn load-image-ex!
+  ;[pixels w h]
+  ;(Raylib/LoadImageEx (Color$ByReference. pixels) w h))
+
+(defn load-image-pro!
+  [data width height format]
+  (Raylib/LoadImagePro data width height format))
+
+(defn load-image-raw!
+  [filename w h format header-size]
+  (Raylib/LoadImageRaw filename w h format header-size))
+
+(defn unload-image!
+  [img]
+  (Raylib/UnloadImage (Image$ByValue. img)))
+
+(defn export-image!
+  [img filename]
+  (Raylib/ExportImage (Image$ByValue. img) filename))
+
+(defn export-image-as-code!
+  [img filename]
+  (Raylib/ExportImageAsCode (Image$ByValue. img) filename))
+
+(defn get-image-data
+  [img]
+  (Raylib/GetImageData (Image$ByValue. img)))
+
+(defn get-image-data-normalized
+  [img]
+  (Raylib/GetImageDataNormalized (Image$ByValue. img)))
+
+(defn gen-image-color
+  [w h color]
+  (Raylib/GenImageColor w h (Color$ByValue. color)))
+
+(defn gen-image-gradient-v
+  [w h top bottom]
+  (Raylib/GenImageGradientV w h (Color$ByValue. top) (Color$ByValue. bottom)))
+
+(defn gen-image-gradient-h
+  [w h left right]
+  (Raylib/GenImageGradientH w h (Color$ByValue. left) (Color$ByValue. right)))
+
+(defn gen-image-gradient-radial
+  [w h density inner outer]
+  (Raylib/GenImageGradientRadial w h density (Color$ByValue. inner) (Color$ByValue. outer)))
+
+(defn gen-image-checked
+  [w h checksx checksy col1 col2]
+  (Raylib/GenImageChecked w h checksx checksy (Color$ByValue. col1) (Color$ByValue. col2)))
+
+(defn gen-image-white-noise
+  [w h factor]
+  (Raylib/GenImageWhiteNoise w h factor))
+
+(defn gen-image-perlin-noise
+  [w h offsetx offsety scale]
+  (Raylib/GenImagePerlinNoise w h offsetx offsety scale))
+
+(defn gen-image-cellular
+  [w h tilesize]
+  (Raylib/GenImageCellular w h tilesize))
+
 
 (defn draw-text!
   [^String text posx posy size color]

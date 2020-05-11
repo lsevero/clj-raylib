@@ -388,6 +388,7 @@ public class Raylib {
     //
     // REMOVING THE RAYLIB TEXT FUNCIONS
     // Really... They are useless in clojure....
+    // use clojure.string functions which have better error handling
     //
     // Text strings management functions (no utf8 strings, only byte chars)
     // NOTE: Some strings allocate memory internally for returned strings, just be careful!
