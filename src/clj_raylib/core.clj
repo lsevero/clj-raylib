@@ -1,5 +1,5 @@
 (ns clj-raylib.core
-  (:refer-clojure :exclude [name format])
+  (:refer-clojure :exclude [name format replace])
   (:import [raylib.jna AudioStream BoneInfo BoundingBox Camera2D Camera3D
             CharInfo Color Font Image Material MaterialMap Matrix Mesh Model
             ModelAnimation Music NPatchInfo RAudioBuffer Ray RayHitInfo
@@ -10,8 +10,10 @@
             ModelAnimation$ByValue Music$ByValue NPatchInfo$ByValue RAudioBuffer$ByValue Ray$ByValue RayHitInfo$ByValue
             Rectangle$ByValue RenderTexture2D$ByValue Shader$ByValue Sound$ByValue Texture2D$ByValue Transform$ByValue
             Vector2$ByValue Vector3$ByValue Vector4$ByValue VrDeviceInfo$ByValue Wave$ByValue
-            Camera3D$ByReference Vector2$ByReference
-            ]))
+            Camera3D$ByReference Vector2$ByReference Image$ByReference
+            ]
+           [com.sun.jna.ptr IntByReference]
+           ))
 
 ; System config flags
 ; NOTE: Used for bit masks
@@ -1049,6 +1051,236 @@
 (defn gen-image-cellular
   [w h tilesize]
   (Raylib/GenImageCellular w h tilesize))
+
+(defn image-copy
+  [img]
+  (Raylib/ImageCopy (Image$ByValue. img)))
+
+(defn image-from-image
+  [img rec]
+  (Raylib/ImageFromImage (Image$ByValue. img) (Rectangle$ByValue. rec)))
+
+(defn image-text
+  ([text fontsize color]
+   (Raylib/ImageText text fontsize (Color$ByValue. color)))
+  ([font text fontsize spacing tint]
+   (Raylib/ImageTextEx (Font$ByValue. font) text fontsize spacing (Color$ByValue. tint))))
+
+(defn image-to-pot
+  [img fillcolor]
+  (let [new-img (Image$ByReference. img)]
+    (Raylib/ImageToPOT new-img (Color$ByValue. fillcolor))
+    new-img))
+
+
+(defn image-format
+  [img newformat]
+  (let [new-img (Image$ByReference. img)]
+    (Raylib/ImageFormat new-img newformat)
+    new-img))
+
+(defn image-alpha-mask
+  [img alphamask]
+  (let [new-img (Image$ByReference. img)]
+    (Raylib/ImageAlphaMask new-img (Image$ByValue. alphamask))
+    new-img))
+
+(defn image-alpha-clear
+  [img color threshold]
+  (let [new-img (Image$ByReference. img)]
+    (Raylib/ImageAlphaClear new-img (Color$ByValue. color) threshold)
+    new-img))
+
+(defn image-alpha-crop
+  [img threshold]
+  (let [new-img (Image$ByReference. img)]
+    (Raylib/ImageAlphaCrop new-img threshold)
+    new-img))
+
+(defn image-alpha-premultiply
+  [img]
+  (let [new-img (Image$ByReference. img)]
+    (Raylib/ImageAlphaPremultiply new-img)
+    new-img))
+
+(defn image-crop
+  [img crop]
+  (let [new-img (Image$ByReference. img)]
+    (Raylib/ImageCrop new-img (Rectangle$ByValue. crop))
+    new-img))
+
+(defn image-resize
+  [img new-w new-h]
+  (let [new-img (Image$ByReference. img)]
+    (Raylib/ImageResize new-img new-w new-h)
+    new-img))
+
+(defn image-resize-nn
+  [img new-w new-h]
+  (let [new-img (Image$ByReference. img)]
+    (Raylib/ImageResizeNN new-img new-w new-h)
+    new-img))
+
+(defn image-resize-canvas
+  [img new-w new-h offsetx offsety color]
+  (let [new-img (Image$ByReference. img)]
+    (Raylib/ImageResizeCanvas new-img new-w new-h offsetx offsety (Color$ByValue. color))
+    new-img
+    ))
+
+(defn image-mipmaps
+  [img]
+  (let [new-img (Image$ByReference. img)]
+    (Raylib/ImageMipmaps new-img)
+    new-img))
+
+(defn image-dither
+  [img rbpp gbpp bbpp abpp]
+  (let [new-img (Image$ByReference. img)]
+    (Raylib/ImageDither new-img rbpp gbpp bbpp abpp)
+    new-img))
+
+(defn image-flip-vertical
+  [img]
+  (let [new-img (Image$ByReference. img)]
+    (Raylib/ImageFlipVertical new-img)
+    new-img))
+
+(defn image-flip-horizontal
+  [img]
+  (let [new-img (Image$ByReference. img)]
+    (Raylib/ImageFlipHorizontal new-img)
+    new-img))
+
+(defn image-rotate-cw
+  [img]
+  (let [new-img (Image$ByReference. img)]
+    (Raylib/ImageRotateCW new-img)
+    new-img))
+
+(defn image-rotate-ccw
+  [img]
+  (let [new-img (Image$ByReference. img)]
+    (Raylib/ImageRotateCCW new-img)
+    new-img))
+
+(defn image-color-tint
+  [img color]
+  (let [new-img (Image$ByReference. img)]
+    (Raylib/ImageColorTint new-img (Color$ByValue. color))
+    new-img))
+
+(defn image-color-invert
+  [img]
+  (let [new-img (Image$ByReference. img)]
+    (Raylib/ImageColorInvert new-img)
+    new-img))
+
+(defn image-color-grayscale
+  [img]
+  (let [new-img (Image$ByReference. img)]
+    (Raylib/ImageColorGrayscale new-img)
+    new-img))
+
+(defn image-color-contrast
+  [img contrast]
+  (let [new-img (Image$ByReference. img)]
+    (Raylib/ImageColorContrast new-img contrast)
+    new-img))
+
+(defn image-color-brightness
+  [img brightness]
+  (let [new-img (Image$ByReference. img)]
+    (Raylib/ImageColorBrightness new-img brightness)
+    new-img))
+
+(defn image-color-replace
+  [img color replace]
+  (let [new-img (Image$ByReference. img)]
+    (Raylib/ImageColorReplace new-img (Color$ByValue. color) (Color$ByValue. color))
+    new-img))
+
+(defn image-extract-pallete
+  [img maxpalettesize]
+  (let [^IntByReference int-ref (IntByReference.)
+        ans (Raylib/ImageExtractPalette (Image$ByValue. img) maxpalettesize int-ref)]
+    [ans (.getValue int-ref)]))
+
+(defn get-image-alpha-border
+  [img threshold]
+  (Raylib/GetImageAlphaBorder (Image$ByValue. img) threshold))
+
+(defn image-clear-background
+  [img color]
+  (let [new-img (Image$ByReference. img)]
+    (Raylib/ImageClearBackground new-img (Color$ByValue. color))
+    new-img))
+
+(defn image-draw-pixel
+  ([dst posx posy color]
+   (let [new-img (Image$ByReference. dst)]
+     (Raylib/ImageDrawPixel new-img posx posy (Color$ByValue. color))
+     new-img))
+  ([dst pos color]
+   (let [new-img (Image$ByReference. dst)]
+     (Raylib/ImageDrawPixelV new-img (Vector2$ByValue. pos) (Color$ByValue. color))
+     new-img)))
+
+(defn image-draw-line
+  ([dst sposx sposy eposx eposy color]
+   (let [new-img (Image$ByReference. dst)]
+     (Raylib/ImageDrawLine new-img sposx sposy eposx eposy (Color$ByValue. color))
+     new-img))
+  ([dst start end color]
+   (let [new-img (Image$ByReference. dst)]
+     (Raylib/ImageDrawLineV new-img (Vector2$ByValue. start) (Vector2$ByValue. end) (Color$ByValue. color))
+     new-img)))
+
+(defn image-draw-circle
+  ([dst centerx centery radius color]
+   (let [new-img (Image$ByReference. dst)]
+     (Raylib/ImageDrawCircle new-img centerx centery radius (Color$ByValue. color))
+     new-img))
+  ([dst center radius color]
+   (let [new-img (Image$ByReference. dst)]
+     (Raylib/ImageDrawCircleV new-img (Vector2$ByValue. center) radius (Color$ByValue. color))
+     new-img)))
+
+(defn image-draw-rectangle
+  ([dst posx posy w h color]
+   (let [new-img (Image$ByReference. dst)]
+     (Raylib/ImageDrawRectangle new-img posx posy w h (Color$ByValue. color))
+     new-img))
+  ([dst pos size color]
+   (let [new-img (Image$ByReference. dst)]
+     (Raylib/ImageDrawRectangleV new-img (Vector2$ByValue. pos) (Vector2$ByValue. size) (Color$ByValue. color))
+     new-img))
+  ([dst rec color]
+   (let [new-img (Image$ByReference. dst)]
+     (Raylib/ImageDrawRectangleRec new-img (Rectangle$ByValue. rec) (Color$ByValue. color))
+     new-img)))
+
+(defn image-draw-rectangle-lines
+  [dst rec thick color]
+  (let [new-img (Image$ByReference. dst)]
+    (Raylib/ImageDrawRectangleLines new-img (Rectangle$ByValue. rec) thick (Color$ByValue. color))
+    new-img))
+
+(defn image-draw
+  [dst src src-rec dst-rec tint]
+  (let [new-img (Image$ByReference. dst)]
+    (Raylib/ImageDraw new-img (Image$ByValue. src) (Rectangle$ByValue. src-rec) (Rectangle$ByValue. dst-rec) (Color$ByValue. tint))
+    new-img))
+
+(defn image-draw-text
+  ([dst pos text fontsize color]
+   (let [new-img (Image$ByReference. dst)]
+     (Raylib/ImageDrawText new-img (Vector2$ByValue. pos) text fontsize (Color$ByValue. color))
+     new-img))
+  ([dst pos font text fontsize spacing color]
+   (let [new-img (Image$ByReference. dst)]
+     (Raylib/ImageDrawTextEx new-img (Vector2$ByValue. pos) (Font$ByValue. font) text fontsize spacing (Color$ByValue. color))
+     new-img)))
 
 
 (defn draw-text!

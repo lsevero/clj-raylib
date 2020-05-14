@@ -92,43 +92,45 @@ public class Raylib {
 
     // Files management functions
     //
-    // Removed for now, I feel that in clojure they are a bad replacement for
+    // Removed for now on core.clj, I feel that in clojure they are a bad replacement for
     // functions in clojure.java.io. This C functions do not have propper error
     // handling like the clojure/java equivalents. If I'm proven to be wrong I
     // will readd them in the future.
     //
-    //public static native String LoadFileData(String fileName, IntByReference bytesRead);     // Load file data as byte array (read)
-    //public static native void SaveFileData(String fileName, Pointer data, int bytesToWrite); // Save data to file from byte array (write)
-    //public static native String LoadFileText(String fileName);                   // Load text data from file (read), returns a '\0' terminated string
-    //public static native void SaveFileText(String fileName, String text);        // Save text data to file (write), string must be '\0' terminated
-    //public static native boolean FileExists(String fileName);                      // Check if file exists
-    //public static native boolean IsFileExtension(String fileName, String ext);// Check file extension
-    //public static native boolean DirectoryExists(String dirPath);                  // Check if a directory path exists
-    //public static native String GetExtension(String fileName);             // Get pointer to extension for a filename string
-    //public static native String GetFileName(String filePath);              // Get pointer to filename for a path string
-    //public static native String GetFileNameWithoutExt(String filePath);    // Get filename string without extension (uses static string)
-    //public static native String GetDirectoryPath(String filePath);         // Get full path for a given fileName with path (uses static string)
-    //public static native String GetPrevDirectoryPath(String dirPath);      // Get previous directory path for a given path (uses static string)
-    //public static native String GetWorkingDirectory();                      // Get current working directory (uses static string)
-    ////public static native String[] GetDirectoryFiles(String dirPath, IntByReference count);  // Get filenames in a directory path (memory should be freed)
-    //public static native void ClearDirectoryFiles();                             // Clear directory files paths buffers (free memory)
-    //public static native boolean ChangeDirectory(String dir);                      // Change working directory, returns true if success
-    //public static native boolean IsFileDropped();                                   // Check if a file has been dropped into window
-    ////public static native String[] GetDroppedFiles(IntByReference count);                         // Get dropped files names (memory should be freed)
-    //public static native void ClearDroppedFiles();                               // Clear dropped files paths buffer (free memory)
-    //public static native long GetFileModTime(String fileName);                  // Get file modification time (last write time)
+    public static native String LoadFileData(String fileName, IntByReference bytesRead);     // Load file data as byte array (read)
+    public static native void SaveFileData(String fileName, Pointer data, int bytesToWrite); // Save data to file from byte array (write)
+    public static native String LoadFileText(String fileName);                   // Load text data from file (read), returns a '\0' terminated string
+    public static native void SaveFileText(String fileName, String text);        // Save text data to file (write), string must be '\0' terminated
+    public static native boolean FileExists(String fileName);                      // Check if file exists
+    public static native boolean IsFileExtension(String fileName, String ext);// Check file extension
+    public static native boolean DirectoryExists(String dirPath);                  // Check if a directory path exists
+    public static native String GetExtension(String fileName);             // Get pointer to extension for a filename string
+    public static native String GetFileName(String filePath);              // Get pointer to filename for a path string
+    public static native String GetFileNameWithoutExt(String filePath);    // Get filename string without extension (uses static string)
+    public static native String GetDirectoryPath(String filePath);         // Get full path for a given fileName with path (uses static string)
+    public static native String GetPrevDirectoryPath(String dirPath);      // Get previous directory path for a given path (uses static string)
+    public static native String GetWorkingDirectory();                      // Get current working directory (uses static string)
+    //public static native String[] GetDirectoryFiles(String dirPath, IntByReference count);  // Get filenames in a directory path (memory should be freed)
+    public static native void ClearDirectoryFiles();                             // Clear directory files paths buffers (free memory)
+    public static native boolean ChangeDirectory(String dir);                      // Change working directory, returns true if success
+    public static native boolean IsFileDropped();                                   // Check if a file has been dropped into window
+    //public static native String[] GetDroppedFiles(IntByReference count);                         // Get dropped files names (memory should be freed)
+    public static native void ClearDroppedFiles();                               // Clear dropped files paths buffer (free memory)
+    public static native long GetFileModTime(String fileName);                  // Get file modification time (last write time)
 
 
     //
+    // Not added to core.clj.
     // Another case that I think that java/clojure will do better.
     // One could use the java.util.zip.InflaterInputStream or java.util.zip.GZIPInputStream
     // to accomplish the same thing with more control
     //
-    //public static native String CompressData(String data, int dataLength, IntByReference compDataLength);        // Compress data (DEFLATE algorythm)
-    //public static native String DecompressData(String compData, int compDataLength, IntByReference dataLength);  // Decompress data (DEFLATE algorythm)
+    public static native String CompressData(String data, int dataLength, IntByReference compDataLength);        // Compress data (DEFLATE algorythm)
+    public static native String DecompressData(String compData, int compDataLength, IntByReference dataLength);  // Decompress data (DEFLATE algorythm)
 
     // Persistent storage management
     //
+    // Not added to core.clj.
     // Clojure will do this much better, use clojure.edn to read files, and just save 
     // the edn with (->> % pr-str (spit "path-to-file"))
     //
@@ -136,7 +138,7 @@ public class Raylib {
     //public static native int LoadStorageValue(int position);                // Load integer value from storage file (from defined position)
 
     //
-    // Hmm, no
+    // Not added to core.clj.
     // Use java.awt.Desktop.getDesktop().browse(new URI("http://www.example.com"))
     //
     //public static native void OpenURL(String url);                              // Open URL with default system browser (if available)
