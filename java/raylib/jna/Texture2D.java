@@ -22,6 +22,28 @@ public class Texture2D extends Structure{
         public ByValue(Object obj){
             super(obj);
         }
+        public ByValue(ByReference obj){
+            super(obj);
+        }
+    }
+    public static class ByReference extends Texture2D implements Structure.ByReference {
+        public ByReference(){
+            super();
+        }
+
+        public ByReference(APersistentMap map){
+            super(map);
+        }
+
+        public ByReference(int id, int width, int height, int mipmaps, int format){
+            super(id, width, height, mipmaps, format);
+        }
+        public ByReference(Object obj){
+            super(obj);
+        }
+        public ByReference(ByValue obj){
+            super(obj);
+        }
     }
     public int id;
     public int width;

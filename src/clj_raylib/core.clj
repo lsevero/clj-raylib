@@ -10,7 +10,7 @@
             ModelAnimation$ByValue Music$ByValue NPatchInfo$ByValue RAudioBuffer$ByValue Ray$ByValue RayHitInfo$ByValue
             Rectangle$ByValue RenderTexture2D$ByValue Shader$ByValue Sound$ByValue Texture2D$ByValue Transform$ByValue
             Vector2$ByValue Vector3$ByValue Vector4$ByValue VrDeviceInfo$ByValue Wave$ByValue
-            Camera3D$ByReference Vector2$ByReference Image$ByReference
+            Camera3D$ByReference Vector2$ByReference Image$ByReference Texture2D$ByReference
             ]
            [com.sun.jna.ptr IntByReference]
            ))
@@ -1282,6 +1282,88 @@
      (Raylib/ImageDrawTextEx new-img (Vector2$ByValue. pos) (Font$ByValue. font) text fontsize spacing (Color$ByValue. color))
      new-img)))
 
+(defn load-texture
+  [filename]
+  (Raylib/LoadTexture filename))
+
+(defn load-texture-from-image
+  [img]
+  (Raylib/LoadTextureFromImage (Image$ByValue. img)))
+
+(defn load-texture-cubemap
+  [img layout-type]
+  (Raylib/LoadTextureCubemap (Image$ByValue. img) layout-type))
+
+(defn load-render-texture
+  [w h]
+  (Raylib/LoadRenderTexture w h))
+
+(defn unload-texture
+  [texture]
+  (Raylib/UnloadTexture (Texture2D$ByValue. texture)))
+
+(defn unload-render-texture
+  [target]
+  (Raylib/UnloadRenderTexture (RenderTexture2D$ByValue. target)))
+
+(defn update-texture
+  [texture pixels]
+  (Raylib/UpdateTexture (Texture2D$ByValue. texture) pixels))
+
+(defn get-texture-data
+  [texture]
+  (Raylib/GetTextureData (Texture2D$ByValue. texture)))
+
+(defn get-screen-data
+  []
+  (Raylib/GetScreenData))
+
+
+(defn gen-texture-mipmaps
+  [texture]
+  (let [newtexture (Texture2D$ByReference. texture)]
+    (Raylib/GenTextureMipmaps newtexture)
+    newtexture))
+
+(defn set-texture-filter!
+  [texture filtermode]
+  (Raylib/SetTextureFilter (Texture2D$ByValue. texture) filtermode))
+
+(defn set-texture-wrap!
+  [texture wrapmode]
+  (Raylib/SetTextureWrap (Texture2D$ByValue. texture) wrapmode))
+
+
+(defn draw-texture!
+  ([texture posx posy tint]
+   (Raylib/DrawTexture (Texture2D$ByValue. texture) posx posy (Color$ByValue. tint)))
+  ([texture position tint]
+   (Raylib/DrawTextureV (Texture2D$ByValue. texture) (Vector2$ByValue. position) (Color$ByValue. tint)))
+  ([texture position rotation scale tint]
+   (Raylib/DrawTextureEx (Texture2D$ByValue. texture) (Vector2$ByValue. position) rotation scale (Color$ByValue. tint))))
+
+(defn draw-texture-rec!
+  [texture sourcerec position tint]
+  (Raylib/DrawTextureRec (Texture2D$ByValue. texture) (Rectangle$ByValue. sourcerec) (Vector2$ByValue. position) (Color$ByValue. tint)))
+
+(defn draw-texture-quad!
+  [texture tiling offset quad tint]
+  (Raylib/DrawTextureQuad (Texture2D$ByValue. texture) (Vector2$ByValue. tiling) (Vector2$ByValue. offset) 
+                          (Rectangle$ByValue. quad) (Color$ByValue. tint)))
+
+(defn draw-texture-pro!
+  [texture sourcerec destrec origin rotation tint]
+  (Raylib/DrawTexturePro (Texture2D$ByValue. texture) (Rectangle$ByValue. sourcerec) (Rectangle$ByValue. destrec) (Vector2$ByValue. origin) rotation
+                         (Color$ByValue. tint)))
+
+(defn draw-texture-npatch!
+  [texture npatchinfo destrec origin rotation tint]
+  (Raylib/DrawTextureNPatch (Texture2D$ByValue. texture) (NPatchInfo$ByValue. npatchinfo) (Rectangle$ByValue. destrec) (Vector2$ByValue. origin) rotation
+                            (Color$ByValue. tint)))
+
+(defn get-pixel-data-size
+  [w h format]
+  (Raylib/GetPixelDataSize w h format))
 
 (defn draw-text!
   [^String text posx posy size color]
