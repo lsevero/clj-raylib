@@ -1,5 +1,5 @@
 (ns clj-raylib.core
-  (:refer-clojure :exclude [name format replace])
+  (:refer-clojure :exclude [name format replace key type])
   (:import [raylib.jna AudioStream BoneInfo BoundingBox Camera2D Camera3D
             CharInfo Color Font Image Material MaterialMap Matrix Mesh Model
             ModelAnimation Music NPatchInfo RAudioBuffer Ray RayHitInfo
@@ -1318,10 +1318,9 @@
   []
   (Raylib/GetScreenData))
 
-
 (defn gen-texture-mipmaps
   [texture]
-  (let [newtexture (Texture2D$ByReference. texture)]
+  (let [^Texture2D$ByReference newtexture (Texture2D$ByReference. texture)]
     (Raylib/GenTextureMipmaps newtexture)
     newtexture))
 
@@ -1332,7 +1331,6 @@
 (defn set-texture-wrap!
   [texture wrapmode]
   (Raylib/SetTextureWrap (Texture2D$ByValue. texture) wrapmode))
-
 
 (defn draw-texture!
   ([texture posx posy tint]
@@ -1365,7 +1363,52 @@
   [w h format]
   (Raylib/GetPixelDataSize w h format))
 
-(defn draw-text!
-  [^String text posx posy size color]
-  (Raylib/DrawText text posx posy size color))
+(defn get-font-default
+  []
+  (Raylib/GetFontDefault))
 
+(defn load-font
+  ([filename]
+   (Raylib/LoadFont filename))
+  ([filename fontsize fontchars charscount]
+   (Raylib/LoadFontEx filename fontsize fontchars charscount))
+  ([image key firstchar]
+   (Raylib/LoadFontFromImage (Image$ByValue. image) (Color$ByValue. key) firstchar)))
+
+; Need to pass a array of ints instead of a IntByReference
+;(defn load-font-data
+  ;[filename fontsize fontchars charscount type]
+  ;(Raylib/LoadFontData filename fontsize fontchars charscount type))
+
+(defn unload-font!
+  [font]
+  (Raylib/UnloadFont (Font$ByValue. font)))
+
+(defn draw-fps!
+  [posx posy]
+  (Raylib/DrawFPS posx posy))
+
+(defn draw-text!
+  ([text posx posy size color]
+   (Raylib/DrawText text posx posy size color))
+  ([font text position fontsize spacing tint]
+   (Raylib/DrawTextEx (Font$ByValue. font) text (Vector2$ByValue. position) fontsize spacing (Color$ByValue. tint)))
+  ([font text rec fontsize spacing wordwrap tint]
+   (Raylib/DrawTextRec (Font$ByValue. font) text (Rectangle$ByValue. rec) fontsize spacing (boolean wordwrap) (Color$ByValue. tint)))
+  ([font text rec fontsize spacing wordwrap tint selectstart selectlength selecttint selectbacktint]
+   (Raylib/DrawTextRecEx (Font$ByValue. font) text (Rectangle$ByValue. rec) fontsize spacing (boolean wordwrap) (Color$ByValue. tint)
+                         selectstart selectlength (Color$ByValue. selecttint) (Color$ByValue. selectbacktint))))
+
+(defn draw-text-codepoint!
+  [font codepoint position scale tint]
+  (Raylib/DrawTextCodepoint (Font$ByValue. font) codepoint (Vector2$ByValue. position) scale (Color$ByValue. tint)))
+
+(defn measure-text
+  ([text fontsize]
+   (Raylib/MeasureText text fontsize))
+  ([font text fontsize spacing]
+   (Raylib/MeasureTextEx (Font$ByValue. font) text fontsize spacing)))
+
+(defn get-glyph-index
+  [font codepoint]
+  (Raylib/GetGlyphIndex (Font$ByValue. font) codepoint))

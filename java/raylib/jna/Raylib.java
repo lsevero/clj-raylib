@@ -344,7 +344,7 @@ public class Raylib {
     public static native Image.ByValue GetScreenData();                                                                         // Get pixel data from screen buffer and return an Image.ByValue (screenshot)
 
     // Texture configuration functions
-    //public static native void GenTextureMipmaps(Texture2D.ByReference texture);                                                        // Generate GPU mipmaps for a texture
+    public static native void GenTextureMipmaps(Texture2D.ByReference texture);                                                        // Generate GPU mipmaps for a texture
     public static native void SetTextureFilter(Texture2D.ByValue texture, int filterMode);                                          // Set texture scaling filter mode
     public static native void SetTextureWrap(Texture2D.ByValue texture, int wrapMode);                                              // Set texture wrapping mode
 
