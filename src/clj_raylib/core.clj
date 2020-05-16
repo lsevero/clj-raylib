@@ -1,5 +1,5 @@
 (ns clj-raylib.core
-  (:refer-clojure :exclude [name format replace key type])
+  (:refer-clojure :exclude [name format replace key type count])
   (:import [raylib.jna AudioStream BoneInfo BoundingBox Camera2D Camera3D
             CharInfo Color Font Image Material MaterialMap Matrix Mesh Model
             ModelAnimation Music NPatchInfo RAudioBuffer Ray RayHitInfo
@@ -1412,3 +1412,108 @@
 (defn get-glyph-index
   [font codepoint]
   (Raylib/GetGlyphIndex (Font$ByValue. font) codepoint))
+
+
+(defn get-codepoints
+  [text count]
+  (Raylib/GetCodepoints text count))
+
+(defn get-codepoints-count
+  [text]
+  (Raylib/GetCodepointsCount text))
+
+(defn get-next-codepoint
+  [codepoint bytesprocessed]
+  (Raylib/GetNextCodepoint codepoint bytesprocessed))
+
+(defn codepoint-to-utf8
+  [codepoint bytelength]
+  (Raylib/CodepointToUtf8 codepoint bytelength))
+
+(defn draw-line-3d!
+  [spos epos color]
+  (Raylib/DrawLine3D (Vector3$ByValue. spos) (Vector3$ByValue. epos) (Color$ByValue. color)))
+
+(defn draw-point-3d!
+  [pos color]
+  (Raylib/DrawPoint3D (Vector3$ByValue. pos) (Color$ByValue. color)))
+
+(defn draw-circle-3d!
+  [center radius raxis rangle color]
+  (Raylib/DrawCircle3D (Vector3$ByValue. center) radius (Vector3$ByValue. raxis) (Vector3$ByValue. rangle) (Color$ByValue. color)))
+
+(defn draw-cube!
+  ([pos w h length color]
+   (Raylib/DrawCube (Vector3$ByValue. pos) w h length (Color$ByValue. color)))
+  ([pos size color]
+   (Raylib/DrawCubeV (Vector3$ByValue. pos) (Vector3$ByValue. size) (Color$ByValue. color))))
+
+(defn draw-cube-wires!
+  ([pos w h len color]
+   (Raylib/DrawCubeWires (Vector3$ByValue. pos) w h len (Color$ByValue. color)))
+  ([pos size color]
+   (Raylib/DrawCubeWiresV (Vector3$ByValue. pos) (Vector3$ByValue. size) (Color$ByValue. color))))
+
+(defn draw-cube-texture!
+  [texture pos w h len color]
+  (Raylib/DrawCubeTexture (Texture2D$ByValue. texture) (Vector3$ByValue. pos) w h len (Color$ByValue. color)))
+
+(defn draw-sphere!
+  ([centerpos radius color]
+   (Raylib/DrawSphere (Vector3$ByValue. centerpos) radius (Color$ByValue. color)))
+  ([centerpos radius rings slices color]
+   (Raylib/DrawSphereEx (Vector3$ByValue. centerpos) radius rings slices (Color$ByValue. color))))
+
+(defn draw-sphere-wires!
+  [centerpos radius rings slices color]
+  (Raylib/DrawSphereWires (Vector3$ByValue. centerpos) radius rings slices (Color$ByValue. color)))
+
+(defn draw-cylinder!
+  [pos radiustop radiusbottom h slices color]
+  (Raylib/DrawCylinder (Vector3$ByValue. pos) radiustop radiusbottom h slices (Color$ByValue. color)))
+
+(defn draw-cylinder-wires!
+  [pos radiustop radiusbottom h slices color]
+  (Raylib/DrawCylinderWires (Vector3$ByValue. pos) radiustop radiusbottom h slices (Color$ByValue. color)))
+
+(defn draw-plane!
+  [centerpos size color]
+  (Raylib/DrawPlane (Vector3$ByValue. centerpos) (Vector2$ByValue. size) (Color$ByValue. color)))
+
+(defn draw-ray!
+  [ray color]
+  (Raylib/DrawRay (Ray$ByValue. ray) (Color$ByValue. color)))
+
+(defn draw-grid!
+  [slices spacing]
+  (Raylib/DrawGrid slices spacing))
+
+(defn draw-gizmo!
+  [pos]
+  (Raylib/DrawGizmo (Vector3$ByValue. pos)))
+
+(defn load-model
+  [filename]
+  (Raylib/LoadModel filename))
+
+(defn load-model-from-mesh
+  [mesh]
+  (Raylib/LoadModelFromMesh (Mesh$ByValue. mesh)))
+
+(defn unload-model
+  [model]
+  (Raylib/UnloadModel (Model$ByValue. model)))
+
+(defn load-meshes
+  [filename]
+  (let [^IntByReference int-ref (IntByReference.)
+        ans (Raylib/LoadMeshes filename int-ref)]
+    [ans (long (.getValue int-ref))]))
+
+(defn export-mesh
+  [mesh filename]
+  (Raylib/ExportMesh (Mesh$ByValue. mesh) filename))
+
+(defn unload-mesh
+  [mesh]
+  (Raylib/UnloadMesh (Mesh$ByValue. mesh)))
