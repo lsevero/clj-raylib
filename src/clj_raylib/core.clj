@@ -10,7 +10,8 @@
             ModelAnimation$ByValue Music$ByValue NPatchInfo$ByValue RAudioBuffer$ByValue Ray$ByValue RayHitInfo$ByValue
             Rectangle$ByValue RenderTexture2D$ByValue Shader$ByValue Sound$ByValue Texture2D$ByValue Transform$ByValue
             Vector2$ByValue Vector3$ByValue Vector4$ByValue VrDeviceInfo$ByValue Wave$ByValue
-            Camera3D$ByReference Vector2$ByReference Image$ByReference Texture2D$ByReference
+            Camera3D$ByReference Vector2$ByReference Image$ByReference Texture2D$ByReference Material$ByReference
+            Mesh$ByReference
             ]
            [com.sun.jna.ptr IntByReference]
            ))
@@ -1204,7 +1205,7 @@
   [img maxpalettesize]
   (let [^IntByReference int-ref (IntByReference.)
         ans (Raylib/ImageExtractPalette (Image$ByValue. img) maxpalettesize int-ref)]
-    [ans (.getValue int-ref)]))
+    [ans (long (.getValue int-ref))]))
 
 (defn get-image-alpha-border
   [img threshold]
@@ -1517,3 +1518,130 @@
 (defn unload-mesh
   [mesh]
   (Raylib/UnloadMesh (Mesh$ByValue. mesh)))
+
+(defn load-materials
+  [filename]
+  (let [^IntByReference int-ref (IntByReference.)
+        ans (Raylib/LoadMaterials filename int-ref)]
+    [ans (long (.getValue int-ref))]))
+
+(defn load-material-default
+  []
+  (Raylib/LoadMaterialDefault))
+
+(defn unload-material
+  [material]
+  (Raylib/UnloadMaterial (Material$ByValue. material)))
+
+(defn set-material-texture
+  [material maptype texture]
+  (let [material-ref (Material$ByReference. material)]
+    (Raylib/SetMaterialTexture material-ref maptype (Texture2D$ByValue. texture))
+    material-ref))
+
+(defn set-model-mesh-material
+  [model mesh-id material-id]
+  (let [model-ref (Material$ByReference. model)]
+    (Raylib/SetModelMeshMaterial model-ref mesh-id material-id)
+    model-ref))
+
+(defn load-model-animations
+  [filename]
+  (let [^IntByReference int-ref (IntByReference.)
+        ans (Raylib/LoadModelAnimations filename int-ref)]
+    [ans (long (.getValue int-ref))]))
+
+(defn update-model-animation
+  [model anim frame]
+  (Raylib/UpdateModelAnimation (Model$ByValue. model) (ModelAnimation$ByValue. anim) frame))
+
+(defn unload-model-animation
+  [anim]
+  (Raylib/UnloadModelAnimation (ModelAnimation$ByValue. anim)))
+
+(defn is-model-animation-valid?
+  [model anim]
+  (Raylib/IsModelAnimationValid (Model$ByValue. model) (ModelAnimation$ByValue. anim)))
+
+(defn gen-mesh-poly
+  [sides radius]
+  (Raylib/GenMeshPoly sides radius))
+
+(defn gen-mesh-plane
+  [w len resX resZ]
+  (Raylib/GenMeshPlane w len resX resZ))
+
+(defn gen-mesh-cube
+  [w h len]
+  (Raylib/GenMeshCube w h len))
+
+(defn gen-mesh-sphere
+  [radius rings slices]
+  (Raylib/GenMeshSphere radius rings slices))
+
+(defn gen-mesh-hemi-sphere
+  [radius rings slices]
+  (Raylib/GenMeshHemiSphere radius rings slices))
+
+(defn gen-mesh-cylinder
+  [radius h slices]
+  (Raylib/GenMeshCylinder radius h slices))
+
+(defn gen-mesh-torus
+  [radius size rad-seg sides]
+  (Raylib/GenMeshTorus radius size rad-seg sides))
+
+(defn gen-mesh-knot
+  [radius size rad-seg sides]
+  (Raylib/GenMeshKnot radius size rad-seg sides))
+
+(defn gen-mesh-heightmap
+  [heightmap size]
+  (Raylib/GenMeshHeightmap (Image$ByValue. heightmap) (Vector3$ByValue. size)))
+
+(defn get-mesh-cubicmap
+  [cubicmap cubesize]
+  (Raylib/GenMeshCubicmap (Image$ByValue. cubicmap) (Vector3$ByValue. cubesize)))
+
+(defn mesh-bounding-box
+  [mesh]
+  (Raylib/MeshBoundingBox (Mesh$ByValue. mesh)))
+
+(defn mesh-tangents
+  [mesh]
+  (let [mesh-ref (Mesh$ByReference. mesh)]
+    (Raylib/MeshTangents mesh-ref)
+    mesh-ref))
+
+(defn mesh-binormals
+  [mesh]
+  (let [mesh-ref (Mesh$ByReference. mesh)]
+    (Raylib/MeshBinormals mesh-ref)
+    mesh-ref))
+
+
+(defn draw-model!
+  ([model position scale tint]
+   (Raylib/DrawModel (Model$ByValue. model) (Vector3$ByValue. position) scale (Color$ByValue. tint)))
+  ([model position rotationaxis rotationangle scale tint]
+   (Raylib/DrawModelEx (Model$ByValue. model) (Vector3$ByValue. position) (Vector3$ByValue. rotationaxis) rotationangle
+                       (Vector3$ByValue. scale) (Color$ByValue. tint))))
+
+(defn draw-model-wires!
+  ([model pos scale tint]
+   (Raylib/DrawModelWires (Model$ByValue. model) (Vector3$ByValue. pos) scale (Color$ByValue. tint)))
+  ([model pos rotationaxis rotationangle scale tint]
+   (Raylib/DrawModelWiresEx (Model$ByValue. model) (Vector3$ByValue. pos) (Vector3$ByValue. rotationaxis) rotationangle
+                            (Vector3$ByValue. scale) (Color$ByValue. tint))))
+
+(defn draw-bounding-box!
+  [box color]
+  (Raylib/DrawBoundingBox (BoundingBox$ByValue. box) (Color$ByValue. color)))
+
+(defn draw-billboard!
+  ([camera texture center size tint]
+   (Raylib/DrawBillboard (Camera3D$ByValue. camera) (Texture2D$ByValue. texture) (Vector3$ByValue. center) size
+                         (Color$ByValue. tint)))
+  ([camera texture sourcerec center size tint]
+   (Raylib/DrawBillboardRec (Camera3D$ByValue. camera) (Texture2D$ByValue. texture) (Rectangle$ByValue. sourcerec)
+                            (Vector3$ByValue. center) size (Color$ByValue. tint))))
