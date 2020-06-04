@@ -10,7 +10,7 @@
             ModelAnimation$ByValue Music$ByValue NPatchInfo$ByValue RAudioBuffer$ByValue Ray$ByValue RayHitInfo$ByValue
             Rectangle$ByValue RenderTexture2D$ByValue Shader$ByValue Sound$ByValue Texture2D$ByValue Transform$ByValue
             Vector2$ByValue Vector3$ByValue Vector4$ByValue VrDeviceInfo$ByValue Wave$ByValue
-            Camera3D$ByReference Vector2$ByReference Image$ByReference Texture2D$ByReference Material$ByReference
+            Camera3D$ByReference Vector2$ByReference Vector3$ByReference Image$ByReference Texture2D$ByReference Material$ByReference
             Mesh$ByReference
             ]
            [com.sun.jna.ptr IntByReference]
@@ -1283,31 +1283,31 @@
      (Raylib/ImageDrawTextEx new-img (Vector2$ByValue. pos) (Font$ByValue. font) text fontsize spacing (Color$ByValue. color))
      new-img)))
 
-(defn load-texture
+(defn load-texture!
   [filename]
   (Raylib/LoadTexture filename))
 
-(defn load-texture-from-image
+(defn load-texture-from-image!
   [img]
   (Raylib/LoadTextureFromImage (Image$ByValue. img)))
 
-(defn load-texture-cubemap
+(defn load-texture-cubemap!
   [img layout-type]
   (Raylib/LoadTextureCubemap (Image$ByValue. img) layout-type))
 
-(defn load-render-texture
+(defn load-render-texture!
   [w h]
   (Raylib/LoadRenderTexture w h))
 
-(defn unload-texture
+(defn unload-texture!
   [texture]
   (Raylib/UnloadTexture (Texture2D$ByValue. texture)))
 
-(defn unload-render-texture
+(defn unload-render-texture!
   [target]
   (Raylib/UnloadRenderTexture (RenderTexture2D$ByValue. target)))
 
-(defn update-texture
+(defn update-texture!
   [texture pixels]
   (Raylib/UpdateTexture (Texture2D$ByValue. texture) pixels))
 
@@ -1368,7 +1368,7 @@
   []
   (Raylib/GetFontDefault))
 
-(defn load-font
+(defn load-font!
   ([filename]
    (Raylib/LoadFont filename))
   ([filename fontsize fontchars charscount]
@@ -1493,43 +1493,43 @@
   [pos]
   (Raylib/DrawGizmo (Vector3$ByValue. pos)))
 
-(defn load-model
+(defn load-model!
   [filename]
   (Raylib/LoadModel filename))
 
-(defn load-model-from-mesh
+(defn load-model-from-mesh!
   [mesh]
   (Raylib/LoadModelFromMesh (Mesh$ByValue. mesh)))
 
-(defn unload-model
+(defn unload-model!
   [model]
   (Raylib/UnloadModel (Model$ByValue. model)))
 
-(defn load-meshes
+(defn load-meshes!
   [filename]
   (let [^IntByReference int-ref (IntByReference.)
         ans (Raylib/LoadMeshes filename int-ref)]
     [ans (long (.getValue int-ref))]))
 
-(defn export-mesh
+(defn export-mesh!
   [mesh filename]
   (Raylib/ExportMesh (Mesh$ByValue. mesh) filename))
 
-(defn unload-mesh
+(defn unload-mesh!
   [mesh]
   (Raylib/UnloadMesh (Mesh$ByValue. mesh)))
 
-(defn load-materials
+(defn load-materials!
   [filename]
   (let [^IntByReference int-ref (IntByReference.)
         ans (Raylib/LoadMaterials filename int-ref)]
     [ans (long (.getValue int-ref))]))
 
-(defn load-material-default
+(defn load-material-default!
   []
   (Raylib/LoadMaterialDefault))
 
-(defn unload-material
+(defn unload-material!
   [material]
   (Raylib/UnloadMaterial (Material$ByValue. material)))
 
@@ -1545,17 +1545,17 @@
     (Raylib/SetModelMeshMaterial model-ref mesh-id material-id)
     model-ref))
 
-(defn load-model-animations
+(defn load-model-animations!
   [filename]
   (let [^IntByReference int-ref (IntByReference.)
         ans (Raylib/LoadModelAnimations filename int-ref)]
     [ans (long (.getValue int-ref))]))
 
-(defn update-model-animation
+(defn update-model-animation!
   [model anim frame]
   (Raylib/UpdateModelAnimation (Model$ByValue. model) (ModelAnimation$ByValue. anim) frame))
 
-(defn unload-model-animation
+(defn unload-model-animation!
   [anim]
   (Raylib/UnloadModelAnimation (ModelAnimation$ByValue. anim)))
 
@@ -1645,3 +1645,138 @@
   ([camera texture sourcerec center size tint]
    (Raylib/DrawBillboardRec (Camera3D$ByValue. camera) (Texture2D$ByValue. texture) (Rectangle$ByValue. sourcerec)
                             (Vector3$ByValue. center) size (Color$ByValue. tint))))
+
+(defn check-collision-spheres
+  [centera radiusa centerb radiusb]
+  (Raylib/CheckCollisionSpheres (Vector3$ByValue. centera) radiusa (Vector3$ByValue. centerb) radiusb))
+
+(defn check-collision-boxes
+  [box1 box2]
+  (Raylib/CheckCollisionBoxes (BoundingBox$ByValue. box1) (BoundingBox$ByValue. box2)))
+
+(defn check-collision-box-sphere
+  [box center radius]
+  (Raylib/CheckCollisionBoxSphere (BoundingBox$ByValue. box) (Vector3$ByValue. center) radius))
+
+(defn check-collision-ray-sphere
+  [ray center radius]
+  (Raylib/CheckCollisionRaySphere (Ray$ByValue. ray) (Vector3$ByValue. center) radius))
+
+(defn check-collision-ray-sphere-ex
+  [ray center radius collisionpoint]
+  (let [collision-point (Vector3$ByReference.)
+        ans (Raylib/CheckCollisionRaySphereEx (Ray$ByValue. ray) (Vector3$ByValue. center) radius collision-point)]
+    [ans collision-point]))
+
+(defn check-collision-ray-box
+  [ray box]
+  (Raylib/CheckCollisionRayBox (Ray$ByValue. ray) (BoundingBox$ByValue. box)))
+
+(defn get-collision-ray-model
+  [ray model]
+  (Raylib/GetCollisionRayModel (Ray$ByValue. ray) (Model$ByValue. model)))
+
+(defn get-collision-ray-triangle
+  [ray p1 p2 p3]
+  (Raylib/GetCollisionRayTriangle (Ray$ByValue. ray) (Vector3$ByValue. p1) (Vector3$ByValue. p2) (Vector3$ByValue. p3)))
+
+(defn get-collision-ray-ground
+  [ray ground-height]
+  (Raylib/GetCollisionRayGround (Ray$ByValue. ray) ground-height))
+
+
+(defn load-shader!
+  [vs fs]
+  (Raylib/LoadShader vs fs))
+
+(defn load-shader-code!
+  [vs fs]
+  (Raylib/LoadShaderCode vs fs))
+
+(defn unload-shader!
+  [shader]
+  (Raylib/UnloadShader shader))
+
+(defn get-shader-default
+  []
+  (Raylib/GetShaderDefault))
+
+(defn get-texture-default
+  []
+  (Raylib/GetTextureDefault))
+
+(defn get-shapes-texture
+  []
+  (Raylib/GetShapesTexture))
+
+(defn get-shapes-texture-rec
+  []
+  (Raylib/GetShapesTextureRec))
+
+(defn set-shapes-texture!
+  [texture source]
+  (Raylib/SetShapesTexture (Texture2D$ByValue. texture) (Rectangle$ByValue. source)))
+
+(defn get-shader-location
+  [shader uniform-name]
+  (Raylib/GetShaderLocation (Shader$ByValue. shader) uniform-name))
+
+(defn set-shader-value!
+  ([shader uniform-loc value uniform-type]
+   (Raylib/SetShaderValue (Shader$ByValue. shader) uniform-loc value uniform-type));Pointer value!!
+  ([shader uniform-loc value uniform-type count_]
+   (Raylib/SetShaderValueV (Shader$ByValue. shader) uniform-loc value uniform-type count_)));Pointer value!!
+
+(defn set-shader-value-matrix!
+  [shader uniform-loc mat]
+  (Raylib/SetShaderValueMatrix (Shader$ByValue. shader) uniform-loc (Matrix$ByValue. mat)))
+
+(defn set-shader-value-texture!
+  [shader uniform-loc texture]
+  (Raylib/SetShaderValueTexture (Shader$ByValue. shader) uniform-loc (Texture2D$ByValue. texture)))
+
+(defn set-matrix-projection!
+  [proj]
+  (Raylib/SetMatrixProjection (Matrix$ByValue. proj)))
+
+(defn set-matrix-modelview!
+  [view]
+  (Raylib/SetMatrixModelview (Matrix$ByValue. view)))
+
+(defn get-matrix-modelview
+  []
+  (Raylib/GetMatrixModelview))
+
+(defn get-matrix-projection
+  []
+  (Raylib/GetMatrixProjection))
+
+(defn gen-texture-cubemap
+  [shader map_ size]
+  (Raylib/GenTextureCubemap (Shader$ByValue. shader) (Texture2D$ByValue. map_) size))
+
+(defn gen-texture-irradiance
+  [shader cubemap size]
+  (Raylib/GenTextureIrradiance (Shader$ByValue. shader) (Texture2D$ByValue. cubemap) size))
+
+(defn gen-texture-prefilter
+  [shader cubemap size]
+  (Raylib/GenTexturePrefilter (Shader$ByValue. shader) (Texture2D$ByValue. cubemap) size))
+
+(defn gen-texture-brdf
+  [shader size]
+  (Raylib/GenTextureBRDF (Shader$ByValue. shader) size))
+
+(defmacro with-shader-mode
+  [shader & body]
+  `(do
+     (Raylib/BeginShaderMode (Shader$ByValue. ~shader))
+     ~@body
+     (Raylib/EndShaderMode)))
+
+(defmacro with-blend-mode
+  [mode & body]
+  `(do
+     (Raylib/BeginBlendMode ~mode)
+     ~@body
+     (Raylib/EndBlendMode)))
