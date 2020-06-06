@@ -1921,3 +1921,103 @@
 (defn get-wave-data
   [wave]
   (Raylib/GetWaveData (Wave$ByValue. wave)))
+
+(defn load-music-stream
+  [filename]
+  (Raylib/LoadMusicStream filename))
+
+(defn unload-music-stream!
+  [music]
+  (Raylib/UnloadMusicStream (Music$ByValue. music)))
+
+(defn play-music-stream!
+  [music]
+  (Raylib/PlayMusicStream (Music$ByValue. music)))
+
+(defn update-music-stream!
+  [music]
+  (Raylib/UpdateMusicStream (Music$ByValue. music)))
+
+(defn stop-music-stream!
+  [music]
+  (Raylib/StopMusicStream (Music$ByValue. music)))
+
+(defn pause-music-stream!
+  [music]
+  (Raylib/PauseMusicStream (Music$ByValue. music)))
+
+(defn resume-music-stream!
+  [music]
+  (Raylib/ResumeMusicStream (Music$ByValue. music)))
+
+(defn is-music-playing?
+  [music]
+  (Raylib/IsMusicPlaying (Music$ByValue. music)))
+
+(defn set-music-volume!
+  [music volume]
+  (Raylib/SetMusicVolume (Music$ByValue. music) volume))
+
+(defn set-music-pitch!
+  [music pitch]
+  (Raylib/SetMusicPitch (Music$ByValue. music) pitch))
+
+(defn set-music-loop-count!
+  [music count_]
+  (Raylib/SetMusicLoopCount (Music$ByValue. music) count_))
+
+(defn get-music-time-length
+  [music]
+  (Raylib/GetMusicTimeLength (Music$ByValue. music)))
+
+(defn get-music-time-played
+  [music]
+  (Raylib/GetMusicTimePlayed (Music$ByValue. music)))
+
+(defn init-audio-stream!
+  [sample-rate sample-size channels]
+  (Raylib/InitAudioStream sample-rate sample-size channels))
+
+(defn update-audio-stream!
+  [stream data samples-count];data is a Pointer!!!
+  (Raylib/UpdateAudioStream (AudioStream$ByValue. stream) data samples-count))
+
+(defn close-audio-stream!
+  [stream]
+  (Raylib/CloseAudioStream (AudioStream$ByValue. stream)))
+
+(defn is-audio-stream-processed?
+  [stream]
+  (Raylib/IsAudioStreamProcessed (AudioStream$ByValue. stream)))
+
+(defn play-audio-stream!
+  [stream]
+  (Raylib/PlayAudioStream (AudioStream$ByValue. stream)))
+
+(defn pause-audio-stream!
+  [stream]
+  (Raylib/PauseAudioStream (AudioStream$ByValue. stream)))
+
+(defn resume-audio-stream!
+  [stream]
+  (Raylib/ResumeAudioStream (AudioStream$ByValue. stream)))
+
+(defn is-audio-stream-playing?
+  [stream]
+  (Raylib/IsAudioStreamPlaying (AudioStream$ByValue. stream)))
+
+(defn stop-audio-stream
+  [stream]
+  (Raylib/StopAudioStream (AudioStream$ByValue. stream)))
+
+(defn set-audio-stream-volume!
+  [stream volume]
+  (Raylib/SetAudioStreamVolume (AudioStream$ByValue. stream) volume))
+
+(defn set-audio-stream-pitch!
+  [stream pitch]
+  (Raylib/SetAudioStreamPitch (AudioStream$ByValue. stream) pitch))
+
+(defn set-audio-stream-buffer-size-default!
+  [size]
+  (Raylib/SetAudioStreamBufferSizeDefault size))

@@ -134,14 +134,14 @@ public class Raylib {
     // Clojure will do this much better, use clojure.edn to read files, and just save 
     // the edn with (->> % pr-str (spit "path-to-file"))
     //
-    //public static native void SaveStorageValue(int position, int value);    // Save integer value to storage file (to defined position)
-    //public static native int LoadStorageValue(int position);                // Load integer value from storage file (from defined position)
+    public static native void SaveStorageValue(int position, int value);    // Save integer value to storage file (to defined position)
+    public static native int LoadStorageValue(int position);                // Load integer value from storage file (from defined position)
 
     //
     // Not added to core.clj.
     // Use java.awt.Desktop.getDesktop().browse(new URI("http://www.example.com"))
     //
-    //public static native void OpenURL(String url);                              // Open URL with default system browser (if available)
+    public static native void OpenURL(String url);                              // Open URL with default system browser (if available)
 
     //------------------------------------------------------------------------------------
     // Input Handling Functions (Module: core)
