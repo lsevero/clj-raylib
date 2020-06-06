@@ -11,7 +11,7 @@
             Rectangle$ByValue RenderTexture2D$ByValue Shader$ByValue Sound$ByValue Texture2D$ByValue Transform$ByValue
             Vector2$ByValue Vector3$ByValue Vector4$ByValue VrDeviceInfo$ByValue Wave$ByValue
             Camera3D$ByReference Vector2$ByReference Vector3$ByReference Image$ByReference Texture2D$ByReference Material$ByReference
-            Mesh$ByReference
+            Mesh$ByReference Wave$ByReference
             ]
            [com.sun.jna.ptr IntByReference]
            ))
@@ -1780,3 +1780,144 @@
      (Raylib/BeginBlendMode ~mode)
      ~@body
      (Raylib/EndBlendMode)))
+
+(defn init-vr-simulator!
+  []
+  (Raylib/InitVrSimulator))
+
+(defn close-vr-simulator!
+  []
+  (Raylib/CloseVrSimulator))
+
+(defn update-vr-tracking!
+  [camera]
+  (let [camera-ref (Camera3D$ByReference. camera)]
+    (Raylib/UpdateVrTracking camera-ref)
+    camera-ref))
+
+(defn set-vr-configuration!
+  [info distortion]
+  (Raylib/SetVrConfiguration (VrDeviceInfo$ByValue. info) (Shader$ByValue. distortion)))
+
+(defn is-vr-simulator-ready?
+  []
+  (Raylib/IsVrSimulatorReady))
+
+(defn toggle-vr-mode!
+  []
+  (Raylib/ToggleVrMode))
+
+(defmacro with-vr-drawing
+  [& body]
+  `(do
+     (Raylib/BeginVrDrawing)
+     ~@body
+     (Raylib/EndVrDrawing)))
+
+(defn init-audio-device!
+  []
+  (Raylib/InitAudioDevice))
+
+(defn close-audio-device!
+  []
+  (Raylib/CloseAudioDevice))
+
+(defn is-audio-device-ready?
+  []
+  (Raylib/IsAudioDeviceReady))
+
+(defn set-master-volume!
+  [volume]
+  (Raylib/SetMasterVolume volume))
+
+(defn load-wave
+  [filename]
+  (Raylib/LoadWave filename))
+
+(defn load-sound
+  [filename]
+  (Raylib/LoadSound filename))
+
+(defn load-sound-from-wave
+  [wave]
+  (Raylib/LoadSoundFromWave (Wave$ByValue. wave)))
+
+(defn update-sound!
+  [sound data samplescount];;;data is a Pointer!!
+  (Raylib/UpdateSound (Sound$ByValue. sound) data samplescount))
+
+(defn unload-wave!
+  [wave]
+  (Raylib/UnloadWave (Wave$ByValue. wave)))
+
+(defn unload-sound!
+  [snd]
+  (Raylib/UnloadSound (Sound$ByValue. snd)))
+
+(defn export-wave!
+  [wave filename]
+  (Raylib/ExportWave (Wave$ByValue. wave) filename))
+
+(defn export-wave-as-code!
+  [wave filename]
+  (Raylib/ExportWaveAsCode (Wave$ByValue. wave) filename))
+
+(defn play-sound!
+  [snd]
+  (Raylib/PlaySound (Sound$ByValue. snd)))
+
+(defn stop-sound!
+  [snd]
+  (Raylib/StopSound (Sound$ByValue. snd)))
+
+(defn pause-sound!
+  [snd]
+  (Raylib/PauseSound (Sound$ByValue. snd)))
+
+(defn resume-sound!
+  [snd]
+  (Raylib/ResumeSound (Sound$ByValue. snd)))
+
+(defn play-sound-multi!
+  [snd]
+  (Raylib/PlaySoundMulti (Sound$ByValue. snd)))
+
+(defn stop-sound-multi!
+  []
+  (Raylib/StopSoundMulti))
+
+(defn get-sounds-playing
+  []
+  (Raylib/GetSoundsPlaying))
+
+(defn is-sound-playing?
+  [snd]
+  (Raylib/IsSoundPlaying snd))
+
+(defn set-sound-volume!
+  [snd volume]
+  (Raylib/SetSoundVolume (Sound$ByValue. snd) volume))
+
+(defn set-sound-pitch!
+  [snd pitch]
+  (Raylib/SetSoundPitch (Sound$ByValue. snd) pitch))
+
+(defn wave-format
+  [wave sample-rate sample-size channels]
+  (let [wave-ref (Wave$ByReference. wave)] 
+    (Raylib/WaveFormat wave-ref sample-rate sample-size channels)
+    wave-ref))
+
+(defn wave-copy
+  [wave]
+  (Raylib/WaveCopy (Wave$ByValue. wave)))
+
+(defn wave-crop
+  [wave init-sample final-sample]
+  (let [wave-ref (Wave$ByReference. wave) init-sample final-sample]
+    (Raylib/WaveCrop wave-ref init-sample final-sample)
+    wave-ref))
+
+(defn get-wave-data
+  [wave]
+  (Raylib/GetWaveData (Wave$ByValue. wave)))
