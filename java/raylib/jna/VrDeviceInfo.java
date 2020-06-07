@@ -173,7 +173,7 @@ public class VrDeviceInfo extends Structure{
                 throw new IllegalArgumentException("Map needs key :chromaAbCorrection");
             this.chromaAbCorrection = (float[])chromaAbCorrection;
         }else{
-            throw new IllegalArgumentException("obj of unsupported type");
+            throw new IllegalArgumentException("obj of unsupported type "+obj);
         }
     }
 

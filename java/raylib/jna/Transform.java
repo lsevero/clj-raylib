@@ -182,7 +182,7 @@ public class Transform extends Structure{
                 throw new IllegalArgumentException(":scale is of unsupported type");
             }
         }else{
-            throw new IllegalArgumentException("obj of unsupported type");
+            throw new IllegalArgumentException("obj of unsupported type "+obj);
         }
     }
 

@@ -1,4 +1,4 @@
-(ns input-mouse
+(ns examples.input-mouse
   (:require [clj-raylib.core :refer :all])
   (:gen-class))
 

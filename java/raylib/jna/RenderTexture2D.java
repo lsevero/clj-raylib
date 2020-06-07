@@ -104,7 +104,7 @@ public class RenderTexture2D extends Structure{
                 throw new IllegalArgumentException("Map needs key :depthTexture");
             this.depthTexture = depthTexture.booleanValue();
         }else{
-            throw new IllegalArgumentException("obj of unsupported type");
+            throw new IllegalArgumentException("obj of unsupported type "+obj);
         }
     }
 

@@ -284,7 +284,7 @@ public class Matrix extends Structure{
             this.m11 = ((Number)vec.get(14)).floatValue();
             this.m15 = ((Number)vec.get(15)).floatValue();
         }else{
-            throw new IllegalArgumentException("obj of unsupported type");
+            throw new IllegalArgumentException("obj of unsupported type "+obj);
         }
     }
 

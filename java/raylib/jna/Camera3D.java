@@ -199,7 +199,7 @@ public class Camera3D extends Structure{
                 throw new IllegalArgumentException("Map needs key :type");
             this.type = type.intValue();
         }else{
-            throw new IllegalArgumentException("obj of unsupported type");
+            throw new IllegalArgumentException("obj of unsupported type "+obj);
         }
     }
     public Camera3D(){

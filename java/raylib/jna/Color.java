@@ -135,7 +135,7 @@ public class Color extends Structure{
                 throw new IllegalArgumentException("Map needs key :a");
             this.a = a.byteValue();
         }else{
-            throw new IllegalArgumentException("obj of unsupported type");
+            throw new IllegalArgumentException("obj of unsupported type "+obj);
         }
     }
 

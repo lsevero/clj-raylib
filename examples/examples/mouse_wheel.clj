@@ -1,4 +1,4 @@
-(ns mouse-wheel
+(ns examples.mouse-wheel
   (:require [clj-raylib.core :refer :all])
   (:gen-class))
 

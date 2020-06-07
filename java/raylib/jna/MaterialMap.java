@@ -144,7 +144,7 @@ public class MaterialMap extends Structure{
                 throw new IllegalArgumentException("Map needs key :value");
             this.value = value.floatValue();
         }else{
-            throw new IllegalArgumentException("obj of unsupported type");
+            throw new IllegalArgumentException("obj of unsupported type "+obj);
         }
     }
 

@@ -151,7 +151,7 @@ public class CharInfo extends Structure{
                 throw new IllegalArgumentException(":image is of unsupported type");
             }
         }else{
-            throw new IllegalArgumentException("obj of unsupported type");
+            throw new IllegalArgumentException("obj of unsupported type "+obj);
         }
     }
 

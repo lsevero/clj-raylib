@@ -140,7 +140,7 @@ public class ModelAnimation extends Structure{
                 throw new IllegalArgumentException("Map needs key :framePoses");
             this.framePoses = (Transform.ByReference)framePoses;
         }else{
-            throw new IllegalArgumentException("obj of unsupported type");
+            throw new IllegalArgumentException("obj of unsupported type "+obj);
         }
     }
 

@@ -110,7 +110,7 @@ public class Vector2 extends Structure{
                 throw new IllegalArgumentException("Map needs key :y");
             this.y = y.floatValue();
         }else{
-            throw new IllegalArgumentException("obj of unsupported type");
+            throw new IllegalArgumentException("obj of unsupported type "+obj);
         }
 
     }

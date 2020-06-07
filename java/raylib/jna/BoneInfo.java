@@ -95,7 +95,7 @@ public class BoneInfo extends Structure{
                 throw new IllegalArgumentException("Map needs key :parent");
             this.parent = parent.intValue();
         }else{
-            throw new IllegalArgumentException("obj of unsupported type");
+            throw new IllegalArgumentException("obj of unsupported type "+obj);
         }
     }
 

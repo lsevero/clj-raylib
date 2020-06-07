@@ -1,4 +1,4 @@
-(ns basic
+(ns examples.basic
   (:require [clj-raylib.core :refer :all])
   (:gen-class))
 

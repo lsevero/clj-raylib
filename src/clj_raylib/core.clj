@@ -579,14 +579,14 @@
      ~@body
      (Raylib/EndDrawing)))
 
-(defmacro with-mode2d
+(defmacro with-mode-2d
   [camera2d & body]
   `(do
      (Raylib/BeginMode2D (Camera2D$ByValue. ~camera2d))
      ~@body
      (Raylib/EndMode2D)))
 
-(defmacro with-mode3d
+(defmacro with-mode-3d
   [camera3d & body]
   `(do
      (Raylib/BeginMode3D (Camera3D$ByValue. ~camera3d))
@@ -648,6 +648,54 @@
 (defn get-time
   []
   (Raylib/GetTime))
+
+(defn color-to-int
+  [color]
+  (Raylib/ColorToInt (Color$ByValue. color)))
+
+(defn color-normalize
+  [color]
+  (Raylib/ColorNormalize (Color$ByValue. color)))
+
+(defn color-from-normalized
+  [normalized]
+  (Raylib/ColorFromNormalized (Vector4$ByValue. normalized)))
+
+(defn color-to-hsv
+  [color]
+  (Raylib/ColorToHSV (Color$ByValue. color)))
+
+(defn color-from-hsv
+  [hsv]
+  (Raylib/ColorFromHSV (Vector3$ByValue. hsv)))
+
+(defn get-color
+  [hexvalue]
+  (Raylib/GetColor hexvalue))
+
+(defn fade
+  [color alpha]
+  (Raylib/Fade (Color$ByValue. color) alpha))
+
+(defn set-config-flags!
+  [flags]
+  (Raylib/SetConfigFlags flags))
+
+(defn set-trace-log-level!
+  [log-type]
+  (Raylib/SetTraceLogLevel log-type))
+
+(defn set-trace-log-exit!
+  [log-type]
+  (Raylib/SetTraceLogExit log-type))
+
+(defn take-screenshot!
+  [filename]
+  (Raylib/TakeScreenshot filename))
+
+(defn get-random-value
+  [min_ max_]
+  (Raylib/GetRandomValue min_ max_))
 
 (defn is-key-pressed?
   [k]

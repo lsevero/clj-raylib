@@ -115,7 +115,7 @@ public class Ray extends Structure{
                 throw new IllegalArgumentException(":direction is of unsupported type");
             }
         }else{
-            throw new IllegalArgumentException("obj of unsupported type");
+            throw new IllegalArgumentException("obj of unsupported type "+obj);
         }
     }
 

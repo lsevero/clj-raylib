@@ -270,7 +270,7 @@ public class Mesh extends Structure{
                 throw new IllegalArgumentException("Map needs key :vboId");
             this.vboId = (IntByReference)vboId;
         }else{
-            throw new IllegalArgumentException("obj of unsupported type");
+            throw new IllegalArgumentException("obj of unsupported type "+obj);
         }
     }
 

@@ -131,7 +131,7 @@ public class Vector4 extends Structure{
                 throw new IllegalArgumentException("Map needs key :w");
             this.w = w.floatValue();
         }else{
-            throw new IllegalArgumentException("obj of unsupported type");
+            throw new IllegalArgumentException("obj of unsupported type "+obj);
         }
     }
 

@@ -70,7 +70,7 @@ public class Shader extends Structure{
                 throw new IllegalArgumentException("Map needs key :locs");
             this.locs = (IntByReference)locs;
         }else{
-            throw new IllegalArgumentException("obj of unsupported type");
+            throw new IllegalArgumentException("obj of unsupported type "+obj);
         }
     }
 

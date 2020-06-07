@@ -120,7 +120,7 @@ public class Rectangle extends Structure{
                 throw new IllegalArgumentException("Map needs key :height");
             this.height = height.floatValue();
         }else{
-            throw new IllegalArgumentException("obj of unsupported type");
+            throw new IllegalArgumentException("obj of unsupported type "+obj);
         }
     }
 

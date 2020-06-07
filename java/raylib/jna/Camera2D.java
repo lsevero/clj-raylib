@@ -18,7 +18,7 @@ public class Camera2D extends Structure{
             super(map);
         }
 
-        public ByValue(Vector2 offset, Vector2 target, float rotation, int zoom){
+        public ByValue(Vector2 offset, Vector2 target, float rotation, float zoom){
             super(offset, target, rotation, zoom);
         }
 
@@ -32,7 +32,7 @@ public class Camera2D extends Structure{
     public float rotation;
     public float zoom;
 
-    public Camera2D(Vector2 offset, Vector2 target, float rotation, int zoom){
+    public Camera2D(Vector2 offset, Vector2 target, float rotation, float zoom){
         super();
         this.offset = offset;
         this.target = target;
@@ -139,7 +139,7 @@ public class Camera2D extends Structure{
                 throw new IllegalArgumentException("Map needs key :zoom");
             this.zoom = zoom.floatValue();
         }else{
-            throw new IllegalArgumentException("obj of unsupported type");
+            throw new IllegalArgumentException("obj of unsupported type "+obj);
         }
     }
 

@@ -124,7 +124,7 @@ public class Font extends Structure{
                 throw new IllegalArgumentException(":recs is of unsupported type");
             }
         }else{
-            throw new IllegalArgumentException("obj of unsupported type");
+            throw new IllegalArgumentException("obj of unsupported type "+obj);
         }
     }
 

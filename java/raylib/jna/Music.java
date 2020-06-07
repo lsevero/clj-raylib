@@ -129,7 +129,7 @@ public class Music extends Structure{
                 throw new IllegalArgumentException(":stream is of unsupported type");
             }
         }else{
-            throw new IllegalArgumentException("obj of unsupported type");
+            throw new IllegalArgumentException("obj of unsupported type "+obj);
         }
     }
     public Music(){

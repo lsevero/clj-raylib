@@ -280,7 +280,7 @@ public class Model extends Structure{
                 throw new IllegalArgumentException(":bindPose is of unsupported type");
             }
         }else{
-            throw new IllegalArgumentException("obj of unsupported type");
+            throw new IllegalArgumentException("obj of unsupported type "+obj);
         }
     }
 

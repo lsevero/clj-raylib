@@ -130,7 +130,7 @@ public class Image extends Structure{
                 throw new IllegalArgumentException("Map needs key :format");
             this.format = format.intValue();
         }else{
-            throw new IllegalArgumentException("obj of unsupported type");
+            throw new IllegalArgumentException("obj of unsupported type "+obj);
         }
     }
 

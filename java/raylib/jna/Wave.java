@@ -126,7 +126,7 @@ public class Wave extends Structure{
                 throw new IllegalArgumentException("Map needs key :data");
             this.data = (Pointer)data;
         }else{
-            throw new IllegalArgumentException("obj of unsupported type");
+            throw new IllegalArgumentException("obj of unsupported type "+obj);
         }
     }
 
